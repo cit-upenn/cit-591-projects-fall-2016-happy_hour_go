@@ -1,0 +1,12 @@
+==========
+Please copy the regex below and paste on http://regexr.com/. Use regex_test.html to test.
+
+The captured string contains some trailing spaces. We can simply use String.trim() method to trim them afterwards.
+
+Will test these on more bars tmr.
+==========
+
+get bar name: <h2>.*?> ([\w ]+).*<\/h2>
+get bar address: <\/h2>(.*)<br \/
+get time: (\d+:\d+ am|\d+:\d+ pm)
+get description: <\/span>:(.*?)<\/div>
