@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileReaderTester {
+public class FileReader {
 	
 	private String filename;
 	private ArrayList<String> lines;
 	
-	public FileReaderTester(String file){
+	public FileReader(String file){
 		filename = file;
 		
 		lines = new ArrayList<String>();
@@ -35,8 +35,7 @@ public class FileReaderTester {
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
 	/**
@@ -46,6 +45,4 @@ public class FileReaderTester {
 	public ArrayList<String> getLines() {
 		return lines;
 	}
-
-
 }

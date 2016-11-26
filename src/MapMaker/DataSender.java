@@ -8,11 +8,11 @@ public class DataSender {
 	ArrayList<Double> addrLat = new ArrayList<Double>();
 	ArrayList<String> display = new ArrayList<String>();
 	
-	FileReaderTester fr = new FileReaderTester("philly.map");
+	FileReader fr = new FileReader("philly.map");
 	
 	public DataSender(){
 		for(String line: fr.getLines()){
-			String[] data = line.split(" ");
+			String[] data = line.split("\t");
 			Double lon = Double.parseDouble(data[0]);
 			Double lat = Double.parseDouble(data[1]);
 			String message = data[2];

@@ -26,7 +26,7 @@ public class Parser {
 		Pattern address = Pattern.compile("</h2>(.*)<br /");
 		Pattern time = Pattern.compile("(\\d+:\\d+ [ap]m)");
 		Pattern desc = Pattern.compile("</span>:(.*?)</div>");
-		int count = 0;
+//		int count = 0;
 		
 		for (String item : barsHTML) {
 			Matcher m = name.matcher(item);
