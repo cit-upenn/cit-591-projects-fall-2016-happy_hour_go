@@ -1,16 +1,16 @@
 package MapMaker;
 
-import gmapsfx.GoogleMapView;
-import gmapsfx.MapComponentInitializedListener;
-import gmapsfx.javascript.object.GoogleMap;
-import gmapsfx.javascript.object.LatLong;
-import gmapsfx.javascript.object.MapOptions;
-import gmapsfx.javascript.object.MapTypeIdEnum;
-import gmapsfx.javascript.object.Marker;
-import gmapsfx.javascript.object.MarkerOptions;
-import gmapsfx.javascript.object.Animation;
-import gmapsfx.javascript.object.InfoWindow;
-import gmapsfx.javascript.object.InfoWindowOptions;
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.LatLong;
+import com.lynden.gmapsfx.javascript.object.MapOptions;
+import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
+import com.lynden.gmapsfx.javascript.object.Marker;
+import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.lynden.gmapsfx.javascript.object.Animation;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
+import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -32,7 +32,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		ds = new DataSender();
 		this.stage = Stage;
 		mapView = new GoogleMapView();
-		mapView.addMapInitializedListener(this);
+		mapView.addMapInializedListener(this);
 
 		/* set overall layout */
 		BorderPane bp = new BorderPane();
@@ -47,12 +47,11 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	/**
 	 * initialize the map
 	 */
-    public void mapInitialized() {    
+    public void mapInitialized() {
     	LatLong center = new LatLong(ds.addrLon.get(0),ds.addrLat.get(0));//1
-    	
+
     	MapOptions options = new MapOptions();
 		options.center(center)
-		       .mapMarker(false)
 		       .mapType(MapTypeIdEnum.ROADMAP)
 		       //maybe set false
 		       .mapTypeControl(true)
@@ -67,23 +66,23 @@ public class MapTester extends Application implements MapComponentInitializedLis
         map = mapView.createMap(options);
 
       //Add a marker to the map
-      
+
         for (int i = 0; i < ds.addrLat.size(); i++){
 	        MarkerOptions markerOptions = new MarkerOptions();
 	        markerOptions.position(new LatLong(ds.getAddrLon().get(i),ds.getAddrLat().get(i)))
 	                    .visible(Boolean.TRUE)
 	                    .title("My Marker")
 	                    .animation(Animation.DROP);
-	      
+
 	        Marker marker = new Marker( markerOptions );
 	        map.addMarker(marker);
-	
+
 	      //Add a Info to the map
-	        
+
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-	
+
 	        infoWindowOptions.content(ds.getDisplay().get(i));
-	
+
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
 	        barInfoWindow.open(map, marker);
         }
