@@ -1,4 +1,4 @@
-package hw6;
+package data;
 
 import java.util.ArrayList;
 
@@ -16,8 +16,6 @@ public class Bar {
 	
 	public Bar(String name, String address, ArrayList<String> startTime, ArrayList<String> endTime, ArrayList<String> description) {
 		this.name = name;
-//		this.neighborhood = neighborhood;
-//		We don't need neighborhood data, right?
 		this.address = address;
 		this.startTime = startTime;
 		this.endTime = endTime;

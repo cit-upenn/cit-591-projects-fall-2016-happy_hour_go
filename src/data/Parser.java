@@ -1,4 +1,4 @@
-package hw6;
+package data;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -23,10 +23,10 @@ public class Parser {
 	 */
 	private void parseHTML(ArrayList<String> barsHTML) {
 		Pattern name = Pattern.compile("<h2>.*?> ([&\\w '-\\.]+).*</h2>");
-		Pattern address = Pattern.compile("</h2>(.*)<br /");
+		Pattern address = Pattern.compile("</h2>(.*?)  .*<br /");
 		Pattern time = Pattern.compile("(\\d+:\\d+ [ap]m)");
 		Pattern desc = Pattern.compile("</span>:(.*?)</div>");
-//		int count = 0;
+		int count = 0;
 		
 		for (String item : barsHTML) {
 			Matcher m = name.matcher(item);
@@ -42,7 +42,7 @@ public class Parser {
 			if (m.find()) {
 				barAddr = m.group(1).trim();
 //				System.out.println(barAddr);
-//				count++;
+				count++;
 			}
 			
 			m = time.matcher(item);
@@ -74,7 +74,7 @@ public class Parser {
 //			System.out.println(bar.name + "," + bar.address + "," + bar.startTime + "," + bar.endTime + "," + bar.description);
 			bars.add(bar);
 		}
-//		System.out.println(count);
+		System.out.println(count);
 	}
 
 	public ArrayList<Bar> getBars() {

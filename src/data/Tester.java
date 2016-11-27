@@ -1,4 +1,4 @@
-package hw6;
+package data;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
