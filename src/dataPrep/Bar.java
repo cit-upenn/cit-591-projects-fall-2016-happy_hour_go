@@ -9,11 +9,25 @@ import java.util.ArrayList;
  */
 public class Bar {
 	public String name;
+	public String lat;
+	public String lon;
 	public String address;
 	public String phone;
 	public ArrayList<String> startTime;
 	public ArrayList<String> endTime;
 	public ArrayList<String> description;
+	
+	public Bar(String name, String lat, String lon, String address, String phone, ArrayList<String> startTime, ArrayList<String> endTime, 
+			ArrayList<String> description) {
+		this.name = name;
+		this.lat = lat;
+		this.lon = lon;
+		this.address = address;
+		this.phone = phone;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.description = description;
+	}
 	
 	public Bar(String name, String address, String phone, ArrayList<String> startTime, ArrayList<String> endTime, ArrayList<String> description) {
 		this.name = name;
