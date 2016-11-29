@@ -30,7 +30,7 @@ public class Tester {
 			Parser parser = new Parser(barsHTML);
 //			write output as output/***day.csv
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream
-					("data/clean/" + fileName.substring(6, fileName.length() - 4) + "csv")));
+					("data/clean/" + fileName.substring(9, fileName.length() - 4) + "csv")));
 			
 			ArrayList<Bar> bars = parser.getBars();
 			
@@ -39,7 +39,7 @@ public class Tester {
 //				for every Bar object, iterate every happy hour.
 //				columns are separated by tab, because data contain commas and semicolons. Please open the output files in text editor for a better view.
 				for (int i = 0; i < bar.description.size(); i++) {
-					out.println(bar.name + "\t" + bar.address + "\t" + bar.startTime.get(i) + "\t" + bar.endTime.get(i) + "\t" + bar.description.get(i));
+					out.println(bar.name + "\t" + bar.address + "\t" + bar.phone + "\t" + bar.startTime.get(i) + "\t" + bar.endTime.get(i) + "\t" + bar.description.get(i));
 				}
 			}
 			
