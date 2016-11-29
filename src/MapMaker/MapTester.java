@@ -1,4 +1,4 @@
-package MapMaker;
+package mapMaker;
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -8,7 +8,6 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
@@ -48,8 +47,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	/**
 	 * initialize the map
 	 */
-    public void mapInitialized() {    	
-    	LatLong center = new LatLong(ds.addrLon.get(0),ds.addrLat.get(0));//1
+    public void mapInitialized() {
+    	LatLong center = new LatLong(ds.addrLon.get(0),ds.addrLat.get(0));
 
     	MapOptions options = new MapOptions();
 		options.center(center)
@@ -87,9 +86,10 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
 	        barInfoWindow.open(map, marker);
         }
-    }
+	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 }

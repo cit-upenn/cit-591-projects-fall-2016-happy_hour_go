@@ -1,4 +1,4 @@
-package data;
+package dataPrep;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,11 +24,13 @@ public class Tester {
 				
 		try {
 			FileReader fReader = new FileReader(fileName);
+			fReader.readFileWhole();
+			fReader.splitBars();
 			ArrayList<String> barsHTML = fReader.getBars();
 			Parser parser = new Parser(barsHTML);
 //			write output as output/***day.csv
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream
-					("output/" + fileName.substring(6, fileName.length() - 4) + "csv")));
+					("data/clean/" + fileName.substring(6, fileName.length() - 4) + "csv")));
 			
 			ArrayList<Bar> bars = parser.getBars();
 			

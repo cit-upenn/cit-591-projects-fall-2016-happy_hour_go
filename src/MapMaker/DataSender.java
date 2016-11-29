@@ -1,6 +1,9 @@
-package MapMaker;
+package mapMaker;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import dataPrep.FileReader;
 
 
 public class DataSender {
@@ -11,6 +14,13 @@ public class DataSender {
 	FileReader fr = new FileReader("philly.map");
 	
 	public DataSender(){
+		try {
+			fr.readFile();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		for(String line: fr.getLines()){
 			String[] data = line.split("\t");
 			Double lon = Double.parseDouble(data[0]);

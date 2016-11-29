@@ -1,4 +1,4 @@
-package data;
+package dataPrep;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,21 +14,21 @@ public class FileReader {
 	private String outPage;
 //	read a webpage as a single string.
 	private ArrayList<String> bars;
+	private ArrayList<String> lines;
 	private String fileName;
 	
-	public FileReader(String fileName) throws FileNotFoundException {
+	public FileReader(String fileName) {
 		outPage = "";
 		bars = new ArrayList<String>();
+		lines = new ArrayList<String>();
 		this.fileName = fileName;
-		readFile();
-		splitBars();
 	}
 	
 	/**
 	 * Read a file line by line, append each line to a StringBuilder.
 	 * @throws FileNotFoundException
 	 */
-	private void readFile() throws FileNotFoundException {
+	public void readFileWhole() throws FileNotFoundException {
 		File webpage = new File(fileName);
 		Scanner in = new Scanner(webpage);
 		StringBuilder sb = new StringBuilder();
@@ -48,9 +48,24 @@ public class FileReader {
 	}
 	
 	/**
+	 * Read file line by line and store each line in an ArrayList.
+	 * @throws FileNotFoundException
+	 */
+	public void readFile() throws FileNotFoundException {
+		File inputFile = new File(fileName);
+		Scanner in = new Scanner(inputFile);
+		
+		while (in.hasNextLine()) {
+			String line = in.nextLine();
+			lines.add(line);
+		}
+		in.close();
+	}
+	
+	/**
 	 * Split the webpage by "barItem". Ignore the first piece.
 	 */
-	private void splitBars() {
+	public void splitBars() {
 		String[] splitted = outPage.split("barItem");
 		
 		for (int i = 1; i < splitted.length; i++) {
@@ -64,5 +79,9 @@ public class FileReader {
 
 	public ArrayList<String> getBars() {
 		return bars;
+	}
+
+	public ArrayList<String> getLines() {
+		return lines;
 	}
 }
