@@ -1,4 +1,4 @@
-package mapMaker;
+package MapMaker;
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;

@@ -1,4 +1,4 @@
-package mapMaker;
+package MapMaker;
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -8,15 +8,22 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
+import netscape.javascript.JSObject;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+/**
+ * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
+ * @author Jiahui
+ *
+ */
 public class MapTester extends Application implements MapComponentInitializedListener {
 
 	private GoogleMapView mapView;
@@ -52,21 +59,20 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
     	MapOptions options = new MapOptions();
 		options.center(center)
+				.mapMaker(true)
 		       .mapType(MapTypeIdEnum.ROADMAP)
-		       //maybe set false
 		       .mapTypeControl(true)
 		       .overviewMapControl(false)
 		       .panControl(true)
 		       .rotateControl(false)
 		       .scaleControl(false)
 		       .streetViewControl(false)
-		       .zoom(12)
+		       .zoom(18)
 		       .zoomControl(true);
 
         map = mapView.createMap(options);
 
-      //Add a marker to the map
-
+      //Add all marker to the map
         for (int i = 0; i < ds.addrLat.size(); i++){
 	        MarkerOptions markerOptions = new MarkerOptions();
 	        markerOptions.position(new LatLong(ds.getAddrLon().get(i),ds.getAddrLat().get(i)))
@@ -78,13 +84,14 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        map.addMarker(marker);
 
 	      //Add a Info to the map
-
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-
 	        infoWindowOptions.content(ds.getDisplay().get(i));
 
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
-	        barInfoWindow.open(map, marker);
+	        //barInfoWindow.open(map, marker);
+			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+				barInfoWindow.open(map, marker);
+			});
         }
 	}
 

@@ -1,11 +1,15 @@
-package mapMaker;
+package MapMaker;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import dataPrep.FileReader;
 
-
+/**
+ * get the data of bar's coordinate and happy hour information and send it to mapTester to display.
+ * @author Jiahui
+ *
+ */
 public class DataSender {
 	ArrayList<Double> addrLon = new ArrayList<Double>();
 	ArrayList<Double> addrLat = new ArrayList<Double>();
