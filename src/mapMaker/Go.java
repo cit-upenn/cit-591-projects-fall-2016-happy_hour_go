@@ -44,10 +44,15 @@ public class Go extends Application implements MapComponentInitializedListener, 
 		/* Set tool bar */
 		goButton = new Button("Happy Hour Go!");
 		goButton.setOnAction(this);
+		goButton.setMaxSize(130, 130);
+		goButton.setStyle("-fx-background-color: linear-gradient(#ffd65b, #e68400), "
+				+ "linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22),"
+				+ "linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);"
+				+ " -fx-text-fill: #654b00;");
 		
 		ToolBar tb = new ToolBar();
 		tb.getItems().add(goButton);
-		tb.opaqueInsetsProperty();
+		tb.opaqueInsetsProperty(); // set opaqueness ?
 
 		/* set overall layout */
 //		BorderPane bp = new BorderPane();
@@ -63,6 +68,8 @@ public class Go extends Application implements MapComponentInitializedListener, 
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
 		Stage.show();
+		
+//		scene.getStylesheets().add(Button.class.getResource("Button.css").toExternalForm());
 	}
 	
 	/**
@@ -93,7 +100,7 @@ public class Go extends Application implements MapComponentInitializedListener, 
 	public void handle(ActionEvent event) {
 		if (event.getSource() == goButton) { 
             System.out.println("Bars now on Happy Hour...");
-            // BarSearcher.search();
+            // BarSearcher.search(); // call the search algorithm
 		}
 	}
 	
