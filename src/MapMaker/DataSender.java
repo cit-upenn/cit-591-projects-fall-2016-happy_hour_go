@@ -1,4 +1,4 @@
-package MapMaker;
+package mapMaker;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
