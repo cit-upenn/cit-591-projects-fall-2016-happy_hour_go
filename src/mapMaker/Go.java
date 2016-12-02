@@ -1,5 +1,7 @@
 package mapMaker;
 
+import java.util.Calendar;
+
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
@@ -104,6 +106,9 @@ public class Go extends Application implements MapComponentInitializedListener, 
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Calendar now = Calendar.getInstance();
+		System.out.println(now.get(Calendar.DAY_OF_WEEK));
+		System.out.println(now.get(Calendar.HOUR_OF_DAY));
 		launch(args);
 	}
 	
