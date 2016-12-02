@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import util.FileReader;
+
 /**
  * This class reads every file from data/clean and writes unique bars and their addresses into unique-bars.csv. There are in total 311 bars.
  * @author Han Zhu

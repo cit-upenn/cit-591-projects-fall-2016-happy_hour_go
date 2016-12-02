@@ -20,6 +20,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import util.FileReader;
 
 /**
  * This class uses Google Geocoding services to get the latitude and longitude of an address. A map must be initialized before querying the geocoding

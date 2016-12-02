@@ -3,7 +3,7 @@ package mapMaker;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import dataPrep.FileReader;
+import util.FileReader;
 
 /**
  * get the data of bar's coordinate and happy hour information and send it to mapTester to display.

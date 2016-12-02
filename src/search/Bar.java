@@ -1,4 +1,4 @@
-package dataPrep;
+package search;
 
 import java.util.ArrayList;
 

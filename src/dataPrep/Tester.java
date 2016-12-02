@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import search.Bar;
+import util.FileReader;
+
 /**
  * This class writes the bar data into csv files. One files per weekday. 
  * @author Han Zhu

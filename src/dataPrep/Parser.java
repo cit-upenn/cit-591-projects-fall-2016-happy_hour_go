@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import search.Bar;
+
 /**
  * Take in an ArrayList of String after FileReader has read a file. Parse the input and store the output as an ArrayList of Bar. 
  * @author Han Zhu
