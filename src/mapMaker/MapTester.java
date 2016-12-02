@@ -1,5 +1,8 @@
 package mapMaker;
 
+import java.util.Calendar;
+
+//import javafx.scene.control.Button;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
@@ -19,12 +22,22 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
- * @author Jiahui
+ * @author Jiahui, He Gao
  *
  */
-public class MapTester extends Application implements MapComponentInitializedListener {
+public class MapTester extends Application implements MapComponentInitializedListener{
 
 	private GoogleMapView mapView;
 	private GoogleMap map;
@@ -33,19 +46,40 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
 	/* GUI components */
 	private Stage stage;
+	private Button goButton;
 
 	@Override
 	public void start(Stage Stage) throws Exception {
 		ds = new DataSender();
-		this.stage = Stage;
+		//this.stage = Stage;
 		mapView = new GoogleMapView();
 		mapView.addMapInializedListener(this);
+		goButton = new Button("Happy Hour Go!");
+		goButton.setMaxSize(130, 130);
+		goButton.setStyle("-fx-background-color: linear-gradient(#ffd65b, #e68400), "
+				+ "linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22),"
+				+ "linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);"
+				+ " -fx-text-fill: #654b00;");
+		
+		VBox topBox = new VBox();
+		topBox.setPadding(new Insets(15, 15, 15, 100));
+		topBox.setPrefHeight(50);
+		topBox.getChildren().add(goButton);
 
+//		ToolBar tb = new ToolBar();
+//		tb.getItems().add(goButton);
+//		tb.opaqueInsetsProperty(); // set opaqueness ?
+		
 		/* set overall layout */
 		BorderPane bp = new BorderPane();
 		Scene scene = new Scene(bp);
 		bp.setCenter(mapView);
-
+		bp.setRight(topBox);
+		
+//		StackPane sp = new StackPane();
+//		sp.getChildren().addAll(mapView, goButton);
+//		sp.setAlignment(Pos.CENTER);
+		
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
 		Stage.show();
@@ -71,8 +105,29 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		       .zoomControl(true);
 
         map = mapView.createMap(options);
-
-      //Add all marker to the map
+        goButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				System.out.println("Bars now on Happy Hour...");
+				// BarSearcher.search(); // call the search algorithm
+				putMarker();
+				System.out.println("btn pressed");
+			}
+        });
+    }
+    
+//	@Override
+//	public void handle(ActionEvent event) {
+//		if (event.getSource() == goButton) { 
+//            System.out.println("Bars now on Happy Hour...");
+//            putMarker();
+//            //goButton.getOnSwipeLeft();
+//            // BarSearcher.search(); // call the search algorithm
+//		}
+//	}
+    
+    private void putMarker() {
+    	//Add all marker to the map
         for (int i = 0; i < ds.addrLat.size(); i++){
 	        MarkerOptions markerOptions = new MarkerOptions();
 	        markerOptions.position(new LatLong(ds.getAddrLon().get(i),ds.getAddrLat().get(i)))
@@ -83,10 +138,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        Marker marker = new Marker( markerOptions );
 	        map.addMarker(marker);
 
-	      //Add a Info to the map
+	        //Add a Info to the map
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
 	        infoWindowOptions.content(ds.getDisplay().get(i));
-
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
 	        //barInfoWindow.open(map, marker);
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
@@ -96,6 +150,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	}
 
 	public static void main(String[] args) {
+		Calendar now = Calendar.getInstance();
+		System.out.println(now.get(Calendar.DAY_OF_WEEK));
+		System.out.println(now.get(Calendar.HOUR_OF_DAY));
 		launch(args);
 	}
 	
