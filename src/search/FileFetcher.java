@@ -42,5 +42,4 @@ public class FileFetcher {
 	public FileReader getFile() {
 		return fr;
 	}
-	
 }

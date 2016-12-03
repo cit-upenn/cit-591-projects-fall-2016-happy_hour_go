@@ -157,8 +157,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		System.out.println(now.get(Calendar.HOUR_OF_DAY));
 		
 		int dayOfWeek = Calendar.DAY_OF_WEEK;
+		int hourOfDay = Calendar.HOUR_OF_DAY;
+		
 		FileFetcher ff = new FileFetcher(dayOfWeek);
-		FileReader todayFile = ff.getFile();
 		
 		launch(args);
 	}
