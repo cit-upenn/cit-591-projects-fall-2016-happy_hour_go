@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Represent a bar. Properties are public for easy accessing. 
- * @author Han Zhu
+ * @author Han Zhu, Jill Gao
  *
  */
 public class Bar {
@@ -36,5 +36,37 @@ public class Bar {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.description = description;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public String getLon() {
+		return lon;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public ArrayList<String> getStartTime() {
+		return startTime;
+	}
+
+	public ArrayList<String> getEndTime() {
+		return endTime;
+	}
+
+	public ArrayList<String> getDescription() {
+		return description;
 	}
 }

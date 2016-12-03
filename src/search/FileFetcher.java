@@ -1,7 +1,11 @@
 package search;
 
 import util.FileReader;
-
+/**
+ * Find the file to search based on user input current time 
+ * @author Han Zhu, Jill Gao
+ *
+ */
 public class FileFetcher {
 	private FileReader fr;
 	private String fileName;
