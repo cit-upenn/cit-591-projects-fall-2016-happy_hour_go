@@ -101,7 +101,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		       .rotateControl(false)
 		       .scaleControl(false)
 		       .streetViewControl(false)
-		       .zoom(18)
+		       .zoom(12)
 		       .zoomControl(true);
 
         map = mapView.createMap(options);
@@ -110,6 +110,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 			public void handle(ActionEvent e) {
 				System.out.println("Bars now on Happy Hour...");
 				// BarSearcher.search(); // call the search algorithm
+				map.setZoom(15);
 				putMarker();
 				System.out.println("btn pressed");
 			}
