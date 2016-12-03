@@ -2,11 +2,11 @@ package search;
 
 import util.FileReader;
 
-public class Search {
+public class FileFetcher {
 	private FileReader fr;
 	private String fileName;
 	
-	public Search (int dayOfWeek) {
+	public FileFetcher (int dayOfWeek) {
 		switch (dayOfWeek) {
 		case 1:
 			fileName = "data/clean/sunday.csv";
@@ -35,4 +35,12 @@ public class Search {
 		}
 		fr = new FileReader(fileName);
 	}
+	/**
+	 * This method gets the FileReader of selected day's file
+	 * @return
+	 */
+	public FileReader getFile() {
+		return fr;
+	}
+	
 }

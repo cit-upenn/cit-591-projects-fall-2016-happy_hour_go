@@ -16,7 +16,8 @@ import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import netscape.javascript.JSObject;
-
+import search.FileFetcher;
+import util.FileReader;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -154,6 +155,11 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		Calendar now = Calendar.getInstance();
 		System.out.println(now.get(Calendar.DAY_OF_WEEK));
 		System.out.println(now.get(Calendar.HOUR_OF_DAY));
+		
+		int dayOfWeek = Calendar.DAY_OF_WEEK;
+		FileFetcher ff = new FileFetcher(dayOfWeek);
+		FileReader todayFile = ff.getFile();
+		
 		launch(args);
 	}
 	
