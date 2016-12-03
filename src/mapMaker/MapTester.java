@@ -63,7 +63,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				+ " -fx-text-fill: #654b00;");
 		
 		VBox topBox = new VBox();
-		topBox.setPadding(new Insets(15, 15, 15, 100));
+		topBox.setPadding(new Insets(20, 20, 0, 20));
 		topBox.setPrefHeight(50);
 		topBox.getChildren().add(goButton);
 
