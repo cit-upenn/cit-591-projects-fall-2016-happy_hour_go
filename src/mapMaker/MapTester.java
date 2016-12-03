@@ -160,6 +160,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		int hourOfDay = Calendar.HOUR_OF_DAY;
 		
 		FileFetcher ff = new FileFetcher(dayOfWeek);
+		//TODO based on BarFinder's output, GeoCoder generates Lat and Lon, write to .map file, to plot on map
 		
 		launch(args);
 	}
