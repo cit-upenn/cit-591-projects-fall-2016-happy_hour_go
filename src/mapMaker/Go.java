@@ -18,8 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 public class Go extends Application implements MapComponentInitializedListener, EventHandler<ActionEvent> {
+	
+	//Test test testingggg
 	
 	// implements EventHandler<ActionEvent>
 	private GoogleMapView mapView;
@@ -30,6 +31,7 @@ public class Go extends Application implements MapComponentInitializedListener, 
 	/* GUI components */
 	private Button goButton;
 	private Stage stage;
+
 
 	@Override
 	public void start(Stage Stage) throws Exception {

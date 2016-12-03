@@ -1,4 +1,10 @@
 /mapMaker/
-/dataPrep/
-/META-INF/
 /com/
+/dataPrep/
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
