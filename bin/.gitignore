@@ -1,9 +1,0 @@
-/mapMaker/
-/com/
-/dataPrep/
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
