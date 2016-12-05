@@ -26,7 +26,7 @@ public class Parser {
 	private void parseHTML(ArrayList<String> barsHTML) {
 		Pattern name = Pattern.compile("<h2>.*?> ([&\\w '-\\.]+).*</h2>");
 		Pattern address = Pattern.compile("</h2>(.*?)  .*<br /");
-		Pattern phone = Pattern.compile("<!--(\\(*\\d\\d\\d[\\) -]+.*?) ");
+//		Pattern phone = Pattern.compile("<!--(\\(*\\d\\d\\d[\\) -]+.*?) ");
 		Pattern time = Pattern.compile("(\\d+:\\d+ [ap]m)");
 		Pattern desc = Pattern.compile("</span>:(.*?)</div>");
 //		int count = 0;
@@ -48,11 +48,11 @@ public class Parser {
 //				count++;
 			}
 			
-			m = phone.matcher(item);
-			String barPhone = "";
-			if (m.find()) {
-				barPhone = m.group(1).trim();
-			}
+//			m = phone.matcher(item);
+//			String barPhone = "";
+//			if (m.find()) {
+//				barPhone = m.group(1).trim();
+//			}
 			
 			m = time.matcher(item);
 			int number = 0;
@@ -79,7 +79,7 @@ public class Parser {
 				description.add(hhDesc);
 			}
 			
-			Bar bar = new Bar(barName, barAddr, barPhone, startTime, endTime, description);
+			Bar bar = new Bar(barName, barAddr, startTime, endTime, description);
 //			System.out.println(bar.name + "," + bar.address + "," + bar.startTime + "," + bar.endTime + "," + bar.description);
 			bars.add(bar);
 		}

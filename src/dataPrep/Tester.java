@@ -56,8 +56,8 @@ public class Tester {
 //				for every Bar object, iterate every happy hour.
 //				columns are separated by tab, because data contain commas and semicolons. Please open the output files in text editor for a better view.
 				for (int i = 0; i < bar.description.size(); i++) {
-					out.println(bar.name + "\t" + bar.lat + '\t' + bar.lon + '\t' + bar.address + "\t" + bar.phone + "\t" + bar.startTime.get(i) + 
-							"\t" + bar.endTime.get(i) + "\t" + bar.description.get(i));
+					out.println(bar.name + "\t" + bar.lat + '\t' + bar.lon + '\t' + bar.address + "\t" + bar.startTime.get(i) + 
+							"\t" + bar.endTime.get(i) + "\t" + (bar.description.get(i).equals("")? "No description" : bar.description.get(i)));
 				}
 			}
 			

@@ -9,15 +9,25 @@ import mapMaker.DataSender;
 public class SearchTester {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		FileFetcher ff = new FileFetcher(1);
+		FileFetcher ff = new FileFetcher(2);
 		BarData bd = new BarData(ff);
 		Calendar now = Calendar.getInstance();
-		
+
 		BarFinder bf = new BarFinder(now, bd);
 		ArrayList<Bar> HHResult = bf.find();
 //		System.out.println(HHResult);
-		
+
 		DataSender ds = new DataSender (HHResult);
+		System.out.println(HHResult);
+		int count = 0;
+
+		for (Bar bar : bf.find()) {
+			System.out.print(bar.name + ' ' + bar.address + ' ' + bar.lat + ' ' + bar.lon + ' ' + bar.startTimeString + ' ' + bar.endTimeString
+					+ ' ' + bar.descriptionString + '\n');
+			count++;
+		}
+		System.out.println(count);
+>>>>>>> 264d4a9fa2bf23b94f00af1e565c855981bc0692
 	}
 
 }
