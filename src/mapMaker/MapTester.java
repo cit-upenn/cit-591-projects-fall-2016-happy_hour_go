@@ -17,6 +17,7 @@ import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import netscape.javascript.JSObject;
+import search.BarData;
 import search.FileFetcher;
 import yelp.YelpAPI;
 import javafx.application.Application;
@@ -133,7 +134,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
     
     private void putMarker() {
     	//Add all marker to the map
-        for (int i = 0; i < ds.addrLat.size(); i++){
+        for (int i = 0; i < ds.getAddrLat().size(); i++){
 	        MarkerOptions markerOptions = new MarkerOptions();
 	        markerOptions.position(new LatLong(ds.getAddrLon().get(i),ds.getAddrLat().get(i)))
 	                    .visible(Boolean.TRUE)
@@ -158,15 +159,12 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	}
 
 	public static void main(String[] args) {
-		Calendar now = Calendar.getInstance();
-		System.out.println(now.get(Calendar.DAY_OF_WEEK));
-		System.out.println(now.get(Calendar.HOUR_OF_DAY));
-		
-		int dayOfWeek = Calendar.DAY_OF_WEEK;
-		int hourOfDay = Calendar.HOUR_OF_DAY;
-		
-		FileFetcher ff = new FileFetcher(dayOfWeek);
-		//TODO based on BarFinder's output, GeoCoder generates Lat and Lon, write to .map file, to plot on map
+		/* This main is executed without external statements*/
+		//		Calendar now = Calendar.getInstance();
+//		System.out.println(now.get(Calendar.DAY_OF_WEEK));
+//		System.out.println(now.get(Calendar.HOUR_OF_DAY));
+//		
+//		int dayOfWeek = Calendar.DAY_OF_WEEK;
 		
 		launch(args);
 	}

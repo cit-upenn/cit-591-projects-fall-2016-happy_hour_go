@@ -1,7 +1,10 @@
 package search;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import mapMaker.DataSender;
 
 public class SearchTester {
 
@@ -11,7 +14,10 @@ public class SearchTester {
 		Calendar now = Calendar.getInstance();
 		
 		BarFinder bf = new BarFinder(now, bd);
-		System.out.println(bf.find());
+		ArrayList<Bar> HHResult = bf.find();
+//		System.out.println(HHResult);
+		
+		DataSender ds = new DataSender (HHResult);
 	}
 
 }
