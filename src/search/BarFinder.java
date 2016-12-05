@@ -35,11 +35,12 @@ public class BarFinder {
 	public ArrayList<Bar> find() {
 		ArrayList<Bar> currentHHBars = new ArrayList<>();
 		Date currentTime = now.getTime();
+		System.out.println(currentTime);
 		for (Bar bar : bars) {
 			Date startTime = convertTimeString(bar.getStartTimeString());
 			Date endTime = convertTimeString(bar.getEndTimeString());
 			
-			if (currentTime.after(startTime) && currentTime.after(endTime)) {
+			if (currentTime.after(startTime) && currentTime.before(endTime)) {
 				currentHHBars.add(bar);
 			}
 		}
@@ -52,9 +53,9 @@ public class BarFinder {
 	private Date convertTimeString(String timeString) {
 		Date timeDate = null;
 		// time in format "4:00 pm"
-		String month = Integer.toString(now.MONTH);
-		String day = Integer.toString(now.DAY_OF_MONTH);
-		String year = Integer.toString(now.YEAR);
+		String month = Integer.toString(now.get(Calendar.MONTH) + 1);
+		String day = Integer.toString(now.get(Calendar.DAY_OF_MONTH));
+		String year = Integer.toString(now.get(Calendar.YEAR));
 		String hour = timeString.substring(0, timeString.length() - 2);
 		
 		// building the dateString in format "MM/dd/yyyy HH:mm"
@@ -70,13 +71,11 @@ public class BarFinder {
 		
 		// use DateFormat to create Date objects
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-		try
-        {
+		try {
             Date d = df.parse(dateString);
             timeDate = d;
-        }
-        catch (ParseException ex)
-        {
+//          System.out.println(timeDate);
+        } catch (ParseException ex) {
             System.out.println("Exception " + ex);
         }
 		

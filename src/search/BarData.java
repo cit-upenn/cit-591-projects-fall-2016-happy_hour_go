@@ -41,16 +41,17 @@ public class BarData {
 		
 		for (String stringBar : stringBars) {
 			String[] infoPieces = stringBar.split("\t");
+//			System.out.println(infoPieces.length);
 			String name = infoPieces[0];
 			String lat = infoPieces[1];
 			String lon = infoPieces[2];
 			String address = infoPieces[3];
-			String phone = infoPieces[4];
-			String startTime = infoPieces[5];
-			String endTime = infoPieces[6];
-			String description = infoPieces[7];
+//			String phone = infoPieces[4];
+			String startTime = infoPieces[4];
+			String endTime = infoPieces[5];
+			String description = infoPieces[6];
 			
-			Bar bar = new Bar(name, lat, lon, address, phone, startTime, endTime, description);
+			Bar bar = new Bar(name, lat, lon, address, startTime, endTime, description);
 			bars.add(bar);
 		}
 		return bars;

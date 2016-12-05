@@ -12,7 +12,7 @@ public class Bar {
 	public String lat;
 	public String lon;
 	public String address;
-	public String phone;
+//	public String phone;
 	public ArrayList<String> startTime;
 	public ArrayList<String> endTime;
 	public ArrayList<String> description;
@@ -22,34 +22,33 @@ public class Bar {
 	public String descriptionString;
 
 	
-	public Bar(String name, String lat, String lon, String address, String phone, ArrayList<String> startTime, ArrayList<String> endTime, 
+	public Bar(String name, String lat, String lon, String address, ArrayList<String> startTime, ArrayList<String> endTime, 
 			ArrayList<String> description) {
 		this.name = name;
 		this.lat = lat;
 		this.lon = lon;
 		this.address = address;
-		this.phone = phone;
+//		this.phone = phone;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.description = description;
 	}
 	
-	public Bar(String name, String address, String phone, ArrayList<String> startTime, ArrayList<String> endTime, ArrayList<String> description) {
+	public Bar(String name, String address, ArrayList<String> startTime, ArrayList<String> endTime, ArrayList<String> description) {
 		this.name = name;
 		this.address = address;
-		this.phone = phone;
+//		this.phone = phone;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.description = description;
 	}
 	
-	public Bar(String name, String lat, String lon, String address, String phone, 
-			String startTimeString, String endTimeString, String description) {
+	public Bar(String name, String lat, String lon, String address, String startTimeString, String endTimeString, String description) {
 		this.name = name;
 		this.lat = lat;
 		this.lon = lon;
 		this.address = address;
-		this.phone = phone;
+//		this.phone = phone;
 		this.startTimeString = startTimeString;
 		this.endTimeString = endTimeString;
 		this.descriptionString = description;
@@ -71,9 +70,9 @@ public class Bar {
 		return address;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
+//	public String getPhone() {
+//		return phone;
+//	}
 
 	public ArrayList<String> getStartTime() {
 		return startTime;
