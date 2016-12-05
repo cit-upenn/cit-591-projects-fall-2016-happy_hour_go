@@ -27,7 +27,8 @@ import com.beust.jcommander.Parameter;
 public class YelpAPI {
 
   private static final String API_HOST = "api.yelp.com";
-  private static final String DEFAULT_TERM = "Eulogy Belgian Tavern";
+//  private static final String DEFAULT_TERM = "Eulogy Belgian Tavern";
+  private static String DEFAULT_TERM = "Standard Tap";
   private static final String DEFAULT_LOCATION = "Philadelphia, PA";
   private static final int SEARCH_LIMIT = 3;
   private static final String SEARCH_PATH = "/v2/search";
@@ -166,9 +167,18 @@ public class YelpAPI {
    * <p>
    * After entering your OAuth credentials, execute <tt><b>run.sh</b></tt> to run this example.
    */
-  public static void main(String[] args) {
+//  public static void main(String[] args) {
+//    YelpAPICLI yelpApiCli = new YelpAPICLI();
+//    new JCommander(yelpApiCli, args);
+//
+//    YelpAPI yelpApi = new YelpAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
+//    queryAPI(yelpApi, yelpApiCli);
+//  }
+  
+  public static void start(String barName){
+	 DEFAULT_TERM = barName;
     YelpAPICLI yelpApiCli = new YelpAPICLI();
-    new JCommander(yelpApiCli, args);
+    new JCommander(yelpApiCli);
 
     YelpAPI yelpApi = new YelpAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
     queryAPI(yelpApi, yelpApiCli);
