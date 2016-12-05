@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import mapMaker.DataSender;
-
 public class SearchTester {
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -17,7 +15,6 @@ public class SearchTester {
 		ArrayList<Bar> HHResult = bf.find();
 //		System.out.println(HHResult);
 
-		DataSender ds = new DataSender (HHResult);
 		System.out.println(HHResult);
 		int count = 0;
 
