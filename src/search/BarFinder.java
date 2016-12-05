@@ -19,21 +19,14 @@ import util.FileReader;
  *
  */
 public class BarFinder {
-	ArrayList<Bar> bars = new ArrayList<>();
-	Calendar now;
-	int dayOfWeek;
-	int hourOfDay;
+	private ArrayList<Bar> bars;
+	private Calendar now;
 	/**
 	 * Constructor
 	 */
-	public BarFinder(Calendar now) {
+	public BarFinder(Calendar now, BarData bd) {
 		this.now = now;
-		this.dayOfWeek = now.DAY_OF_WEEK;
-		this.hourOfDay = now.HOUR_OF_DAY;
-		FileFetcher ff = new FileFetcher(dayOfWeek);
-		FileReader fr = ff.getFile();
-		Parser p = new Parser(fr.getBars());
-		bars = p.getBars();	
+		this.bars = bd.getBars();
 	}
 	/**
 	 * This method find bars that are currently on happy hour
@@ -43,13 +36,11 @@ public class BarFinder {
 		ArrayList<Bar> currentHHBars = new ArrayList<>();
 		Date currentTime = now.getTime();
 		for (Bar bar : bars) {
-			ArrayList<Date> startTimes = convertTimeString(bar.getStartTime());
-			ArrayList<Date> endTimes = convertTimeString(bar.getEndTime());
-			for (int i = 0; i < startTimes.size(); i++) {
-				// If current time is after a start time, check if it's before it's corresponding end time
-				if (currentTime.after(startTimes.get(i)) && currentTime.before(endTimes.get(i))) {
-					currentHHBars.add(bar);
-				}
+			Date startTime = convertTimeString(bar.getStartTimeString());
+			Date endTime = convertTimeString(bar.getEndTimeString());
+			
+			if (currentTime.after(startTime) && currentTime.after(endTime)) {
+				currentHHBars.add(bar);
 			}
 		}
 		return currentHHBars;
@@ -58,41 +49,37 @@ public class BarFinder {
 	 * This helper method obtains user input time, and link with generic happy hour
 	 * @return an ArrayList containing Date objects
 	 */
-	private ArrayList<Date> convertTimeString(ArrayList<String> times) {
-		ArrayList<Date> result = new ArrayList<Date>();
+	private Date convertTimeString(String timeString) {
+		Date timeDate = null;
+		// time in format "4:00 pm"
+		String month = Integer.toString(now.MONTH);
+		String day = Integer.toString(now.DAY_OF_MONTH);
+		String year = Integer.toString(now.YEAR);
+		String hour = timeString.substring(0, timeString.length() - 2);
 		
+		// building the dateString in format "MM/dd/yyyy HH:mm"
+		StringBuilder sb = new StringBuilder();
+		sb.append(month);
+		sb.append("/");
+		sb.append(day);
+		sb.append("/");
+		sb.append(year);
+		sb.append(' ');
+		sb.append(hour);
+		String dateString = sb.toString();
 		
-		for (String time : times) {
-			
-			// time in format "4:00 pm"
-			String month = Integer.toString(now.MONTH);
-			String day = Integer.toString(now.DAY_OF_MONTH);
-			String year = Integer.toString(now.YEAR);
-			String hour = time.substring(0, time.length() - 3);
-			
-			// building the dateString in format "MM/dd/yyyy HH:mm"
-			StringBuilder sb = new StringBuilder();
-			sb.append(month);
-			sb.append("/");
-			sb.append(day);
-			sb.append("/");
-			sb.append(year);
-			sb.append(' ');
-			sb.append(hour);
-			String dateString = sb.toString();
-			
-			// use DateFormat to create Date objects
-			DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-			try
-	        {
-	            Date d = df.parse(dateString);
-	            result.add(d);
-	        }
-	        catch (ParseException ex)
-	        {
-	            System.out.println("Exception " + ex);
-	        }
-		}
-		return result;
+		// use DateFormat to create Date objects
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		try
+        {
+            Date d = df.parse(dateString);
+            timeDate = d;
+        }
+        catch (ParseException ex)
+        {
+            System.out.println("Exception " + ex);
+        }
+		
+		return timeDate;
 	}
 }

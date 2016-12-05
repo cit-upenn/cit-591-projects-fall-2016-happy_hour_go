@@ -16,7 +16,7 @@ import util.FileReader;
  */
 public class BarData {
 	private ArrayList<Bar> bars;
-	FileFetcher ff;
+	private FileFetcher ff;
 	
 	/**
 	 * Constructor
@@ -25,7 +25,6 @@ public class BarData {
 	 */
 	public BarData (FileFetcher ff) throws FileNotFoundException {
 		this.ff = ff;
-		
 		bars = getBarData(ff);
 	}
 	/**
@@ -54,6 +53,13 @@ public class BarData {
 			Bar bar = new Bar(name, lat, lon, address, phone, startTime, endTime, description);
 			bars.add(bar);
 		}
+		return bars;
+	}
+	/**
+	 * This method returns an ArrayList of bars construct from clean data
+	 * @return
+	 */
+	public ArrayList<Bar> getBars() {
 		return bars;
 	}
 }
