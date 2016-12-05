@@ -56,7 +56,15 @@ public class BarFinder {
 		String month = Integer.toString(now.get(Calendar.MONTH) + 1);
 		String day = Integer.toString(now.get(Calendar.DAY_OF_MONTH));
 		String year = Integer.toString(now.get(Calendar.YEAR));
-		String hour = timeString.substring(0, timeString.length() - 2);
+
+		// check am/pm for correct 24h conversion
+		int len = timeString.length();
+		String hour = timeString;
+		if (hour.charAt(len - 2) == 'a') {
+			hour = timeString.substring(0, len - 3);
+		} else {
+			hour = converTo24h(hour);
+		}
 		
 		// building the dateString in format "MM/dd/yyyy HH:mm"
 		StringBuilder sb = new StringBuilder();
@@ -80,5 +88,23 @@ public class BarFinder {
         }
 		
 		return timeDate;
+	}
+	/**
+	 * This method convert the format of pm time string i.e. "4:00 pm" into 24h time string i.e. "16:00"
+	 * @param hour
+	 * @return String
+	 */
+	private String converTo24h(String hour) {
+		String hour24 = "";
+		String[] h = hour.split(":");
+		int hourInt = Integer.parseInt(h[0]);
+		String hourPart = Integer.toString(hourInt + 12);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(hourPart);
+		sb.append(":00");
+		
+		hour24 = sb.toString();
+		return hour24;
 	}
 }
