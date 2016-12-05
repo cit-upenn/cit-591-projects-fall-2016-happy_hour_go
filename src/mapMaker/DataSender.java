@@ -15,7 +15,7 @@ public class DataSender {
 	ArrayList<Double> addrLat = new ArrayList<Double>();
 	ArrayList<String> display = new ArrayList<String>();
 	
-	FileReader fr = new FileReader("philly.map");
+	FileReader fr = new FileReader("./data/clean/monday.csv");
 	
 	public DataSender(){
 		try {
@@ -27,9 +27,10 @@ public class DataSender {
 		
 		for(String line: fr.getLines()){
 			String[] data = line.split("\t");
-			Double lon = Double.parseDouble(data[0]);
-			Double lat = Double.parseDouble(data[1]);
-			String message = data[2];
+			Double lon = Double.parseDouble(data[1]);
+			Double lat = Double.parseDouble(data[2]);
+//			StringBuilder message = new StringBuilder();
+		     String message = data[0];
 			
 			addrLon.add(lon);
 			addrLat.add(lat);

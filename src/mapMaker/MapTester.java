@@ -1,5 +1,6 @@
 package mapMaker;
 
+import java.awt.event.*;
 import java.util.Calendar;
 
 //import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import search.FileFetcher;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.effect.*;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
@@ -100,12 +102,18 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		       .zoomControl(true);
 
         map = mapView.createMap(options);
+        
+//        DropShadow shadow = new DropShadow();
+      
+//        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {goButton.setEffect(shadow); });
+////        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+////        	goButton.setEffect(shadow); });
         goButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				System.out.println("Bars now on Happy Hour...");
 				// BarSearcher.search(); // call the search algorithm
-				map.setZoom(15);
+				map.setZoom(13);
 				putMarker();
 				System.out.println("btn pressed");
 			}
