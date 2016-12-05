@@ -18,6 +18,7 @@ import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import netscape.javascript.JSObject;
 import search.FileFetcher;
+import yelp.YelpAPI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -140,6 +141,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	                    .animation(Animation.DROP);
 
 	        Marker marker = new Marker( markerOptions );
+//	        marker.setTitle(ds.getDisplay().get(i));
 	        map.addMarker(marker);
 
 	        //Add a Info to the map
@@ -149,6 +151,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        //barInfoWindow.open(map, marker);
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
 				barInfoWindow.open(map, marker);
+				YelpAPI.start(barInfoWindow.getContent());
+//				System.out.println(barInfoWindow.getContent() +"-----------------");
 			});
         }
 	}
