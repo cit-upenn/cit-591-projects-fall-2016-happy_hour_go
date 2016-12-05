@@ -52,9 +52,8 @@ public class BarData {
 			String description = infoPieces[7];
 			
 			Bar bar = new Bar(name, lat, lon, address, phone, startTime, endTime, description);
-			
+			bars.add(bar);
 		}
-		
 		return bars;
 	}
 }

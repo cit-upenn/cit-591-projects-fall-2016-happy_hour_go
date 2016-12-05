@@ -86,4 +86,12 @@ public class Bar {
 	public ArrayList<String> getDescription() {
 		return description;
 	}
+	
+	public String getStartTimeString() {
+		return startTimeString;
+	}
+	
+	public String getEndTimeString() {
+		return endTimeString;
+	}
 }
