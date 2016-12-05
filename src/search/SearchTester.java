@@ -27,7 +27,6 @@ public class SearchTester {
 			count++;
 		}
 		System.out.println(count);
->>>>>>> 264d4a9fa2bf23b94f00af1e565c855981bc0692
 	}
 
 }
