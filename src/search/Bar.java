@@ -17,6 +17,11 @@ public class Bar {
 	public ArrayList<String> endTime;
 	public ArrayList<String> description;
 	
+	public String startTimeString;
+	public String endTimeString;
+	public String descriptionString;
+
+	
 	public Bar(String name, String lat, String lon, String address, String phone, ArrayList<String> startTime, ArrayList<String> endTime, 
 			ArrayList<String> description) {
 		this.name = name;
@@ -36,6 +41,18 @@ public class Bar {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.description = description;
+	}
+	
+	public Bar(String name, String lat, String lon, String address, String phone, 
+			String startTimeString, String endTimeString, String description) {
+		this.name = name;
+		this.lat = lat;
+		this.lon = lon;
+		this.address = address;
+		this.phone = phone;
+		this.startTimeString = startTimeString;
+		this.endTimeString = endTimeString;
+		this.descriptionString = description;
 	}
 
 	public String getName() {
