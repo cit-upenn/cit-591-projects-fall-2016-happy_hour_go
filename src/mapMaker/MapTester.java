@@ -17,7 +17,6 @@ import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import netscape.javascript.JSObject;
 import search.FileFetcher;
-import util.FileReader;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -26,11 +25,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.ToolBar;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 /**

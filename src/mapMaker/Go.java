@@ -19,9 +19,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 public class Go extends Application implements MapComponentInitializedListener, EventHandler<ActionEvent> {
-	
-	//Test test testingggg
-	
+		
 	// implements EventHandler<ActionEvent>
 	private GoogleMapView mapView;
 	private GoogleMap map;
