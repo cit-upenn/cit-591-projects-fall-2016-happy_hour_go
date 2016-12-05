@@ -1,6 +1,7 @@
 package mapMaker;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 //import javafx.scene.control.Button;
@@ -88,7 +89,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	 * initialize the map
 	 */
     public void mapInitialized() {
-    	LatLong center = new LatLong(ds.addrLon.get(0),ds.addrLat.get(0));
+    	LatLong center = new LatLong(ds.getAddrLon().get(0),ds.getAddrLat().get(0));
 
     	MapOptions options = new MapOptions();
 		options.center(center)
