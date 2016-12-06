@@ -187,7 +187,7 @@ public class MainApp extends Application implements MapComponentInitializedListe
                 .title("My new Marker")
                 .icon("mymarker.png")
                 .animation(Animation.DROP)
-                .visible(true);
+                .visible(true); 
 
         final Marker myMarker = new Marker(markerOptions);
 

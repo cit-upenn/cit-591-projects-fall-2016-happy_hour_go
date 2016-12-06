@@ -62,6 +62,7 @@ public class MarkerOptions extends JavascriptObject {
     
     public MarkerOptions animation( Animation animation ) {
         setProperty("animation", animation);
+        this.animation = animation;
         return this;
     }
     
