@@ -61,6 +61,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private ArrayList<Bar> searchResult;
 	private ArrayList<Marker> markers;
 	private DataSender ds;	
+	private InfoWindow infoWindowStore;
+
 	
 	@Override
 	public void start(Stage Stage) throws Exception {
@@ -133,10 +135,15 @@ public class MapTester extends Application implements MapComponentInitializedLis
         
         setupJSAlerts(mapView.getWebview());
         
+        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+        String name = "nothing";
+        infoWindowOptions.content(name);
+        infoWindowStore = new InfoWindow(infoWindowOptions);
+        
         goButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// Call search algorithm
+
 				try {
 					getSearchResult();
 				} catch (FileNotFoundException e1) {
@@ -175,7 +182,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		
     }
     
-    
+
     private void putMarker() {
     	//Add all marker to the map
         for (int i = 0; i < ds.getAddrLat().size(); i++){
@@ -200,16 +207,23 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        String name = ds.getName().get(i);
 	        infoWindowOptions.content(name);
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
+	        
+	        
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+				
 				map.setCenter(markerCenter);
 				map.setZoom(14);
-
+				infoWindowStore.close();
+				
 				barInfoWindow.open(map, marker);
 				YelpAPI.start(barInfoWindow.getContent());
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
+				
 				Label nameLabel = new Label(name);
 				sidePane.getChildren().add(nameLabel);
+				infoWindowStore  = barInfoWindow;
 			});
+		
         }
 	}
     
