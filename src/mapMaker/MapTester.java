@@ -50,12 +50,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private Stage stage;
 	private Button goButton;
 	
-	/* File components */
-	private FileFetcher ff;
-	private BarData bd;
-	private BarFinder bf;
 	private ArrayList<Bar> searchResult;
-	private DataSender ds;
+	private DataSender ds;	
 	
 
 	@Override
@@ -139,20 +135,19 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				
 				map.setZoom(13);
 				putMarker();
-				System.out.println("btn pressed");
 			}
         });
     }
     /**
-     * This method initialize DataSender
+     * This method runs search algorithm upon button press, initialize DataSender
      * @param 
      * @throws FileNotFoundException 
      */
     private void getSearchResult() throws FileNotFoundException {
     	Calendar now = Calendar.getInstance();
-    	ff = new FileFetcher(now.DAY_OF_WEEK);
-		bd = new BarData(ff);
-		bf = new BarFinder(now, bd);
+    	FileFetcher ff = new FileFetcher(now.DAY_OF_WEEK);
+		BarData bd = new BarData(ff);
+		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
 		ds = new DataSender(searchResult);
     }
