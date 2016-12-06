@@ -1,6 +1,7 @@
 package mapMaker;
 
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -18,7 +19,10 @@ import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import netscape.javascript.JSObject;
+import search.Bar;
 import search.BarData;
+import search.BarFinder;
+import mapMaker.DataSender;
 import search.FileFetcher;
 import yelp.YelpAPI;
 import javafx.application.Application;
@@ -41,16 +45,22 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
 	private GoogleMapView mapView;
 	private GoogleMap map;
-
-	private DataSender ds;
-
+	
 	/* GUI components */
 	private Stage stage;
 	private Button goButton;
+	
+	/* File components */
+	private FileFetcher ff;
+	private BarData bd;
+	private BarFinder bf;
+	private ArrayList<Bar> searchResult;
+	private DataSender ds;
+	
 
 	@Override
 	public void start(Stage Stage) throws Exception {
-		ds = new DataSender();
+		
 		//this.stage = Stage;
 		mapView = new GoogleMapView();
 		mapView.addMapInializedListener(this);
@@ -89,7 +99,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	 * initialize the map
 	 */
     public void mapInitialized() {
-    	LatLong center = new LatLong(ds.getAddrLon().get(0),ds.getAddrLat().get(0));
+    	LatLong center = new LatLong(39.952903, -75.164106);
 
     	MapOptions options = new MapOptions();
 		options.center(center)
@@ -111,16 +121,40 @@ public class MapTester extends Application implements MapComponentInitializedLis
 //        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {goButton.setEffect(shadow); });
 ////        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
 ////        	goButton.setEffect(shadow); });
+        
         goButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				// Call search algorithm
+				try {
+					getSearchResult();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+				
+				ds = new DataSender(searchResult);
+				
 				System.out.println("Bars now on Happy Hour...");
-				// BarSearcher.search(); // call the search algorithm
+				System.out.println(searchResult);
+				
 				map.setZoom(13);
 				putMarker();
 				System.out.println("btn pressed");
 			}
         });
+    }
+    /**
+     * This method initialize DataSender
+     * @param 
+     * @throws FileNotFoundException 
+     */
+    private void getSearchResult() throws FileNotFoundException {
+    	Calendar now = Calendar.getInstance();
+    	ff = new FileFetcher(now.DAY_OF_WEEK);
+		bd = new BarData(ff);
+		bf = new BarFinder(now, bd);
+		searchResult = bf.find();
+		ds = new DataSender(searchResult);
     }
     
 //	@Override
@@ -160,12 +194,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	}
 
 	public static void main(String[] args) {
-		/* This main is executed without external statements*/
-		//		Calendar now = Calendar.getInstance();
-//		System.out.println(now.get(Calendar.DAY_OF_WEEK));
-//		System.out.println(now.get(Calendar.HOUR_OF_DAY));
-//		
-//		int dayOfWeek = Calendar.DAY_OF_WEEK;
 		
 		launch(args);
 	}
