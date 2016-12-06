@@ -1,6 +1,3 @@
-/**
- * 
- */
 package search;
 
 import java.text.DateFormat;
@@ -21,6 +18,7 @@ import util.FileReader;
 public class BarFinder {
 	private ArrayList<Bar> bars;
 	private Calendar now;
+	
 	/**
 	 * Constructor
 	 */
@@ -28,6 +26,7 @@ public class BarFinder {
 		this.now = now;
 		this.bars = bd.getBars();
 	}
+	
 	/**
 	 * This method find bars that are currently on happy hour
 	 * @return ArrayList of bars satisfying current 
@@ -39,13 +38,14 @@ public class BarFinder {
 		for (Bar bar : bars) {
 			Date startTime = convertTimeString(bar.getStartTimeString());
 			Date endTime = convertTimeString(bar.getEndTimeString());
-			
+
 			if (currentTime.after(startTime) && currentTime.before(endTime)) {
 				currentHHBars.add(bar);
 			}
 		}
 		return currentHHBars;
 	}
+	
 	/**
 	 * This helper method obtains user input time, and link with generic happy hour
 	 * @return an ArrayList containing Date objects
@@ -54,13 +54,18 @@ public class BarFinder {
 		Date timeDate = null;
 		// time in format "4:00 pm"
 		String month = Integer.toString(now.get(Calendar.MONTH) + 1);
-		String day = Integer.toString(now.get(Calendar.DAY_OF_MONTH));
+		int dayVal = now.get(Calendar.DAY_OF_MONTH);
+		String day = Integer.toString(dayVal);
 		String year = Integer.toString(now.get(Calendar.YEAR));
 
 		// check am/pm for correct 24h conversion
 		int len = timeString.length();
 		String hour = timeString;
-		if (hour.charAt(len - 2) == 'a') {
+		if (hour.equals("12:00 am")) {
+			dayVal = dayVal == 7? 1 : dayVal + 1;
+			day = Integer.toString(dayVal);
+			hour = "00:00";
+		} else if (hour.charAt(len - 2) == 'a') {
 			hour = timeString.substring(0, len - 3);
 		} else {
 			hour = converTo24h(hour);
@@ -89,6 +94,7 @@ public class BarFinder {
 		
 		return timeDate;
 	}
+	
 	/**
 	 * This method convert the format of pm time string i.e. "4:00 pm" into 24h time string i.e. "16:00"
 	 * @param hour

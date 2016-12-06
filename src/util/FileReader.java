@@ -72,6 +72,10 @@ public class FileReader {
 			bars.add(splitted[i]);
 		}
 	}
+	
+	public String getFileName() {
+		return fileName;
+	}
 
 	public String getOutPage() {
 		return outPage;

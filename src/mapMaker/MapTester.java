@@ -18,6 +18,7 @@ import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
+
 import netscape.javascript.JSObject;
 import search.Bar;
 import search.BarData;
@@ -25,12 +26,12 @@ import search.BarFinder;
 import mapMaker.DataSender;
 import search.FileFetcher;
 import yelp.YelpAPI;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.effect.*;
 import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -100,15 +101,15 @@ public class MapTester extends Application implements MapComponentInitializedLis
     	MapOptions options = new MapOptions();
 		options.center(center)
 				.mapMaker(true)
-		       .mapType(MapTypeIdEnum.ROADMAP)
-		       .mapTypeControl(true)
-		       .overviewMapControl(false)
-		       .panControl(true)
-		       .rotateControl(false)
-		       .scaleControl(false)
-		       .streetViewControl(false)
-		       .zoom(12)
-		       .zoomControl(true);
+				.mapType(MapTypeIdEnum.ROADMAP)
+				.mapTypeControl(true)
+				.overviewMapControl(false)
+				.panControl(true)
+				.rotateControl(false)
+				.scaleControl(false)
+				.streetViewControl(false)
+				.zoom(12)
+				.zoomControl(true);
 
         map = mapView.createMap(options);
         
@@ -132,6 +133,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				
 				System.out.println("Bars now on Happy Hour...");
 				System.out.println(searchResult);
+				for (Bar bar : searchResult) {
+					System.out.println(bar.name + ' ' + bar.startTimeString + ' ' + bar.endTimeString + ' ' + bar.descriptionString);
+				}
 				
 				map.setZoom(13);
 				putMarker();
@@ -145,11 +149,11 @@ public class MapTester extends Application implements MapComponentInitializedLis
      */
     private void getSearchResult() throws FileNotFoundException {
     	Calendar now = Calendar.getInstance();
-    	FileFetcher ff = new FileFetcher(now.DAY_OF_WEEK);
+    	FileFetcher ff = new FileFetcher(now.get(Calendar.DAY_OF_WEEK));
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
-		ds = new DataSender(searchResult);
+		System.out.println(searchResult.size());
     }
     
 //	@Override
