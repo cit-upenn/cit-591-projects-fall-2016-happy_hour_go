@@ -39,7 +39,7 @@ import javafx.scene.control.Button;
 
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
- * @author Jiahui, He Gao
+ * @author Jiahui, He Gao, Han Zhu
  *
  */
 public class MapTester extends Application implements MapComponentInitializedListener{
@@ -54,7 +54,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private ArrayList<Bar> searchResult;
 	private DataSender ds;	
 	
-
 	@Override
 	public void start(Stage Stage) throws Exception {
 		
@@ -128,14 +127,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
-				
 				ds = new DataSender(searchResult);
-				
-				System.out.println("Bars now on Happy Hour...");
-				System.out.println(searchResult);
-				for (Bar bar : searchResult) {
-					System.out.println(bar.name + ' ' + bar.startTimeString + ' ' + bar.endTimeString + ' ' + bar.descriptionString);
-				}
+				System.out.println("Bars now on Happy Hour...");				
 				
 				map.setZoom(13);
 				putMarker();
@@ -153,7 +146,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
-		System.out.println(searchResult.size());
+//		System.out.println(searchResult.size());
     }
     
 //	@Override
@@ -170,7 +163,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
     	//Add all marker to the map
         for (int i = 0; i < ds.getAddrLat().size(); i++){
 	        MarkerOptions markerOptions = new MarkerOptions();
-	        markerOptions.position(new LatLong(ds.getAddrLon().get(i),ds.getAddrLat().get(i)))
+	        markerOptions.position(new LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i)))
 	                    .visible(Boolean.TRUE)
 	                    .title("My Marker")
 	                    .animation(Animation.DROP);

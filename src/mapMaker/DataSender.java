@@ -17,12 +17,8 @@ public class DataSender {
 	private ArrayList<String> display = new ArrayList<String>();
 	
 //	FileReader fr = new FileReader("./data/clean/monday.csv");
-	
-	private ArrayList<Bar> hhResult;
-	
-	public DataSender(ArrayList<Bar> hhResult){
-		this.hhResult = hhResult;
 		
+	public DataSender(ArrayList<Bar> hhResult){		
 		for (Bar b : hhResult) {
 			double lon = Double.parseDouble(b.getLon());
 			double lat = Double.parseDouble(b.getLat());
