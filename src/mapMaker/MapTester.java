@@ -23,14 +23,18 @@ import search.Bar;
 import search.BarData;
 import search.BarFinder;
 import mapMaker.DataSender;
+import mapMaker.AlertBox;
 import search.FileFetcher;
 import yelp.YelpAPI;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.web.WebView;
 import javafx.scene.effect.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -52,6 +56,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private Stage stage;
 	private Button goButton;
 	private VBox sidePane;
+	private AlertBox alert;
 	
 	private ArrayList<Bar> searchResult;
 	private ArrayList<Marker> markers;
@@ -116,7 +121,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				.zoom(12)
 				.zoomControl(true)
 				.styleString("[{'stylers':[{'hue':'#dd0d0d'}]},{'featureType':'road','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'geometry','stylers':[{'lightness':100},{'visibility':'simplified'}]}]");
-
+	
         map = mapView.createMap(options);
         
 //        DropShadow shadow = new DropShadow();
@@ -124,6 +129,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 //        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {goButton.setEffect(shadow); });
 ////        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
 ////        	goButton.setEffect(shadow); });
+        
+        setupJSAlerts(mapView.getWebview());
         
         goButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -135,11 +142,18 @@ public class MapTester extends Application implements MapComponentInitializedLis
 					e1.printStackTrace();
 				}
 				ds = new DataSender(searchResult);
-				System.out.println("Bars now on Happy Hour...");				
+				
+				System.out.println("Bars now on Happy Hour...");
+				
+				if(ds.getAddrLat() == null || ds.getAddrLat().size() == 0) {
+					alert.display("No Happy Hour Now!","Come back later.");
+					return;
+				}
 				
 				putMarker();
 			}
         });
+        
     }
     /**
      * This method runs search algorithm upon button press, initialize DataSender
@@ -148,12 +162,16 @@ public class MapTester extends Application implements MapComponentInitializedLis
      */
     private void getSearchResult() throws FileNotFoundException {
     	Calendar now = Calendar.getInstance();
-//    	System.out.println(now);
+    	
+//    	test alert box with no Happy Hour Found. Uncomment next line to test
+//    	now.set(2016, 12, 6, 10, 0, 0);
+
     	FileFetcher ff = new FileFetcher(now.get(Calendar.DAY_OF_WEEK));
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
 //		System.out.println(searchResult.size());
+		
     }
     
     
@@ -196,6 +214,28 @@ public class MapTester extends Application implements MapComponentInitializedLis
 			});
         }
 	}
+    
+    /**
+     * This method setup Alert box on the map
+     * @param webView
+     */
+    private void setupJSAlerts(WebView webView) {
+        webView.getEngine().setOnAlert( e -> {
+            Stage popup = new Stage();
+            popup.initOwner(stage);
+            popup.initStyle(StageStyle.UTILITY);
+            popup.initModality(Modality.WINDOW_MODAL);
+
+            StackPane content = new StackPane();
+            content.getChildren().setAll(
+              new Label(e.getData())
+            );
+            content.setPrefSize(200, 100);
+
+            popup.setScene(new Scene(content));
+            popup.showAndWait();
+        });
+    }
 
 	public static void main(String[] args) {
 		launch(args);
