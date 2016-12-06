@@ -114,8 +114,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				.scaleControl(false)
 				.streetViewControl(false)
 				.zoom(12)
-				.zoomControl(true);
-	
+				.zoomControl(true)
+				.styleString("[{'stylers':[{'hue':'#dd0d0d'}]},{'featureType':'road','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'geometry','stylers':[{'lightness':100},{'visibility':'simplified'}]}]");
 
         map = mapView.createMap(options);
         
@@ -164,6 +164,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
 	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
 	        markerOptions.position(markerCenter)
+//	        			.icon("bar_marker.png")
 	                    .visible(Boolean.TRUE)
 	                    .title("My Marker" + i)
 	                    .animation(Animation.BOUNCE);
