@@ -122,7 +122,7 @@ public class YelpAPI {
 	 * @param yelpApi <tt>YelpAPI</tt> service instance
 	 * @param yelpApiCli <tt>YelpAPICLI</tt> command line arguments
 	 */
-	private static void queryAPI(YelpAPI yelpApi, YelpAPICLI yelpApiCli) {
+	private static String queryAPI(YelpAPI yelpApi, YelpAPICLI yelpApiCli) {
 		String searchResponseJSON = yelpApi.searchForBusinessesByLocation(yelpApiCli.term, yelpApiCli.location);
 
 		JSONParser parser = new JSONParser();
@@ -143,8 +143,7 @@ public class YelpAPI {
 
 		// Select the first business and display business details
 		String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
-		System.out.println(String.format("Result for business \"%s\" found:", firstBusinessID));
-		System.out.println(businessResponseJSON);
+		return businessResponseJSON;
 	}
 
 	/**

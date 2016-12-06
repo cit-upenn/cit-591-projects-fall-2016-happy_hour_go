@@ -35,7 +35,9 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
@@ -50,6 +52,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	/* GUI components */
 	private Stage stage;
 	private Button goButton;
+	private VBox sidePane;
 	
 	private ArrayList<Bar> searchResult;
 	private DataSender ds;	
@@ -67,10 +70,12 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				+ "linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);"
 				+ " -fx-text-fill: #654b00;");
 		
-		VBox topBox = new VBox();
-		topBox.setPadding(new Insets(20, 20, 0, 20));
-		topBox.setPrefHeight(50);
-		topBox.getChildren().add(goButton);
+		sidePane = new VBox(10);
+		sidePane.setPadding(new Insets(20, 20, 0, 20));
+		sidePane.setPrefHeight(50);
+		sidePane.setPrefWidth(300);
+		sidePane.setAlignment(Pos.TOP_CENTER);
+		sidePane.getChildren().add(goButton);
 
 //		ToolBar tb = new ToolBar();
 //		tb.getItems().add(goButton);
@@ -80,7 +85,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		BorderPane bp = new BorderPane();
 		Scene scene = new Scene(bp);
 		bp.setCenter(mapView);
-		bp.setRight(topBox);
+		bp.setRight(sidePane);
 		
 //		StackPane sp = new StackPane();
 //		sp.getChildren().addAll(mapView, goButton);
@@ -163,10 +168,11 @@ public class MapTester extends Application implements MapComponentInitializedLis
     	//Add all marker to the map
         for (int i = 0; i < ds.getAddrLat().size(); i++){
 	        MarkerOptions markerOptions = new MarkerOptions();
-	        markerOptions.position(new LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i)))
+	        LatLong pos = new LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
+	        markerOptions.position(pos)
 	                    .visible(Boolean.TRUE)
 	                    .title("My Marker")
-	                    .animation(Animation.DROP);
+	                    .animation(Animation.BOUNCE);
 
 	        Marker marker = new Marker( markerOptions );
 //	        marker.setTitle(ds.getDisplay().get(i));
@@ -174,19 +180,22 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
 	        //Add a Info to the map
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-	        infoWindowOptions.content(ds.getDisplay().get(i));
+	        String name = ds.getDisplay().get(i);
+	        infoWindowOptions.content(name);
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
 	        //barInfoWindow.open(map, marker);
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+				map.setCenter(pos);
 				barInfoWindow.open(map, marker);
 				YelpAPI.start(barInfoWindow.getContent());
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
+				Label nameLabel = new Label(name);
+				sidePane.getChildren().add(nameLabel);
 			});
         }
 	}
 
 	public static void main(String[] args) {
-		
 		launch(args);
 	}
 	
