@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import util.FileReader;
+
 /**
  * This class reads every file from data/clean and writes unique bars and their addresses into unique-bars.csv. There are in total 311 bars.
  * @author Han Zhu
@@ -19,7 +21,7 @@ public class BarListMaker {
 		try {
 			ArrayList<String> printed = new ArrayList<>();
 
-			FileReader fr2 = new FileReader("unique-bars.csv");
+			FileReader fr2 = new FileReader("data/clean/unique-bars.csv");
 			fr2.readFile();
 			
 			for (int i = 0; i < fr2.getLines().size(); i++) {
@@ -32,7 +34,7 @@ public class BarListMaker {
 			fr.readFile();
 			
 //			Write to existing file without overwriting it.
-			PrintWriter out = new PrintWriter(new FileWriter("unique-bars.csv", true));
+			PrintWriter out = new PrintWriter(new FileWriter("data/clean/unique-bars.csv", true));
 			
 			for (int i = 0; i < fr.getLines().size(); i++) {
 				String line = fr.getLines().get(i);

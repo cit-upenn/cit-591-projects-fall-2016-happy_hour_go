@@ -1,4 +1,4 @@
-package dataPrep;
+package util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,6 +71,10 @@ public class FileReader {
 		for (int i = 1; i < splitted.length; i++) {
 			bars.add(splitted[i]);
 		}
+	}
+	
+	public String getFileName() {
+		return fileName;
 	}
 
 	public String getOutPage() {

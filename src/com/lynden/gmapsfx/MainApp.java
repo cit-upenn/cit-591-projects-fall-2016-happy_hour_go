@@ -185,9 +185,9 @@ public class MainApp extends Application implements MapComponentInitializedListe
         LatLong markerLatLong = new LatLong(47.606189, -122.335842);
         markerOptions.position(markerLatLong)
                 .title("My new Marker")
-                .icon("mymarker.png")
+                .icon("marker.png")
                 .animation(Animation.DROP)
-                .visible(true);
+                .visible(true); 
 
         final Marker myMarker = new Marker(markerOptions);
 

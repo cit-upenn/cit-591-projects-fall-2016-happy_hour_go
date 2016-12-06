@@ -18,6 +18,8 @@ package com.lynden.gmapsfx.javascript.object;
 
 import com.lynden.gmapsfx.javascript.JavascriptObject;
 
+import search.Bar;
+
 /**
  * Marker which can be placed on a GoogleMap.
  * 
@@ -27,6 +29,7 @@ public class Marker extends JavascriptObject {
 
 
     protected String title;
+    private String description;
     
     
     /**
@@ -34,6 +37,7 @@ public class Marker extends JavascriptObject {
      * @param markerOptions The options to use when constructing this marker.
      */
     public Marker(MarkerOptions markerOptions) {
+
         super(GMapObjectType.MARKER, markerOptions);
     }
     
@@ -81,6 +85,15 @@ public class Marker extends JavascriptObject {
 	
 	public boolean getVisible() {
 		return invokeJavascriptReturnValue("getVisible", Boolean.class );
+	}
+	
+
+	public void setDescription (String description){
+		this.description  = description;
+	}
+	
+	public String getDescriptionr(){
+		return description;
 	}
     
 }

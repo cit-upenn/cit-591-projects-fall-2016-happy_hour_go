@@ -20,6 +20,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import util.FileReader;
 
 /**
  * This class uses Google Geocoding services to get the latitude and longitude of an address. A map must be initialized before querying the geocoding
@@ -82,9 +83,9 @@ public class Geocoder extends Application implements MapComponentInitializedList
 //      Create a GeocodingService object.
         GeocodingService gs = new GeocodingService();
 		try {
-			FileReader fr = new FileReader("unique-bars.csv");
+			FileReader fr = new FileReader("data/clean/unique-bars.csv");
 			fr.readFile();
-			PrintWriter out = new PrintWriter(new FileWriter("geocodes.csv", true));
+			PrintWriter out = new PrintWriter(new FileWriter("data/clean/unique-bars.csv", true));
 			
 ////		Use the addresses from unique-bars.csv to get the geocodes. Make 10 queries each time. Change the indexes and re-run the program.
 //			for (int i = 310; i < 311; i++) {
