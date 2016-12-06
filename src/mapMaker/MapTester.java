@@ -109,6 +109,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				.streetViewControl(false)
 				.zoom(12)
 				.zoomControl(true);
+	
 
         map = mapView.createMap(options);
         
@@ -149,35 +150,34 @@ public class MapTester extends Application implements MapComponentInitializedLis
 //		System.out.println(searchResult.size());
     }
     
-//	@Override
-//	public void handle(ActionEvent event) {
-//		if (event.getSource() == goButton) { 
-//            System.out.println("Bars now on Happy Hour...");
-//            putMarker();
-//            //goButton.getOnSwipeLeft();
-//            // BarSearcher.search(); // call the search algorithm
-//		}
-//	}
     
     private void putMarker() {
     	//Add all marker to the map
         for (int i = 0; i < ds.getAddrLat().size(); i++){
 	        MarkerOptions markerOptions = new MarkerOptions();
-	        markerOptions.position(new LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i)))
+	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
+	        markerOptions.position(markerCenter)
 	                    .visible(Boolean.TRUE)
 	                    .title("My Marker")
+//	                    .animation(Animation.BOUNCE);
 	                    .animation(Animation.DROP);
+	 
+	        
+	      
 
 	        Marker marker = new Marker( markerOptions );
-//	        marker.setTitle(ds.getDisplay().get(i));
+//	        marker.addListener(UIEventType.click, marker.setAnimation(Animation.BOUNCE));
 	        map.addMarker(marker);
 
 	        //Add a Info to the map
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
 	        infoWindowOptions.content(ds.getDisplay().get(i));
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
-	        //barInfoWindow.open(map, marker);
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+				map.setCenter(markerCenter);
+				map.setZoom(14);
+				marker.setAnimation(Animation.BOUNCE);
+				marker.setAnimation(Animation.DROP);
 				barInfoWindow.open(map, marker);
 				YelpAPI.start(barInfoWindow.getContent());
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
@@ -186,7 +186,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	}
 
 	public static void main(String[] args) {
-		
 		launch(args);
 	}
 	
