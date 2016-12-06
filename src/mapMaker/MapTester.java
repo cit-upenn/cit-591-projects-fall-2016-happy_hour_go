@@ -182,7 +182,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
 	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
 	        markerOptions.position(markerCenter)
-//	        			.icon("bar_marker.png")
+//	        			.icon("[{'path': 'bar_marker.png'}]")
 	                    .visible(Boolean.TRUE)
 	                    .title("My Marker" + i)
 	                    .animation(Animation.BOUNCE);

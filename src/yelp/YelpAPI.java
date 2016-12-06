@@ -28,7 +28,7 @@ public class YelpAPI {
 
 	private static final String API_HOST = "api.yelp.com";
 //  private static final String DEFAULT_TERM = "Eulogy Belgian Tavern";
-	private static String DEFAULT_TERM = "Standard Tap";
+	private static String search_term = "Standard Tap";
 	private static final String DEFAULT_LOCATION = "Philadelphia, PA";
 	private static final int SEARCH_LIMIT = 3;
 	private static final String SEARCH_PATH = "/v2/search";
@@ -151,7 +151,7 @@ public class YelpAPI {
 	 */
 	private static class YelpAPICLI {
 		@Parameter(names = {"-q", "--term"}, description = "Search Query Term")
-		public String term = DEFAULT_TERM;
+		public String term = search_term;
 
 		@Parameter(names = {"-l", "--location"}, description = "Location to be Queried")
 		public String location = DEFAULT_LOCATION;
@@ -171,7 +171,7 @@ public class YelpAPI {
 //  }
   
 	public static void start(String barName){
-		DEFAULT_TERM = barName;
+		search_term = barName;
 		YelpAPICLI yelpApiCli = new YelpAPICLI();
 		new JCommander(yelpApiCli);
 
