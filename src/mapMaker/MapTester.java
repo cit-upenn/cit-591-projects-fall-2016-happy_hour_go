@@ -55,6 +55,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private VBox sidePane;
 	
 	private ArrayList<Bar> searchResult;
+	private ArrayList<Marker> markers;
 	private DataSender ds;	
 	
 	@Override
@@ -76,6 +77,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		sidePane.setPrefWidth(300);
 		sidePane.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().add(goButton);
+		markers = new ArrayList<Marker>();
 
 //		ToolBar tb = new ToolBar();
 //		tb.getItems().add(goButton);
@@ -148,6 +150,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
      */
     private void getSearchResult() throws FileNotFoundException {
     	Calendar now = Calendar.getInstance();
+    	System.out.println(now);
     	FileFetcher ff = new FileFetcher(now.get(Calendar.DAY_OF_WEEK));
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
@@ -164,17 +167,19 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
 	        markerOptions.position(markerCenter)
 	                    .visible(Boolean.TRUE)
-	                    .title("My Marker")
+	                    .title("My Marker" + i)
 	                    .animation(Animation.BOUNCE);
 
 
 	        Marker marker = new Marker( markerOptions );
-//	        marker.addListener(UIEventType.click, marker.setAnimation(Animation.BOUNCE));
+
+	        markers.add(marker);
 	        map.addMarker(marker);
+
 
 	        //Add a Info to the map
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-	        String name = ds.getDisplay().get(i);
+	        String name = ds.getName().get(i);
 	        infoWindowOptions.content(name);
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {

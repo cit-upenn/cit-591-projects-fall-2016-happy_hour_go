@@ -14,7 +14,8 @@ import util.FileReader;
 public class DataSender {
 	private ArrayList<Double> addrLon = new ArrayList<Double>();
 	private ArrayList<Double> addrLat = new ArrayList<Double>();
-	private ArrayList<String> display = new ArrayList<String>();
+	private ArrayList<String> names = new ArrayList<String>();
+	private ArrayList<String> Description = new ArrayList<String>();
 	
 //	FileReader fr = new FileReader("./data/clean/monday.csv");
 		
@@ -22,11 +23,11 @@ public class DataSender {
 		for (Bar b : hhResult) {
 			double lon = Double.parseDouble(b.getLon());
 			double lat = Double.parseDouble(b.getLat());
-			String message = b.getName();
-			
+			String name = b.getName();
+
 			addrLon.add(lon);
 			addrLat.add(lat);
-			display.add(message);
+			names.add(name);
 			
 //			System.out.println(message);
 		}
@@ -40,7 +41,7 @@ public class DataSender {
 		return addrLat;
 	}
 
-	public ArrayList<String> getDisplay() {
-		return display;
+	public ArrayList<String> getName() {
+		return names;
 	}
 }
