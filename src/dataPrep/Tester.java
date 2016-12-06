@@ -38,7 +38,7 @@ public class Tester {
 			
 			ArrayList<Bar> bars = parser.getBars();
 			
-			FileReader fr2 = new FileReader("geocodes.csv");
+			FileReader fr2 = new FileReader("data/clean/unique-bars.csv");
 			fr2.readFile();
 			HashMap<String, ArrayList<String>> geo = new HashMap<>();
 			for (String line : fr2.getLines()) {

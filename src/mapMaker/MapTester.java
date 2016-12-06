@@ -1,6 +1,5 @@
 package mapMaker;
 
-import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -138,7 +137,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				ds = new DataSender(searchResult);
 				System.out.println("Bars now on Happy Hour...");				
 				
-				map.setZoom(13);
 				putMarker();
 			}
         });
@@ -150,7 +148,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
      */
     private void getSearchResult() throws FileNotFoundException {
     	Calendar now = Calendar.getInstance();
-    	System.out.println(now);
+//    	System.out.println(now);
     	FileFetcher ff = new FileFetcher(now.get(Calendar.DAY_OF_WEEK));
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
