@@ -97,6 +97,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 //		sp.getChildren().addAll(mapView, goButton);
 //		sp.setAlignment(Pos.CENTER);
 		
+		Stage.setMaximized(true);
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
 		Stage.show();
@@ -120,8 +121,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				.streetViewControl(false)
 				.zoom(12)
 				.zoomControl(true)
-				.styleString("[{'stylers':[{'hue':'#dd0d0d'}]},{'featureType':'road','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'geometry','stylers':[{'lightness':100},{'visibility':'simplified'}]}]");
-	
+				.styleString("[{'featureType':'landscape','stylers':[{'hue':'#FFBB00'},{'saturation':43.400000000000006},{'lightness':37.599999999999994},{'gamma':1}]},{'featureType':'road.highway','stylers':[{'hue':'#FFC200'},{'saturation':-61.8},{'lightness':45.599999999999994},{'gamma':1}]},{'featureType':'road.arterial','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':51.19999999999999},{'gamma':1}]},{'featureType':'road.local','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':52},{'gamma':1}]},{'featureType':'water','stylers':[{'hue':'#0078FF'},{'saturation':-13.200000000000003},{'lightness':2.4000000000000057},{'gamma':1}]},{'featureType':'poi','stylers':[{'hue':'#00FF6A'},{'saturation':-1.0989010989011234},{'lightness':11.200000000000017},{'gamma':1}]}]");
+				
         map = mapView.createMap(options);
         
 //        DropShadow shadow = new DropShadow();
@@ -146,7 +147,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				System.out.println("Bars now on Happy Hour...");
 				
 				if(ds.getAddrLat() == null || ds.getAddrLat().size() == 0) {
-					alert.display("No Happy Hour Now!","Come back later.");
+					AlertBox.display("No Happy Hour Now!","Come back later.");
 					return;
 				}
 				
@@ -182,10 +183,10 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
 	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
 	        markerOptions.position(markerCenter)
-//	        			.icon("[{'path': 'bar_marker.png'}]")
-	                    .visible(Boolean.TRUE)
+	        			.icon("http://i.imgur.com/elPucS5.png")
 	                    .title("My Marker" + i)
-	                    .animation(Animation.BOUNCE);
+	                    .animation(Animation.BOUNCE)
+	                    .visible(true);
 
 
 	        Marker marker = new Marker( markerOptions );
@@ -200,11 +201,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        infoWindowOptions.content(name);
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
-				
 				map.setCenter(markerCenter);
 				map.setZoom(14);
-				marker.setAnimation(Animation.BOUNCE);
-				marker.setAnimation(Animation.DROP);
 
 				barInfoWindow.open(map, marker);
 				YelpAPI.start(barInfoWindow.getContent());
