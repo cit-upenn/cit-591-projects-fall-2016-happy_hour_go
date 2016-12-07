@@ -77,15 +77,13 @@ public class YelpResult {
 			display_address = matcher.group(1).trim();
 		}
 		
-		System.out.println(rating);
-		System.out.println(rating_img_url);
-		System.out.println(rating_img_url_small);
-		System.out.println(url);
-		System.out.println(categories);
-		System.out.println(display_phone);
-		System.out.println(display_address);
-
-
+//		System.out.println(rating);
+//		System.out.println(rating_img_url);
+//		System.out.println(rating_img_url_small);
+//		System.out.println(url);
+//		System.out.println(categories);
+//		System.out.println(display_phone);
+//		System.out.println(display_address);
 
 	}
 
