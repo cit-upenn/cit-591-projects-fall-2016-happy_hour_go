@@ -63,7 +63,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private DataSender ds;	
 	private InfoWindow infoWindowStore;
 
-	
 	@Override
 	public void start(Stage Stage) throws Exception {
 		
@@ -92,7 +91,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		bp.setCenter(mapView);
 		bp.setRight(sidePane);
 
-		Stage.setMaximized(true);
+		Stage.setWidth(1600);
+		Stage.setHeight(900);
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
 		Stage.show();

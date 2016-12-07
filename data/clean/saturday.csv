@@ -68,8 +68,8 @@ J.D. McGillicuddy's Manayunk	40.0255643502593	-75.2222046729253	111 Cotton Stree
 Jake's & Cooper's Wine Bar	40.02588	-75.2241	4367 Main Street	5:00 pm	7:00 pm	$4 "Cheap" Red and White Wine, $3 Local Beer, $5 Specialty Cocktails, all at the bar only
 Jet Wine Bar	39.94403	-75.16799	1525 South Street	4:00 pm	7:00 pm	$5 House Wines, $5 Cocktail du jour, $3 Kenzinger, $5 Nachos
 JJ Bootleggers	39.948986	-75.14377	35 S. 2nd Street	12:00 pm	12:00 am	$6 Moonshine Milkshakes
-Kildare's Irish Pub	39.9606448	-75.6045145	4417 Main Street	11:00 am	12:00 am	$3 Coors Lite, Yuengling, & Miller Lite drafts and $4 Blue Moon drafts
-Kildare's Irish Pub	39.9606448	-75.6045145	4417 Main Street	9:00 pm	11:00 pm	$3 drafts,  $4 Red Bull Vodkas and 1/2 Price Liquor
+Kildare's Irish Pub	40.0264	-75.22523	4417 Main Street	11:00 am	12:00 am	$3 Coors Lite, Yuengling, & Miller Lite drafts and $4 Blue Moon drafts
+Kildare's Irish Pub	40.0264	-75.22523	4417 Main Street	9:00 pm	11:00 pm	$3 drafts,  $4 Red Bull Vodkas and 1/2 Price Liquor
 Landmark Americana	39.955958656785	-75.1906506718341	3333 Market Street	11:00 am	12:00 am	$2.50 Coors Light
 Landmark Americana	39.955958656785	-75.1906506718341	3333 Market Street	11:00 pm	1:00 am	$2 Narragansett, $3 Soco Lime shots and $3.50 Sangria
 Liberty Bar	40.216671	-74.7301102	2204 Market Street	9:00 pm	2:00 am	$4 Well drinks, $4 Fireball, $3 Yuengling
@@ -91,7 +91,7 @@ Mix Pizzeria & Bar	39.9418106	-75.1537476	2101 Chestnut Street	5:00 pm	7:00 pm	$
 Nomad Roman	39.9480175237328	-75.1626882640886	1305 Locust Street	10:00 pm	12:00 am	$5 bar pizzas; $4 draft beer specials; $5 select wine glasses; $25 select wine bottles
 O'Neals Pub	39.941026	-75.147402	611 S 3rd Street	9:00 am	2:00 am	All Day $3 Bud, Bud Lite, & Bud Lite Lime
 Oyster House	39.953690777844	-75.193338491278	1516 Sansom Street	9:00 pm	11:00 pm	$1 oysters, $3 shooters, $3 drafts and $5 punch
-Paddy Whack's Irish Sports Pub NE	Paddy Whack's Irish Sports Pub NE	no business found!	9241 Roosevelt Blvd	9:00 pm	10:00 pm	$1 Bud Light bottles, $5 Bombs
+Paddy Whack's Irish Sports Pub NE	40.074489	-75.031733	9241 Roosevelt Blvd	9:00 pm	10:00 pm	$1 Bud Light bottles, $5 Bombs
 Panorama	40.3200972	-75.6101844	14 N Front Street	3:00 pm	5:00 pm	At the Wine Bar: $5 off every wine tasting flight, $5 select wines, $4 select beers and $4 off signature cocktails; half off appetizer menu
 Pinocchio's	39.9164780613895	-75.3867324538851	131 E Baltimore Pike	12:00 am	12:00 am	All you can eat pizza and soda or pasta and salad for $7.59
 Prohibition Taproom	39.96131	-75.15929	501 N 13th Street	12:00 pm	4:00 pm	Free Bloody Mary or Mimosa with Brunch Entree
@@ -109,7 +109,7 @@ Sidecar Bar	39.94182	-75.17947	2201 Christian Street	10:00 pm	1:00 am	$10 Burger
 Slainte Pub & Grill	39.9548158049583	-75.1836068183184	3000 Market St; 19104	3:00 pm	5:00 pm	$1 off all pints, bottles and pitchers of beer, $1 off all well, call and top shelf liquor drinks, and $1 off all wines by the glass; $5 select appetizer menu
 Smokey Joe's	39.9538174	-75.2028336	210 South 40th Street	3:00 pm	6:00 pm	$2.50 pints, $7.50 pitchers and $15 pizza and pitcher
 Sto's Bar	39.9500081317078	-75.1446980850962	236 Market Street	12:00 pm	2:00 am	$2.50 High Life Bottles; $5 Well Drinks; $8 Rolling Rock Pitchers; $10 Walt Wit Pitchers; $11 Brisket Sammy and Beer
-SuGa	39.95061	-75.1696599	1720 Sansom Street	10:00 pm	12:00 am	No description
+SuGa	39.95061	-75.1696599	1720 Sansom Street	10:00 pm	12:00 am	no description
 Tabu Lounge & Sports Bar	39.948458161501	-75.160737411182	200 S 12th Street	11:00 am	12:00 am	$4 seasonal drafts and cans and $7 Absolut Monsters; half-priced Tater Tots
 Tabu Lounge & Sports Bar	39.948458161501	-75.160737411182	200 S 12th Street	5:00 pm	7:00 pm	$1 off All Drinks
 Tattooed Mom	39.9417	-75.15187	530 South Street	5:00 pm	7:00 pm	1/2 Off All Drafts
@@ -117,7 +117,7 @@ Tattooed Mom	39.9417	-75.15187	530 South Street	10:00 pm	11:00 pm	1/2 Off All Dr
 Tavern on Broad	39.94905	-75.16485	200 S. Broad Street	12:00 pm	8:00 pm	$3 Coors Light Drafts, $5 Malibu Drinks, $25 Coors Light Towers, $35 Blue Moon Towers
 The Olde Bar	39.95018	-75.16253	125 Walnut Street	4:00 pm	6:00 pm	Buck-a-Shuck Oysters & Bar Specials
 Trestle Inn, The	39.9588257	-75.1566756	339 N 11th St	5:00 pm	7:00 pm	$2 Drafts; $5 Happy Hour Whiskey Sour, Trestlewide, Spirit with Mixer (rocks or neat); $1 Rosemary Parmesan Popcorn
-Twisted Tail, The	39.9418297	-75.1451111	509-511 S. 2nd Street	5:00 pm	7:00 pm	$3 select drafts, $4 house wines and specialty cocktail menu; $4-6 small plates
+Twisted Tail, The	39.94178	-75.14513	509-511 S. 2nd Street	5:00 pm	7:00 pm	$3 select drafts, $4 house wines and specialty cocktail menu; $4-6 small plates
 Union Transfer	39.961536980092	-75.155339421034	1026 Spring Garden Street	9:00 pm	12:00 am	Post-Show Happy Hour (Start Time Varies): $2 Miller High Life Drafts, $3 Three Olives Drinks, $4 Jack Daniels Drinks
 Varga Bar	39.94629	-75.1577499	941 Spruce St	4:00 pm	6:00 pm	1/2 Off Draft Beers, Cocktails, Chardonnay, & Cabernet
 Watkin's Drinkery	39.9279404	-75.1620865	1712 S 10th Street	5:00 pm	7:00 pm	1/2 price on all drafts

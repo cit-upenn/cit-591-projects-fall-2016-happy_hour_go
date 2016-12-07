@@ -6,7 +6,7 @@ package search;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import util.FileReader;
+import dataPrep.FileReader;
 
 /**
  * This class reads in clean .csv file while contains all bars with Happy Hour on a given weekday
