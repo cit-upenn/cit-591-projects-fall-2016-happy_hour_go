@@ -1,50 +1,50 @@
 package mapMaker;
 
+//import java.awt.Image;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 //import javafx.scene.control.Button;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
+import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.Animation;
-import com.lynden.gmapsfx.javascript.object.InfoWindow;
-import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
-
-import netscape.javascript.JSObject;
-import search.Bar;
-import search.BarData;
-import search.BarFinder;
-import mapMaker.DataSender;
-import mapMaker.AlertBox;
-import search.FileFetcher;
-import yelp.YelpAPI;
 
 import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.web.WebView;
-import javafx.scene.effect.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import netscape.javascript.JSObject;
+import search.Bar;
+import search.BarData;
+import search.BarFinder;
+import search.FileFetcher;
+import yelp.YelpAPI;
+
 
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
@@ -101,7 +101,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		bp.setCenter(mapView);
 		bp.setRight(sidePane);
 
-		Stage.setMaximized(true);
+		Stage.setWidth(1600);
+		Stage.setHeight(900);
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
 		Stage.show();
@@ -234,10 +235,33 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				ImageView imgView2 = new ImageView(logoImage);
 				Label logoImageLbl = createLabeledImage(imgView2);
 				
+				Label displayAddress = new Label(yelpResult.getDisplay_address());
+				Label displayPhone = new Label(yelpResult.getDisplay_phone());
+
 				descLabel.setWrapText(true);
+				displayAddress.setWrapText(true);	
 				
+//				WebView browser = new WebView(); 
+//				WebEngine webEngine = browser.getEngine();
+//				webEngine.load(yelpResult.getMobile_url());
+
+				
+				URL url = null;
+//			BufferedImage image;
+//
+				try {
+					 url = new URL(yelpResult.getUrl());
+
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+
+//		        Image image = new Image();
+
+
 				sidePane.getChildren().clear();
-				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,labelImage, logoImageLbl);
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl);
+
 				infoWindowStore  = barInfoWindow;
 			});
 		
