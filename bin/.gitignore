@@ -1,2 +1,10 @@
+/.gitignore
+/.project
+/META-INF/
+/com/
+/dataPrep/
+/html/
 /mapMaker/
 /search/
+/util/
+/yelp/

@@ -1,8 +1,6 @@
 package mapMaker;
 
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
