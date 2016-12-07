@@ -15,10 +15,16 @@ public class DataSender {
 	private ArrayList<Double> addrLon = new ArrayList<Double>();
 	private ArrayList<Double> addrLat = new ArrayList<Double>();
 	private ArrayList<String> names = new ArrayList<String>();
-	private ArrayList<String> Description = new ArrayList<String>();
+	private ArrayList<String> startTime = new ArrayList<>();
+	private ArrayList<String> endTime = new ArrayList<>();
+	private ArrayList<String> description = new ArrayList<String>();
 	
 //	FileReader fr = new FileReader("./data/clean/monday.csv");
 		
+	/**
+	 * Constructor: iterates an arraylist of bars, get each bar's fields and store in instance variables.
+	 * @param hhResult the search result of current happy hours.
+	 */
 	public DataSender(ArrayList<Bar> hhResult){		
 		for (Bar b : hhResult) {
 			double lon = Double.parseDouble(b.getLon());
@@ -28,6 +34,14 @@ public class DataSender {
 			addrLon.add(lon);
 			addrLat.add(lat);
 			names.add(name);
+			
+			String start = b.getStartTimeString();
+			String end = b.getEndTimeString();
+			startTime.add(start);
+			endTime.add(end);
+			
+			String desc = b.getDescriptionString();
+			description.add(desc);
 			
 //			System.out.println(message);
 		}
@@ -43,5 +57,17 @@ public class DataSender {
 
 	public ArrayList<String> getName() {
 		return names;
+	}
+
+	public ArrayList<String> getStartTime() {
+		return startTime;
+	}
+
+	public ArrayList<String> getEndTime() {
+		return endTime;
+	}
+
+	public ArrayList<String> getDescription() {
+		return description;
 	}
 }

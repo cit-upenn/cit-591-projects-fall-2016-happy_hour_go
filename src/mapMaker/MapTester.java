@@ -75,9 +75,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		goButton.setStyle("-fx-background-color: linear-gradient(#ffd65b, #e68400), linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22), linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%); -fx-text-fill: #654b00;");
 		
 		sidePane = new VBox(10);
-		sidePane.setPadding(new Insets(20, 20, 0, 20));
+		sidePane.setPadding(new Insets(20, 20, 20, 20));
 		sidePane.setPrefHeight(50);
-		sidePane.setPrefWidth(300);
+		sidePane.setPrefWidth(400);
 		sidePane.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().add(goButton);
 		markers = new ArrayList<Marker>();
@@ -91,11 +91,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		Scene scene = new Scene(bp);
 		bp.setCenter(mapView);
 		bp.setRight(sidePane);
-		
-//		StackPane sp = new StackPane();
-//		sp.getChildren().addAll(mapView, goButton);
-//		sp.setAlignment(Pos.CENTER);
-		
+
 		Stage.setMaximized(true);
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
@@ -123,12 +119,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				.styleString("[{'featureType':'landscape','stylers':[{'hue':'#FFBB00'},{'saturation':43.400000000000006},{'lightness':37.599999999999994},{'gamma':1}]},{'featureType':'road.highway','stylers':[{'hue':'#FFC200'},{'saturation':-61.8},{'lightness':45.599999999999994},{'gamma':1}]},{'featureType':'road.arterial','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':51.19999999999999},{'gamma':1}]},{'featureType':'road.local','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':52},{'gamma':1}]},{'featureType':'water','stylers':[{'hue':'#0078FF'},{'saturation':-13.200000000000003},{'lightness':2.4000000000000057},{'gamma':1}]},{'featureType':'poi','stylers':[{'hue':'#00FF6A'},{'saturation':-1.0989010989011234},{'lightness':11.200000000000017},{'gamma':1}]}]");
 				
         map = mapView.createMap(options);
-        
-//        DropShadow shadow = new DropShadow();
-      
-//        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {goButton.setEffect(shadow); });
-////        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-////        	goButton.setEffect(shadow); });
         
         setupJSAlerts(mapView.getWebview());
         
@@ -173,9 +163,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
-		for (Bar bar : searchResult) {
-			System.out.println(bar.name + ' ' + bar.startTimeString + ' ' + bar.endTimeString + ' ' + bar.descriptionString);
-		}
+//		for (Bar bar : searchResult) {
+//			System.out.println(bar.name + ' ' + bar.startTimeString + ' ' + bar.endTimeString + ' ' + bar.descriptionString);
+//		}
     }
     
     private void putMarker() {
@@ -198,8 +188,11 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
 	        String name = ds.getName().get(i);
 	        infoWindowOptions.content(name);
-	        
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
+	        
+	        String startTime = ds.getStartTime().get(i);
+	        String endTime = ds.getEndTime().get(i);
+	        String description = ds.getDescription().get(i);
 
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
 				
@@ -209,12 +202,16 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				infoWindowStore.close();
 				barInfoWindow.open(map, marker);
 				
-				YelpAPI.search2(barInfoWindow.getContent());
+				String result = YelpAPI.search1(name);
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
 				
 				Label nameLabel = new Label(name);
+				Label timeLabel = new Label(startTime + " - " + endTime);
+				Label descLabel = new Label(description);
+				descLabel.setWrapText(true);
+				
 				sidePane.getChildren().clear();
-				sidePane.getChildren().add(nameLabel);
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel);
 				infoWindowStore  = barInfoWindow;
 			});
 		

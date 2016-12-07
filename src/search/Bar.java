@@ -93,4 +93,8 @@ public class Bar {
 	public String getEndTimeString() {
 		return endTimeString;
 	}
+
+	public String getDescriptionString() {
+		return descriptionString;
+	}
 }

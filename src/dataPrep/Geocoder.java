@@ -10,7 +10,15 @@ import java.util.regex.Pattern;
 import util.FileReader;
 import yelp.YelpAPI;
 
+/**
+ * This class uses Yelp API to query business information. The geocodes of the businesses are written to a file.
+ * @author Han Zhu
+ *
+ */
 public class Geocoder {
+	/**
+	 * Read in unique-bars.csv for bar names. Use bar names to query Yelp API for their geocodes. Write the results to the same file. 
+	 */
 	public static void geocode() {
 		try {
 			FileReader fr = new FileReader("data/clean/unique-bars.csv");
