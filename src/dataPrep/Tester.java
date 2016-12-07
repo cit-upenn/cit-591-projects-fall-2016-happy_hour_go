@@ -41,6 +41,7 @@ public class Tester {
 			FileReader fr2 = new FileReader("data/clean/unique-bars.csv");
 			fr2.readFile();
 			HashMap<String, ArrayList<String>> geo = new HashMap<>();
+			
 			for (String line : fr2.getLines()) {
 				ArrayList<String> coordinates = new ArrayList<>();
 				String[] fields = line.split("\t");

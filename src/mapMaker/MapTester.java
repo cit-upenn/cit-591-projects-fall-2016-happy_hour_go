@@ -70,10 +70,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		mapView.addMapInializedListener(this);
 		goButton = new Button("Happy Hour Go!");
 		goButton.setMaxSize(130, 130);
-		goButton.setStyle("-fx-background-color: linear-gradient(#ffd65b, #e68400), "
-				+ "linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22),"
-				+ "linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);"
-				+ " -fx-text-fill: #654b00;");
+		goButton.setStyle("-fx-background-color: linear-gradient(#ffd65b, #e68400), linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22), linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%); -fx-text-fill: #654b00;");
 		
 		sidePane = new VBox(10);
 		sidePane.setPadding(new Insets(20, 20, 0, 20));
@@ -150,11 +147,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 					AlertBox.display("No Happy Hour Now!","Come back later.");
 					return;
 				}
-				
 				putMarker();
 			}
         });
-        
     }
     /**
      * This method runs search algorithm upon button press, initialize DataSender
@@ -171,10 +166,10 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
-//		System.out.println(searchResult.size());
-		
+		for (Bar bar : searchResult) {
+			System.out.println(bar.name + ' ' + bar.startTimeString + ' ' + bar.endTimeString + ' ' + bar.descriptionString);
+		}
     }
-    
     
     private void putMarker() {
     	//Add all marker to the map
@@ -187,27 +182,29 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	                    .title("My Marker" + i)
 	                    .animation(Animation.BOUNCE)
 	                    .visible(true);
-
-
-	        Marker marker = new Marker( markerOptions );
+	        Marker marker = new Marker(markerOptions);
 
 	        markers.add(marker);
 	        map.addMarker(marker);
-
 
 	        //Add a Info to the map
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
 	        String name = ds.getName().get(i);
 	        infoWindowOptions.content(name);
+	        
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
+	        
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
 				map.setCenter(markerCenter);
-				map.setZoom(14);
+				map.setZoom(15);
 
 				barInfoWindow.open(map, marker);
-				YelpAPI.start(barInfoWindow.getContent());
+				
+				YelpAPI.search2(barInfoWindow.getContent());
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
+				
 				Label nameLabel = new Label(name);
+				sidePane.getChildren().clear();
 				sidePane.getChildren().add(nameLabel);
 			});
         }
