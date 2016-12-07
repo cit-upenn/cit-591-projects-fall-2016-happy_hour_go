@@ -2,6 +2,7 @@ package mapMaker;
 
 
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -32,6 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -242,19 +244,38 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				displayAddress.setWrapText(true);	
 				
 
-				Hyperlink link = new Hyperlink(yelpResult.getUrl());
-
-				link.setOnAction(new EventHandler<ActionEvent>() {
-	                @Override
-	                public void handle(ActionEvent t) {
-	                	getHostServices().showDocument(link.getText());
-
-	                }
-	            });
-				link.setWrapText(true);
-
+//				Hyperlink link = new Hyperlink(yelpResult.getUrl());
+//
+//				link.setOnAction(new EventHandler<ActionEvent>() {
+//	                @Override
+//	                public void handle(ActionEvent t) {
+//	                	getHostServices().showDocument(link.getText());
+//
+//	                }
+//	            });
+//				link.setWrapText(true);
+//				
+//				
+//				Hyperlink myHyperlink = new Hyperlink();
+//				myHyperlink.setText("My Link Text");
+//
+//		
+//				
+//				WebView browser = new WebView();
+//				browser.getEngine().load(link.getText());
+//				WebEngine webEngine = browser.getEngine();
+				Hyperlink hl = new Hyperlink(sometext);
+				hl.setTooltip(new Tooltip(theurlhere);
+				hl.setOnAction((ActionEvent event) -> {
+				    Hyperlink h = (Hyperlink) event.getTarget();
+				    String s = h.getTooltip().getText();
+				    getHostServices.showDocument(s);
+				    event.consume();
+				});
+			
+	
 				sidePane.getChildren().clear();
-				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl);
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, url);
 
 				infoWindowStore  = barInfoWindow;
 			});
