@@ -12,7 +12,6 @@ public class Bar {
 	public String lat;
 	public String lon;
 	public String address;
-//	public String phone;
 	public ArrayList<String> startTime;
 	public ArrayList<String> endTime;
 	public ArrayList<String> description;

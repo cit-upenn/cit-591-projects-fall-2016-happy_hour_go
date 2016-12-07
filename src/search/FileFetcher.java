@@ -1,6 +1,6 @@
 package search;
 
-import util.FileReader;
+import dataPrep.FileReader;
 /**
  * Find the file to search based on user input current time 
  * @author Han Zhu, Jill Gao
