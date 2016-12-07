@@ -1,22 +1,9 @@
 package mapMaker;
 
-import java.awt.Desktop;
-import java.awt.Image;
-import java.awt.TextField;
-import java.awt.image.BufferedImage;
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.swing.GroupLayout.Group;
-import javax.swing.ImageIcon;
-import javax.swing.text.Element;
-import javax.swing.text.html.ImageView;
 
 //import javafx.scene.control.Button;
 import com.lynden.gmapsfx.GoogleMapView;
@@ -57,7 +44,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.ListView;
+
 
 
 /**
@@ -225,7 +212,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
 //				System.out.println(result);
 				YelpResult yelpResult = new YelpResult(result);
-//				System.out.println(yelpResult.getRating());
 				
 				Label nameLabel = new Label(name);
 				Label timeLabel = new Label(startTime + " - " + endTime);
@@ -234,12 +220,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				Label displayPhone = new Label(yelpResult.getDisplay_phone());
 				descLabel.setWrapText(true);
 				displayAddress.setWrapText(true);	
-				
-//				WebView browser = new WebView(); 
-//				WebEngine webEngine = browser.getEngine();
-//				webEngine.load(yelpResult.getRating_img_url());
-//
-//				browser.setMaxSize(70, 15);
 				
 
 				Hyperlink link = new Hyperlink(yelpResult.getUrl());
@@ -252,11 +232,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	                }
 	            });
 				link.setWrapText(true);
-				
-//				TextField urlField = new TextField();
-//			        Button b = new Button("Add Links");
-//			        sidePane.getChildren().addAll(b, urlField);
-
 
 				sidePane.getChildren().clear();
 				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel, displayPhone, displayAddress, link);
