@@ -1,8 +1,20 @@
 package mapMaker;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.swing.GroupLayout.Group;
+import javax.swing.ImageIcon;
+import javax.swing.text.Element;
+import javax.swing.text.html.ImageView;
 
 //import javafx.scene.control.Button;
 import com.lynden.gmapsfx.GoogleMapView;
@@ -30,6 +42,7 @@ import yelp.YelpAPI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.scene.effect.*;
 import javafx.stage.Modality;
@@ -41,6 +54,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
@@ -92,7 +106,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		bp.setCenter(mapView);
 		bp.setRight(sidePane);
 
-		Stage.setMaximized(true);
+		Stage.setWidth(1600);
+		Stage.setHeight(900);
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
 		Stage.show();
@@ -211,10 +226,32 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				Label nameLabel = new Label(name);
 				Label timeLabel = new Label(startTime + " - " + endTime);
 				Label descLabel = new Label(description);
+				Label displayAddress = new Label(yelpResult.getDisplay_address());
+				Label displayPhone = new Label(yelpResult.getDisplay_phone());
 				descLabel.setWrapText(true);
+				displayAddress.setWrapText(true);	
 				
+//				WebView browser = new WebView(); 
+//				WebEngine webEngine = browser.getEngine();
+//				webEngine.load(yelpResult.getMobile_url());
+
+				
+				URL url = null;
+//			BufferedImage image;
+//
+				try {
+					 url = new URL(yelpResult.getUrl());
+
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+
+//		        Image image = new Image();
+
+
 				sidePane.getChildren().clear();
-				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel);
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel, displayPhone, displayAddress);
+
 				infoWindowStore  = barInfoWindow;
 			});
 		
