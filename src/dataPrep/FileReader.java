@@ -1,4 +1,4 @@
-package util;
+package dataPrep;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,15 +11,13 @@ import java.util.Scanner;
  *
  */
 public class FileReader {
-	private String outPage;
+	private String webpageString;
 //	read a webpage as a single string.
-	private ArrayList<String> bars;
 	private ArrayList<String> lines;
 	private String fileName;
 	
 	public FileReader(String fileName) {
-		outPage = "";
-		bars = new ArrayList<String>();
+		webpageString = "";
 		lines = new ArrayList<String>();
 		this.fileName = fileName;
 	}
@@ -42,7 +40,7 @@ public class FileReader {
 			sb.append(line.trim() + " ");
 		}
 		
-		outPage = sb.toString();
+		webpageString = sb.toString();
 		
 		in.close();
 	}
@@ -62,27 +60,12 @@ public class FileReader {
 		in.close();
 	}
 	
-	/**
-	 * Split the webpage by "barItem". Ignore the first piece.
-	 */
-	public void splitBars() {
-		String[] splitted = outPage.split("barItem");
-		
-		for (int i = 1; i < splitted.length; i++) {
-			bars.add(splitted[i]);
-		}
-	}
-	
 	public String getFileName() {
 		return fileName;
 	}
 
-	public String getOutPage() {
-		return outPage;
-	}
-
-	public ArrayList<String> getBars() {
-		return bars;
+	public String getWebpageString() {
+		return webpageString;
 	}
 
 	public ArrayList<String> getLines() {

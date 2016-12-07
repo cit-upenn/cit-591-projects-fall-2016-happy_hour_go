@@ -1,13 +1,9 @@
 package dataPrep;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import util.FileReader;
 import yelp.YelpAPI;
 
 /**
@@ -19,54 +15,32 @@ public class Geocoder {
 	/**
 	 * Read in unique-bars.csv for bar names. Use bar names to query Yelp API for their geocodes. Write the results to the same file. 
 	 */
-	public static void geocode() {
+	public ArrayList<String> geocode(String barName) {		
+		ArrayList<String> geocodes = new ArrayList<>();
+		
+		Pattern lat = Pattern.compile("\"latitude\": (.*?),");
+		Pattern lon = Pattern.compile("\"longitude\": (.*?)}");
+			
 		try {
-			FileReader fr = new FileReader("data/clean/unique-bars.csv");
-			fr.readFile();
-			System.out.println(fr.getLines().size());
+			String result = YelpAPI.search1(barName);
 			
-			Pattern lat = Pattern.compile("\"latitude\": (.*?),");
-			Pattern lon = Pattern.compile("\"longitude\": (.*?)}");
-			
-			YelpAPI.search2("Hawthorne's Biercafe");
-			
-			PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream("data/clean/unique-bars.csv", true)));
-			
-			for (int i = 0; i < fr.getLines().size(); i++) {
-				String bar = fr.getLines().get(i);
-				String[] barFields = bar.split("\t");
+			Matcher latM = lat.matcher(result);
+			Matcher lonM = lon.matcher(result);
 				
-				try {
-					String result = YelpAPI.search1(barFields[2]);
-					
-					Matcher latM = lat.matcher(result);
-					Matcher lonM = lon.matcher(result);
-					
-					StringBuilder sb = new StringBuilder();
-					
-					if (latM.find()) {
-						sb.append(latM.group(1));
-					} else {
-						sb.append("no lat found!");
-					}
-					if (lonM.find()) {
-						sb.append('\t' + lonM.group(1));
-					} else {
-						sb.append("\tno lon found!");
-					}
-					out.println(sb.toString());
-				} catch (IndexOutOfBoundsException ioobe) {
-					out.println(barFields[2] + "\tno business found!");
-				}
+			if (latM.find()) {
+				geocodes.add(latM.group(1));
+			} else {
+				geocodes.add("no lat found!");
 			}
-			out.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (lonM.find()) {
+				geocodes.add(lonM.group(1));
+			} else {
+				geocodes.add("no lon found!");
+			}
+		} catch (IndexOutOfBoundsException ioobe) {
+			geocodes.add(barName);
+			geocodes.add("no business found!");
 		}
-	}
-	
-	public static void main(String[] args) {
-		geocode();
+		return geocodes;
 	}
 }

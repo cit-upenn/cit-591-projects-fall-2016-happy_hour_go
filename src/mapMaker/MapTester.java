@@ -1,6 +1,5 @@
 package mapMaker;
 
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,9 +44,6 @@ import search.FileFetcher;
 import yelp.YelpAPI;
 import javafx.scene.control.Hyperlink;
 
-
-
-
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
  * @author Jiahui, He Gao, Han Zhu
@@ -73,7 +69,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private ImageView imageView;
 	private String yelpRatingImgUrl;
 
-	
 	@Override
 	public void start(Stage Stage) throws Exception {
 		
@@ -255,8 +250,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				link.setWrapText(true);
 
 				sidePane.getChildren().clear();
-				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, 
-						labelImage, logoImageLbl, link);
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, link);
 
 				infoWindowStore  = barInfoWindow;
 			});

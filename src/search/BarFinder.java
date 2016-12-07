@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import dataPrep.FileReader;
 import dataPrep.Parser;
-import util.FileReader;
 
 /**
  * This class based on user input time, output the bars that are currently on Happy Hour
