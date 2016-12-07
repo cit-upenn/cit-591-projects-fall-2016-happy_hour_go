@@ -204,6 +204,9 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				
 				String result = YelpAPI.search1(name);
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
+//				System.out.println(result);
+				YelpResult yelpResult = new YelpResult(result);
+//				System.out.println(yelpResult.getRating());
 				
 				Label nameLabel = new Label(name);
 				Label timeLabel = new Label(startTime + " - " + endTime);
