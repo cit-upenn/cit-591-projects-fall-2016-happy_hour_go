@@ -1,6 +1,5 @@
 package mapMaker;
 
-//import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -44,6 +43,9 @@ import search.BarData;
 import search.BarFinder;
 import search.FileFetcher;
 import yelp.YelpAPI;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListView;
+
 
 
 /**
@@ -243,20 +245,25 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				
 //				WebView browser = new WebView(); 
 //				WebEngine webEngine = browser.getEngine();
-//				webEngine.load(yelpResult.getMobile_url());
-
-				
-				URL url = null;
-//			BufferedImage image;
+//				webEngine.load(yelpResult.getRating_img_url());
 //
-				try {
-					 url = new URL(yelpResult.getUrl());
+//				browser.setMaxSize(70, 15);
+				
 
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				}
+				Hyperlink link = new Hyperlink(yelpResult.getUrl());
 
-//		        Image image = new Image();
+				link.setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent t) {
+	                	getHostServices().showDocument(link.getText());
+
+	                }
+	            });
+				link.setWrapText(true);
+				
+//				TextField urlField = new TextField();
+//			        Button b = new Button("Add Links");
+//			        sidePane.getChildren().addAll(b, urlField);
 
 
 				sidePane.getChildren().clear();
