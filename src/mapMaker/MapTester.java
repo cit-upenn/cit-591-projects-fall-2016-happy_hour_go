@@ -8,42 +8,42 @@ import java.util.Calendar;
 //import javafx.scene.control.Button;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
+import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.Animation;
-import com.lynden.gmapsfx.javascript.object.InfoWindow;
-import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
-
-import netscape.javascript.JSObject;
-import search.Bar;
-import search.BarData;
-import search.BarFinder;
-import mapMaker.DataSender;
-import mapMaker.AlertBox;
-import search.FileFetcher;
-import yelp.YelpAPI;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.scene.effect.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import netscape.javascript.JSObject;
+import search.Bar;
+import search.BarData;
+import search.BarFinder;
+import search.FileFetcher;
+import yelp.YelpAPI;
 import javafx.scene.control.Hyperlink;
+
 
 
 
@@ -67,6 +67,10 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private ArrayList<Marker> markers;
 	private DataSender ds;	
 	private InfoWindow infoWindowStore;
+	
+	private Image image;
+	private ImageView imageView;
+	private String yelpRatingImgUrl;
 
 	
 	@Override
@@ -85,6 +89,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		sidePane.setPrefWidth(400);
 		sidePane.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().add(goButton);
+		
 		markers = new ArrayList<Marker>();
 
 //		ToolBar tb = new ToolBar();
@@ -213,11 +218,26 @@ public class MapTester extends Application implements MapComponentInitializedLis
 //				System.out.println(result);
 				YelpResult yelpResult = new YelpResult(result);
 				
+				
 				Label nameLabel = new Label(name);
 				Label timeLabel = new Label(startTime + " - " + endTime);
 				Label descLabel = new Label(description);
+				
+				// yelp rating star image
+				yelpRatingImgUrl = yelpResult.getRating_img_url();
+			    image = new Image(yelpRatingImgUrl, true);
+			    imageView = new ImageView(image);
+				Label labelImage = createLabeledImage(imageView);
+
+			    // yelp logo image
+			    String yelpLogoImg = "https://s3-media3.fl.yelpcdn.com/assets/srv0/www_pages/24e1fe240f00/assets/img/brand_guidelines/yelp_fullcolor_outline.png";
+				Image logoImage = new Image(yelpLogoImg, true);
+				ImageView imgView2 = new ImageView(logoImage);
+				Label logoImageLbl = createLabeledImage(imgView2);
+				
 				Label displayAddress = new Label(yelpResult.getDisplay_address());
 				Label displayPhone = new Label(yelpResult.getDisplay_phone());
+
 				descLabel.setWrapText(true);
 				displayAddress.setWrapText(true);	
 				
@@ -234,12 +254,20 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				link.setWrapText(true);
 
 				sidePane.getChildren().clear();
-				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel, displayPhone, displayAddress, link);
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl);
+
 				infoWindowStore  = barInfoWindow;
 			});
 		
         }
 	}
+    
+    private Label createLabeledImage(ImageView imageView) {
+        Label labeledImage = new Label();
+        labeledImage.setGraphic(imageView);
+        return labeledImage;
+    }
+    
     
     /**
      * This method setup Alert box on the map
