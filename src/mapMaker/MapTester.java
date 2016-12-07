@@ -32,6 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -248,13 +249,14 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	                @Override
 	                public void handle(ActionEvent t) {
 	                	getHostServices().showDocument(link.getText());
-
+	                	
 	                }
 	            });
 				link.setWrapText(true);
 
 				sidePane.getChildren().clear();
-				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl);
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, 
+						labelImage, logoImageLbl, link);
 
 				infoWindowStore  = barInfoWindow;
 			});
