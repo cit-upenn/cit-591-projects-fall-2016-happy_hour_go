@@ -1,5 +1,6 @@
 package mapMaker;
 
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,7 +43,7 @@ import search.BarFinder;
 import search.FileFetcher;
 import yelp.YelpAPI;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.ListView;
+
 
 
 
@@ -216,7 +217,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
 //				System.out.println(result);
 				YelpResult yelpResult = new YelpResult(result);
-//				System.out.println(yelpResult.getRating());
 				
 				
 				Label nameLabel = new Label(name);
@@ -241,12 +241,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				descLabel.setWrapText(true);
 				displayAddress.setWrapText(true);	
 				
-//				WebView browser = new WebView(); 
-//				WebEngine webEngine = browser.getEngine();
-//				webEngine.load(yelpResult.getRating_img_url());
-//
-//				browser.setMaxSize(70, 15);
-				
 
 				Hyperlink link = new Hyperlink(yelpResult.getUrl());
 
@@ -258,11 +252,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	                }
 	            });
 				link.setWrapText(true);
-				
-//				TextField urlField = new TextField();
-//			        Button b = new Button("Add Links");
-//			        sidePane.getChildren().addAll(b, urlField);
-
 
 				sidePane.getChildren().clear();
 				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl);
