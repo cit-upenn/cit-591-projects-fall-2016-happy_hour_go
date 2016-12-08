@@ -7,13 +7,16 @@ import java.util.regex.Pattern;
 import yelp.YelpAPI;
 
 /**
- * This class uses Yelp API to query business information. The geocodes of the businesses are written to a file.
+ * This class uses Yelp API to query business information.
  * @author Han Zhu
  *
  */
 public class Geocoder {
+	
 	/**
-	 * Read in unique-bars.csv for bar names. Use bar names to query Yelp API for their geocodes. Write the results to the same file. 
+	 * Query Yelp API with restaurant name. The geocodes of the businesses are returned as an arraylist of string. 
+	 * @param barName
+	 * @return the coordinates of the restaurant.
 	 */
 	public ArrayList<String> geocode(String barName) {		
 		ArrayList<String> geocodes = new ArrayList<>();

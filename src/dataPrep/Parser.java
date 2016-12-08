@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Take in an ArrayList of String after FileReader has read a file. Parse the input and store the output as an ArrayList of Bar. 
+ * Take in an ArrayList of String after FileReader has read a file. Parse the input and store the output as an ArrayList of strings. 
  * @author Han Zhu
  *
  */
@@ -32,7 +32,7 @@ public class Parser {
 	}
 	
 	/**
-	 * Iterate through the input ArrayList<String>, match 4 patterns with the string, and store the matches in a Bar object.
+	 * Iterate through the input ArrayList<String>, match 4 patterns with the string, and store the matches in a string delimited by tab.
 	 * @param barsHTML the original html file splitted by "barItem".
 	 */
 	private void parseHTML(ArrayList<String> barsHTML) {

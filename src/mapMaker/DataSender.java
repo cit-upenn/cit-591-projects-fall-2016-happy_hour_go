@@ -33,12 +33,12 @@ public class DataSender {
 			addrLat.add(lat);
 			names.add(name);
 			
-			String start = b.getStartTimeString();
-			String end = b.getEndTimeString();
+			String start = b.getStartTime();
+			String end = b.getEndTime();
 			startTime.add(start);
 			endTime.add(end);
 			
-			String desc = b.getDescriptionString();
+			String desc = b.getDescription();
 			description.add(desc);
 			
 //			System.out.println(message);
