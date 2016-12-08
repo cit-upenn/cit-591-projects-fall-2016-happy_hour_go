@@ -25,7 +25,8 @@ public class YelpResult {
 	Pattern mobile_urlPattern = Pattern.compile("\"mobile_url\": \"(.*)\", \"rating_img_url\"");
 	Pattern rating_img_urlPattern = Pattern.compile("\"rating_img_url\": \"(.*.png)\", \"review_count\"");
 	Pattern rating_img_url_smallPattern = Pattern.compile("\"rating_img_url_small\": \"(.*.png)\", \"url\"");
-	Pattern urlPattern = Pattern.compile("\"url\": \"(.*)\", \"categories\"");
+//	Pattern urlPattern = Pattern.compile("\"url\": \"(.*)\", \"categories\"");
+	Pattern urlPattern = Pattern.compile("\"url\": \"(.*?)adjust");
 //	Pattern categoriesPattern = Pattern.compile("\"categories\":\\[(.*)\\], \"menu_date_updated\"");
 	Pattern display_phonePattern = Pattern.compile("\"display_phone\": \"(.*)\", \"rating_img_url_large\"");
 	Pattern display_addressPattern = Pattern.compile("\"display_address\": \\[(.*)\\], \"geo_accuracy\"");
@@ -68,7 +69,7 @@ public class YelpResult {
 		
 		matcher = urlPattern.matcher(result);
 		if (matcher.find()) {
-			url = matcher.group(1).trim();
+			url = matcher.group(1).replace("?", "");
 		}
 		
 		matcher = display_phonePattern.matcher(result);
@@ -84,9 +85,9 @@ public class YelpResult {
 		System.out.println(mobile_url);
 		System.out.println(rating_img_url);
 		System.out.println(rating_img_url_small);
-		System.out.println(url);
 		System.out.println(display_phone);
 		System.out.println(display_address);
+		System.out.println(url);
 
 	}
 

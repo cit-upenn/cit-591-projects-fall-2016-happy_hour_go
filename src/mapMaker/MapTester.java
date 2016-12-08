@@ -1,5 +1,6 @@
 package mapMaker;
 
+
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ import search.FileFetcher;
 import yelp.YelpAPI;
 import javafx.scene.control.Hyperlink;
 
+
+
+
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
  * @author Jiahui, He Gao, Han Zhu
@@ -70,6 +74,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private ImageView imageView;
 	private String yelpRatingImgUrl;
 
+	
 	@Override
 	public void start(Stage Stage) throws Exception {
 		
@@ -171,6 +176,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
+		System.out.println(searchResult.size());
 //		for (Bar bar : searchResult) {
 //			System.out.println(bar.name + ' ' + bar.startTimeString + ' ' + bar.endTimeString + ' ' + bar.descriptionString);
 //		}
@@ -239,42 +245,21 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				displayAddress.setWrapText(true);	
 				
 
-//				Hyperlink link = new Hyperlink(yelpResult.getUrl());
+				Hyperlink link = new Hyperlink(yelpResult.getUrl());
 //
-//				link.setOnAction(new EventHandler<ActionEvent>() {
-//	                @Override
-//	                public void handle(ActionEvent t) {
-//	                	getHostServices().showDocument(link.getText());
-//
-//	                }
-//	            });
-//				link.setWrapText(true);
-//				
-//				
-//				Hyperlink myHyperlink = new Hyperlink();
-//				myHyperlink.setText("My Link Text");
-//
-//		
-//				
-//				WebView browser = new WebView();
-//				browser.getEngine().load(link.getText());
-//				WebEngine webEngine = browser.getEngine();
-				Hyperlink hl = new Hyperlink(sometext);
-				hl.setTooltip(new Tooltip(theurlhere);
-				hl.setOnAction((ActionEvent event) -> {
-				    Hyperlink h = (Hyperlink) event.getTarget();
-				    String s = h.getTooltip().getText();
-				    getHostServices.showDocument(s);
-				    event.consume();
-				});
-			
+				link.setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent t) {
+	                	getHostServices().showDocument(link.getText());
+
+	                }
+	            });
+				link.setWrapText(true);
+
+//				getHostServices().showDocument("http://www.google.com");
 	
 				sidePane.getChildren().clear();
-<<<<<<< HEAD
-				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, url);
-=======
 				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, link);
->>>>>>> 35206db5d3d5eb7d5a29677f1ae9bbc5d9ef4e3f
 
 				infoWindowStore  = barInfoWindow;
 			});
