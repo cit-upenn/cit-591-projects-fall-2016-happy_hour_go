@@ -7,47 +7,48 @@ import java.util.Calendar;
 //import javafx.scene.control.Button;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
+import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.Animation;
-import com.lynden.gmapsfx.javascript.object.InfoWindow;
-import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
-
-import netscape.javascript.JSObject;
-import search.Bar;
-import search.BarData;
-import search.BarFinder;
-import mapMaker.DataSender;
-import mapMaker.AlertBox;
-import search.FileFetcher;
-import yelp.YelpAPI;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.web.WebView;
-import javafx.scene.effect.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import netscape.javascript.JSObject;
+import search.Bar;
+import search.BarData;
+import search.BarFinder;
+import search.FileFetcher;
+import yelp.YelpAPI;
+import javafx.scene.control.Hyperlink;
 
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
  * @author Jiahui, He Gao, Han Zhu
  *
  */
-public class MapTester extends Application implements MapComponentInitializedListener{
+public class Go extends Application implements MapComponentInitializedListener{
 
 	private GoogleMapView mapView;
 	private GoogleMap map;
@@ -56,11 +57,16 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private Stage stage;
 	private Button goButton;
 	private VBox sidePane;
-	private AlertBox alert;
 	
 	private ArrayList<Bar> searchResult;
 	private ArrayList<Marker> markers;
 	private DataSender ds;	
+	private InfoWindow infoWindowStore;
+	
+	private Image image;
+	private ImageView imageView;
+	private String yelpRatingImgUrl;
+
 	
 	@Override
 	public void start(Stage Stage) throws Exception {
@@ -70,33 +76,25 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		mapView.addMapInializedListener(this);
 		goButton = new Button("Happy Hour Go!");
 		goButton.setMaxSize(130, 130);
-		goButton.setStyle("-fx-background-color: linear-gradient(#ffd65b, #e68400), "
-				+ "linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22),"
-				+ "linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);"
-				+ " -fx-text-fill: #654b00;");
+		goButton.setStyle("-fx-background-color: linear-gradient(#ffd65b, #e68400), linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22), linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%); -fx-text-fill: #654b00;");
 		
 		sidePane = new VBox(10);
-		sidePane.setPadding(new Insets(20, 20, 0, 20));
+		sidePane.setPadding(new Insets(20, 20, 20, 20));
 		sidePane.setPrefHeight(50);
-		sidePane.setPrefWidth(300);
+		sidePane.setPrefWidth(400);
 		sidePane.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().add(goButton);
+		
 		markers = new ArrayList<Marker>();
-
-//		ToolBar tb = new ToolBar();
-//		tb.getItems().add(goButton);
-//		tb.opaqueInsetsProperty(); // set opaqueness ?
 		
 		/* set overall layout */
 		BorderPane bp = new BorderPane();
 		Scene scene = new Scene(bp);
 		bp.setCenter(mapView);
 		bp.setRight(sidePane);
-		
-//		StackPane sp = new StackPane();
-//		sp.getChildren().addAll(mapView, goButton);
-//		sp.setAlignment(Pos.CENTER);
-		
+
+		Stage.setWidth(1600);
+		Stage.setHeight(900);
 		Stage.setScene(scene);
 		Stage.setTitle("Happy Hour Go!");
 		Stage.show();
@@ -120,22 +118,21 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				.streetViewControl(false)
 				.zoom(12)
 				.zoomControl(true)
-				.styleString("[{'stylers':[{'hue':'#dd0d0d'}]},{'featureType':'road','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'geometry','stylers':[{'lightness':100},{'visibility':'simplified'}]}]");
-	
+				.styleString("[{'featureType':'landscape','stylers':[{'hue':'#FFBB00'},{'saturation':43.400000000000006},{'lightness':37.599999999999994},{'gamma':1}]},{'featureType':'road.highway','stylers':[{'hue':'#FFC200'},{'saturation':-61.8},{'lightness':45.599999999999994},{'gamma':1}]},{'featureType':'road.arterial','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':51.19999999999999},{'gamma':1}]},{'featureType':'road.local','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':52},{'gamma':1}]},{'featureType':'water','stylers':[{'hue':'#0078FF'},{'saturation':-13.200000000000003},{'lightness':2.4000000000000057},{'gamma':1}]},{'featureType':'poi','stylers':[{'hue':'#00FF6A'},{'saturation':-1.0989010989011234},{'lightness':11.200000000000017},{'gamma':1}]}]");
+				
         map = mapView.createMap(options);
         
-//        DropShadow shadow = new DropShadow();
-      
-//        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {goButton.setEffect(shadow); });
-////        goButton.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-////        	goButton.setEffect(shadow); });
-        
         setupJSAlerts(mapView.getWebview());
+        
+        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+        String name = "nothing";
+        infoWindowOptions.content(name);
+        infoWindowStore = new InfoWindow(infoWindowOptions);
         
         goButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// Call search algorithm
+
 				try {
 					getSearchResult();
 				} catch (FileNotFoundException e1) {
@@ -146,14 +143,12 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				System.out.println("Bars now on Happy Hour...");
 				
 				if(ds.getAddrLat() == null || ds.getAddrLat().size() == 0) {
-					alert.display("No Happy Hour Now!","Come back later.");
+					AlertBox.display("No Happy Hour Now!","Come back later.");
 					return;
 				}
-				
 				putMarker();
 			}
         });
-        
     }
     /**
      * This method runs search algorithm upon button press, initialize DataSender
@@ -171,9 +166,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
 //		System.out.println(searchResult.size());
-		
     }
-    
     
     private void putMarker() {
     	//Add all marker to the map
@@ -181,39 +174,92 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        MarkerOptions markerOptions = new MarkerOptions();
 
 	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
+	        String name = ds.getName().get(i);
+
 	        markerOptions.position(markerCenter)
-//	        			.icon("[{'path': 'bar_marker.png'}]")
-	                    .visible(Boolean.TRUE)
-	                    .title("My Marker" + i)
-	                    .animation(Animation.BOUNCE);
-
-
-	        Marker marker = new Marker( markerOptions );
+	        			.icon("http://i.imgur.com/elPucS5.png")
+	                    .title(name)
+	                    .animation(Animation.BOUNCE)
+	                    .visible(true);
+	        Marker marker = new Marker(markerOptions);
 
 	        markers.add(marker);
 	        map.addMarker(marker);
 
-
 	        //Add a Info to the map
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-	        String name = ds.getName().get(i);
 	        infoWindowOptions.content(name);
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
+	        
+	        String startTime = ds.getStartTime().get(i);
+	        String endTime = ds.getEndTime().get(i);
+	        String description = ds.getDescription().get(i);
+
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
 				
 				map.setCenter(markerCenter);
-				map.setZoom(14);
-				marker.setAnimation(Animation.BOUNCE);
-				marker.setAnimation(Animation.DROP);
+				map.setZoom(15);
 
+				infoWindowStore.close();
 				barInfoWindow.open(map, marker);
-				YelpAPI.start(barInfoWindow.getContent());
+				
+				String result = YelpAPI.search1(name);
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
+//				System.out.println(result);
+				YelpResult yelpResult = new YelpResult(result);
+				
+				
 				Label nameLabel = new Label(name);
-				sidePane.getChildren().add(nameLabel);
+				Label timeLabel = new Label(startTime + " - " + endTime);
+				Label descLabel = new Label(description);
+				
+				// yelp rating star image
+				yelpRatingImgUrl = yelpResult.getRating_img_url();
+			    image = new Image(yelpRatingImgUrl, true);
+			    imageView = new ImageView(image);
+				Label labelImage = createLabeledImage(imageView);
+
+			    // yelp logo image
+			    String yelpLogoImg = "https://s3-media3.fl.yelpcdn.com/assets/srv0/www_pages/24e1fe240f00/assets/img/brand_guidelines/yelp_fullcolor_outline.png";
+				Image logoImage = new Image(yelpLogoImg, true);
+				ImageView imgView2 = new ImageView(logoImage);
+				Label logoImageLbl = createLabeledImage(imgView2);
+				
+				Label displayAddress = new Label(yelpResult.getDisplay_address());
+				Label displayPhone = new Label(yelpResult.getDisplay_phone());
+
+				descLabel.setWrapText(true);
+				displayAddress.setWrapText(true);	
+				
+
+				Hyperlink link = new Hyperlink(yelpResult.getUrl());
+//
+				link.setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent t) {
+	                	getHostServices().showDocument(link.getText());
+
+	                }
+	            });
+				link.setWrapText(true);
+
+//				getHostServices().showDocument("http://www.google.com");
+	
+				sidePane.getChildren().clear();
+				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, link);
+
+				infoWindowStore  = barInfoWindow;
 			});
+		
         }
 	}
+    
+    private Label createLabeledImage(ImageView imageView) {
+        Label labeledImage = new Label();
+        labeledImage.setGraphic(imageView);
+        return labeledImage;
+    }
+    
     
     /**
      * This method setup Alert box on the map

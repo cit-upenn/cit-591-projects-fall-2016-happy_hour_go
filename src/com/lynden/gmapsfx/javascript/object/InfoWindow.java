@@ -31,11 +31,13 @@ public class InfoWindow extends JavascriptObject {
     
     public InfoWindow() {
         super(INFO_WINDOW_TYPE);
+
     }
     
     
     public InfoWindow( InfoWindowOptions options ) {
         super(GMapObjectType.INFO_WINDOW, options);
+
     }
     
     

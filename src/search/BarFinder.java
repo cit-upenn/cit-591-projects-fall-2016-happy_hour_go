@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import dataPrep.Parser;
-import util.FileReader;
-
 /**
  * This class based on user input time, output the bars that are currently on Happy Hour
  * @author JillGao
@@ -34,11 +31,11 @@ public class BarFinder {
 	public ArrayList<Bar> find() {
 		ArrayList<Bar> currentHHBars = new ArrayList<>();
 		Date currentTime = now.getTime();
-//		Date currentTime = convertTimeString(bars.get(1).getStartTimeString());  //for test
+//		Date currentTime = convertTimeString(bars.get(2).getStartTimeString());  //for test
 		System.out.println(currentTime);
 		for (Bar bar : bars) {
-			Date startTime = convertTimeString(bar.getStartTimeString());
-			Date endTime = convertTimeString(bar.getEndTimeString());
+			Date startTime = convertTimeString(bar.getStartTime());
+			Date endTime = convertTimeString(bar.getEndTime());
 
 			if (currentTime.after(startTime) && currentTime.before(endTime)) {
 				currentHHBars.add(bar);

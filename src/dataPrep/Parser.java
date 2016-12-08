@@ -4,55 +4,55 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import search.Bar;
-
 /**
- * Take in an ArrayList of String after FileReader has read a file. Parse the input and store the output as an ArrayList of Bar. 
+ * Take in an ArrayList of String after FileReader has read a file. Parse the input and store the output as an ArrayList of strings. 
  * @author Han Zhu
  *
  */
 public class Parser {
-	private ArrayList<Bar> bars;
+	private ArrayList<String> barHTMLItems;
+	private ArrayList<String> happyHours;
 	
-	public Parser(ArrayList<String> input) {
-		bars = new ArrayList<Bar>();
-		parseHTML(input);
+	public Parser(String webpage) {
+		barHTMLItems = new ArrayList<>();
+		happyHours = new ArrayList<>();
+		splitBars(webpage);
+		parseHTML(barHTMLItems);
 	}
 	
 	/**
-	 * Iterate through the input ArrayList<String>, match 4 patterns with the string, and store the matches in a Bar object.
+	 * Split the webpage by "barItem". Ignore the first piece.
+	 */
+	public void splitBars(String webpage) {
+		String[] splitted = webpage.split("barItem");
+		
+		for (int i = 1; i < splitted.length; i++) {
+			barHTMLItems.add(splitted[i]);
+		}
+	}
+	
+	/**
+	 * Iterate through the input ArrayList<String>, match 4 patterns with the string, and store the matches in a string delimited by tab.
 	 * @param barsHTML the original html file splitted by "barItem".
 	 */
 	private void parseHTML(ArrayList<String> barsHTML) {
 		Pattern name = Pattern.compile("<h2>.*?> ([&\\w '-\\.]+).*</h2>");
 		Pattern address = Pattern.compile("</h2>(.*?)  .*<br /");
-//		Pattern phone = Pattern.compile("<!--(\\(*\\d\\d\\d[\\) -]+.*?) ");
 		Pattern time = Pattern.compile("(\\d+:\\d+ [ap]m)");
 		Pattern desc = Pattern.compile("</span>:(.*?)</div>");
-//		int count = 0;
 		
 		for (String item : barsHTML) {
 			Matcher m = name.matcher(item);
 			String barName = "";
 			if (m.find()) {
 				barName = m.group(1).trim();
-//				System.out.println(m.group(1).trim());
-//				count++;
 			}
 
 			m = address.matcher(item);
 			String barAddr = "";
 			if (m.find()) {
 				barAddr = m.group(1).trim();
-//				System.out.println(barAddr);
-//				count++;
 			}
-			
-//			m = phone.matcher(item);
-//			String barPhone = "";
-//			if (m.find()) {
-//				barPhone = m.group(1).trim();
-//			}
 			
 			m = time.matcher(item);
 			int number = 0;
@@ -69,24 +69,31 @@ public class Parser {
 				}
 				number++;
 			}
-//			System.out.println(startTime);
-//			System.out.println(endTime);
 			
 			m = desc.matcher(item);
-			ArrayList<String> description = new ArrayList<String>();
+			ArrayList<String> descriptions = new ArrayList<String>();
 			while (m.find()) {
 				String hhDesc = m.group(1).trim();
-				description.add(hhDesc);
+				descriptions.add(hhDesc);
 			}
 			
-			Bar bar = new Bar(barName, barAddr, startTime, endTime, description);
-//			System.out.println(bar.name + "," + bar.address + "," + bar.startTime + "," + bar.endTime + "," + bar.description);
-			bars.add(bar);
+			for (int i = 0; i < startTime.size(); i++) {
+				StringBuilder sb = new StringBuilder();
+				sb.append(barName + '\t' + barAddr + '\t' + startTime.get(i) + '\t' + endTime.get(i));
+				
+				if (descriptions.get(i).length() == 0) {
+					sb.append("\tno description");
+//					System.out.println(sb);
+				} else {
+					sb.append('\t' + descriptions.get(i));
+				}
+
+				happyHours.add(sb.toString());
+			}
 		}
-//		System.out.println(count);
 	}
 
-	public ArrayList<Bar> getBars() {
-		return bars;
+	public ArrayList<String> getHappyHours() {
+		return happyHours;
 	}
 }
