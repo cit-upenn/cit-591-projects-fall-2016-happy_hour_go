@@ -25,7 +25,7 @@ public class BarData {
 	 */
 	public BarData (FileFetcher ff) throws FileNotFoundException {
 		this.ff = ff;
-		bars = getBarData(ff);
+		bars = getBarData();
 	}
 	/**
 	 * This class builds BarData from FileReader reading clean .csv file
@@ -33,7 +33,7 @@ public class BarData {
 	 * @return
 	 * @throws FileNotFoundException 
 	 */
-	private ArrayList<Bar> getBarData(FileFetcher ff) throws FileNotFoundException {
+	private ArrayList<Bar> getBarData() throws FileNotFoundException {
 		ArrayList<Bar> bars = new ArrayList<>();
 		FileReader fr = ff.getFile();
 		fr.readFile();

@@ -49,7 +49,7 @@ import javafx.scene.control.Hyperlink;
  * @author Jiahui, He Gao, Han Zhu
  *
  */
-public class MapTester extends Application implements MapComponentInitializedListener{
+public class Go extends Application implements MapComponentInitializedListener{
 
 	private GoogleMapView mapView;
 	private GoogleMap map;
@@ -58,7 +58,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private Stage stage;
 	private Button goButton;
 	private VBox sidePane;
-	private AlertBox alert;
 	
 	private ArrayList<Bar> searchResult;
 	private ArrayList<Marker> markers;
@@ -69,6 +68,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	private ImageView imageView;
 	private String yelpRatingImgUrl;
 
+	
 	@Override
 	public void start(Stage Stage) throws Exception {
 		
@@ -87,10 +87,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		sidePane.getChildren().add(goButton);
 		
 		markers = new ArrayList<Marker>();
-
-//		ToolBar tb = new ToolBar();
-//		tb.getItems().add(goButton);
-//		tb.opaqueInsetsProperty(); // set opaqueness ?
 		
 		/* set overall layout */
 		BorderPane bp = new BorderPane();
@@ -170,9 +166,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 		BarData bd = new BarData(ff);
 		BarFinder bf = new BarFinder(now, bd);
 		searchResult = bf.find();
-//		for (Bar bar : searchResult) {
-//			System.out.println(bar.name + ' ' + bar.startTimeString + ' ' + bar.endTimeString + ' ' + bar.descriptionString);
-//		}
+//		System.out.println(searchResult.size());
     }
     
     private void putMarker() {
@@ -181,9 +175,11 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	        MarkerOptions markerOptions = new MarkerOptions();
 
 	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));
+	        String name = ds.getName().get(i);
+
 	        markerOptions.position(markerCenter)
 	        			.icon("http://i.imgur.com/elPucS5.png")
-	                    .title("My Marker" + i)
+	                    .title(name)
 	                    .animation(Animation.BOUNCE)
 	                    .visible(true);
 	        Marker marker = new Marker(markerOptions);
@@ -193,7 +189,6 @@ public class MapTester extends Application implements MapComponentInitializedLis
 
 	        //Add a Info to the map
 	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-	        String name = ds.getName().get(i);
 	        infoWindowOptions.content(name);
 	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);
 	        
@@ -239,7 +234,7 @@ public class MapTester extends Application implements MapComponentInitializedLis
 				
 
 				Hyperlink link = new Hyperlink(yelpResult.getUrl());
-
+//
 				link.setOnAction(new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(ActionEvent t) {
@@ -249,6 +244,8 @@ public class MapTester extends Application implements MapComponentInitializedLis
 	            });
 				link.setWrapText(true);
 
+//				getHostServices().showDocument("http://www.google.com");
+	
 				sidePane.getChildren().clear();
 				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, link);
 
