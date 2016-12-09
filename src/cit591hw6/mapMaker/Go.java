@@ -1,4 +1,4 @@
-package mapMaker;
+package cit591hw6.mapMaker;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -37,10 +37,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import netscape.javascript.JSObject;
-import search.Bar;
-import search.BarData;
-import search.BarFinder;
-import search.FileFetcher;
+import cit591hw6.search.Bar;
+import cit591hw6.search.BarData;
+import cit591hw6.search.BarFinder;
+import cit591hw6.search.FileFetcher;
 import yelp.YelpAPI;
 import javafx.scene.control.Hyperlink;
 

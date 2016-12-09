@@ -1,4 +1,4 @@
-package search;
+package cit591hw6.search;
 
 import java.text.DateFormat;
 import java.text.ParseException;

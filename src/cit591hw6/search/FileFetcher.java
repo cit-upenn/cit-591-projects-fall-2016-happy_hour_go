@@ -1,6 +1,6 @@
-package search;
+package cit591hw6.search;
 
-import dataPrep.FileReader;
+import cit591hw6.dataPrep.FileReader;
 /**
  * Find the file to search based on user input current time 
  * @author Han Zhu, Jill Gao

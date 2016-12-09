@@ -1,4 +1,4 @@
-package dataPrep;
+package cit591hw6.dataPrep;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

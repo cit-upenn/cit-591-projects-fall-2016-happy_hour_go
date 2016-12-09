@@ -1,4 +1,4 @@
-package mapMaker;
+package cit591hw6.mapMaker;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

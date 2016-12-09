@@ -1,4 +1,4 @@
-package search;
+package cit591hw6.search;
 
 /**
  * Represent a bar. More precisely, a happy hour item. 

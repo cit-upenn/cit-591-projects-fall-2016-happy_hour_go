@@ -1,12 +1,12 @@
 /**
  * 
  */
-package search;
+package cit591hw6.search;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import dataPrep.FileReader;
+import cit591hw6.dataPrep.FileReader;
 
 /**
  * This class reads in clean .csv file while contains all bars with Happy Hour on a given weekday

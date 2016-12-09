@@ -1,8 +1,8 @@
-package mapMaker;
+package cit591hw6.mapMaker;
 
 import java.util.ArrayList;
 
-import search.Bar;
+import cit591hw6.search.Bar;
 
 /**
  * get the data of bar's coordinate and happy hour information and send it to mapTester to display.

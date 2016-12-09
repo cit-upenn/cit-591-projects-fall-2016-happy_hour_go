@@ -18,8 +18,6 @@ package com.lynden.gmapsfx.javascript.object;
 
 import com.lynden.gmapsfx.javascript.JavascriptObject;
 
-import search.Bar;
-
 /**
  * Marker which can be placed on a GoogleMap.
  * 

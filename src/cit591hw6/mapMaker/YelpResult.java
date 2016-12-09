@@ -1,4 +1,4 @@
-package mapMaker;
+package cit591hw6.mapMaker;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
