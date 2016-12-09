@@ -143,7 +143,7 @@ public class YelpAPI {
 
 		// Select the first business and display business details
 		String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
-		System.out.println(businessResponseJSON);
+//		System.out.println(businessResponseJSON);
 		return businessResponseJSON;
 	}
 

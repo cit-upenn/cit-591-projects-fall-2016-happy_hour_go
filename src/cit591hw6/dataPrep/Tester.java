@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import yelp.YelpAPI;
+
 /**
  * This class writes the bar data into csv files. One file per weekday. 
  * @author Han Zhu
@@ -49,7 +51,7 @@ public class Tester {
 		}
 		in.close();
 		
-//		YelpAPI.search2("Flanigan's Boathouse");
+//		YelpAPI.search2("The Institute Restaurant");
 	}
 
 }
