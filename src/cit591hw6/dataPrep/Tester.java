@@ -49,7 +49,7 @@ public class Tester {
 		}
 		in.close();
 		
-//		YelpAPI.search2("Panorama restaurant");
+//		YelpAPI.search2("Flanigan's Boathouse");
 	}
 
 }

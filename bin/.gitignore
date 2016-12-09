@@ -1,5 +1,10 @@
-/mapMaker/
-/search/
+/.gitignore
+/.project
+/META-INF/
 /com/
 /dataPrep/
+/html/
+/mapMaker/
+/search/
 /yelp/
+/cit591hw6/
