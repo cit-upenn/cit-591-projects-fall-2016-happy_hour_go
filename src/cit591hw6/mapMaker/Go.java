@@ -157,7 +157,7 @@ public class Go extends Application implements MapComponentInitializedListener{
      * This method runs search algorithm upon button press, initialize DataSender
      * @throws FileNotFoundException
      */
-    private void getSearchResult() throws FileNotFoundException {
+    public void getSearchResult() throws FileNotFoundException {
     	Calendar now = Calendar.getInstance();
     	
 //    	test alert box with no Happy Hour Found. Uncomment next line to test
@@ -257,7 +257,6 @@ public class Go extends Application implements MapComponentInitializedListener{
 
 				infoWindowStore  = barInfoWindow;
 			});
-		
         }
 	}
     
@@ -277,7 +276,7 @@ public class Go extends Application implements MapComponentInitializedListener{
      * This method setup Alert box on the map
      * @param webView
      */
-    private void setupJSAlerts(WebView webView) {
+    public void setupJSAlerts(WebView webView) {
         webView.getEngine().setOnAlert( e -> {
             Stage popup = new Stage();
             popup.initOwner(stage);
