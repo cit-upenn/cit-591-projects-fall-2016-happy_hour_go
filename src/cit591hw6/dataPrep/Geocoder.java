@@ -12,7 +12,7 @@ import yelp.YelpAPI;
  *
  */
 public class Geocoder {
-	
+
 	/**
 	 * Query Yelp API with restaurant name. The geocodes of the businesses are returned as an arraylist of string. 
 	 * @param barName
