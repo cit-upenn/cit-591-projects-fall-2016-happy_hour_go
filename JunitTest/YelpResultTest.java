@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 
-import mapMaker.YelpResult;
+import cit591hw6.mapMaker.YelpResult;
 import yelp.YelpAPI;
 
 public class YelpResultTest {
