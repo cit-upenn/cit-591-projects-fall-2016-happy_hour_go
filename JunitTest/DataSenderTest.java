@@ -44,7 +44,7 @@ public class DataSenderTest {
 	public void dataSenderLonTest(){
 		Double lon = -75.1573385;
 		addrLon = ds.getAddrLon();
-		assertEquals("result of the first longitude should equals to 39.9389584", lon, addrLon.get(0));
+		assertEquals("result of the first longitude should equals to -75.1573385", lon, addrLon.get(0));
 
 	}
 	
@@ -52,33 +52,31 @@ public class DataSenderTest {
 	public void dataSenderLatTest(){
 		Double lat = 39.9389584;
 		addrLat = ds.getAddrLat();
-		assertEquals("result of the first longitude should equals to 39.9389584", lat, addrLat.get(0));
+		assertEquals("result of the first latitude should equals to 39.9389584", lat, addrLat.get(0));
 	}
 	
 
 	@Test
 	public void dataSenderNameTest(){
 		names = ds.getName();
-		assertEquals("result of the first longitude should equals to 12 Steps Down", "12 Steps Down", names.get(0));
+		assertEquals("result of the first bar's name should equals to 12 Steps Down", "12 Steps Down", names.get(0));
 	}
 	
 	@Test
 	public void dataSenderStartTest(){
 		startTime = ds.getStartTime();
-		assertEquals("result of the first longitude should equals to 39.9389584", "11:00 am", startTime.get(0));
+		assertEquals("result of the first bar's start time should equals to 11:00 am", "11:00 am", startTime.get(0));
 	}
 	@Test
 	public void dataSenderEndTest(){
 		endTime = ds.getEndTime();
-		assertEquals("result of the first longitude should equals to 39.9389584", "3:00 pm", endTime.get(0));
+		assertEquals("result of the first bar's end time should equals to 3:00 pm", "3:00 pm", endTime.get(0));
 	}
 	@Test
 	public void dataSenderDescriptionTest(){
 		description = ds.getDescription();
-		assertEquals("result of the first longitude should equals to 39.9389584", "$3 Bloody Mary's & Mimosas", description.get(0));
+		assertEquals("result of the first bar's description should equals to $3 Bloody Mary's & Mimosas", "$3 Bloody Mary's & Mimosas", description.get(0));
 	}
-
-
 
 
 }
