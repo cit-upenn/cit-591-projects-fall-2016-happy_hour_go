@@ -17,8 +17,8 @@ public class AlertBox {
 	
 	/**
 	 * Display alert messages via a pop-up window
-	 * @param title
-	 * @param message
+	 * @param title the title of the alert window
+	 * @param message the message of the alert window
 	 */
 	public static void display(String title, String message) {
 		

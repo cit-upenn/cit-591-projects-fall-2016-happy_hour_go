@@ -43,6 +43,10 @@ public class YelpResult {
 		parse(this.result);
 	}
 
+	/**
+	 * parse the result into formated information
+	 * @param result
+	 */
 	private void parse(String result) {
 		
 
