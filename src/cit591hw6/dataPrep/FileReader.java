@@ -44,7 +44,7 @@ public class FileReader {
 		
 		in.close();
 	}
-	
+
 	/**
 	 * Read file line by line and store each line in an ArrayList.
 	 * @throws FileNotFoundException

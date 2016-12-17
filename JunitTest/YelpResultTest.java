@@ -19,12 +19,12 @@ public class YelpResultTest {
 	private String display_address;
 	
 	private String result;
-	
+
 	@Before
 	public void setup() {
 		result = YelpAPI.search1("Abe Fisher");
 	}
-	
+
 	@Test
 	public void testResultNotNull() {
 //		String result = YelpAPI.search1("Abe Fisher");
