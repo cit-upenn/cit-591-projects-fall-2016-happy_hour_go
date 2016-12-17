@@ -32,7 +32,7 @@ public class BarFinder {
 		ArrayList<Bar> currentHHBars = new ArrayList<>();
 		Date currentTime = now.getTime();
 //		Date currentTime = convertTimeString(bars.get(2).getStartTimeString());  //for test
-		System.out.println(currentTime);
+//		System.out.println(currentTime);
 		for (Bar bar : bars) {
 			Date startTime = convertTimeString(bar.getStartTime());
 			Date endTime = convertTimeString(bar.getEndTime());

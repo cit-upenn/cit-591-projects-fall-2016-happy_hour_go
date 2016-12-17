@@ -29,7 +29,7 @@ public class YelpResultTest {
 	public void testResultNotNull() {
 //		String result = YelpAPI.search1("Abe Fisher");
 		YelpResult yelpResult = new YelpResult(result);
-		assertNotNull("Result get from Yelp should not be null", yelpResult);
+		assertNotNull("Result get from Yelp should not be null", yelpResult.getResult());
 	}
 	
 	@Test
@@ -52,15 +52,7 @@ public class YelpResultTest {
 		assertNotNull("url should not be null", url);
 		assertNotNull("display_address should not be null", display_address);
 		assertNotNull("display_phone should not be null", display_phone);
-		
-		
-		System.out.println("ratint"+rating);
-		System.out.println("mobile_url"+mobile_url);
-		System.out.println("rating_img_url"+rating_img_url);
-		System.out.println("rating_img_url_small"+rating_img_url_small);
-		System.out.println("display_phone"+display_phone);
-		System.out.println("display_address"+display_address);
-		System.out.println("url"+url);
+
 	}
 	
 	public void testRating(){
