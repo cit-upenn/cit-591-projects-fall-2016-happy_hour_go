@@ -51,7 +51,7 @@ public class Tester {
 		}
 		in.close();
 		
-//		YelpAPI.search2("The Institute Restaurant");
+//		YelpAPI.search2("Chickie's and Pete's Crab House and Sports Bar Packer");
 	}
 
 }
