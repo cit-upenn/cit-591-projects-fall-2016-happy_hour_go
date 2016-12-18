@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>BarFinder.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ParserTest (Dec 17, 2016 10:23:24 PM)</a> &gt; <a href="../../index.html" class="el_group">hw6</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">cit591hw6.search</a> &gt; <span class="el_source">BarFinder.java</span></div><h1>BarFinder.java</h1><pre class="source lang-java linenums">package cit591hw6.search;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ * This class based on user input time, output the bars that are currently on Happy Hour
+ * @author JillGao
+ *
+ */
+public class BarFinder {
+	private ArrayList&lt;Bar&gt; bars;
+	private Calendar now;
+	
+	/**
+	 * Constructor
+	 */
+<span class="fc" id="L22">	public BarFinder(Calendar now, BarData bd) {</span>
+<span class="fc" id="L23">		this.now = now;</span>
+<span class="fc" id="L24">		this.bars = bd.getBars();</span>
+<span class="fc" id="L25">	}</span>
+	
+	/**
+	 * This method find bars that are currently on happy hour
+	 * @return ArrayList of bars satisfying current 
+	 */
+	public ArrayList&lt;Bar&gt; find() {
+<span class="fc" id="L32">		ArrayList&lt;Bar&gt; currentHHBars = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L33">		Date currentTime = now.getTime();</span>
+//		Date currentTime = convertTimeString(bars.get(2).getStartTimeString());  //for test
+//		System.out.println(currentTime);
+<span class="fc bfc" id="L36" title="All 2 branches covered.">		for (Bar bar : bars) {</span>
+<span class="fc" id="L37">			Date startTime = convertTimeString(bar.getStartTime());</span>
+<span class="fc" id="L38">			Date endTime = convertTimeString(bar.getEndTime());</span>
+
+<span class="fc bfc" id="L40" title="All 4 branches covered.">			if (currentTime.after(startTime) &amp;&amp; currentTime.before(endTime)) {</span>
+<span class="fc" id="L41">				currentHHBars.add(bar);</span>
+			}
+		}
+<span class="fc" id="L44">		return currentHHBars;</span>
+	}
+	
+	/**
+	 * This helper method obtains user input time, and link with generic happy hour
+	 * @return an ArrayList containing Date objects
+	 */
+	private Date convertTimeString(String timeString) {
+<span class="fc" id="L52">		Date timeDate = null;</span>
+		// time in format &quot;4:00 pm&quot;
+<span class="fc" id="L54">		String month = Integer.toString(now.get(Calendar.MONTH) + 1);</span>
+<span class="fc" id="L55">		int dayVal = now.get(Calendar.DAY_OF_MONTH);</span>
+<span class="fc" id="L56">		String day = Integer.toString(dayVal);</span>
+<span class="fc" id="L57">		String year = Integer.toString(now.get(Calendar.YEAR));</span>
+
+		// check am/pm for correct 24h conversion
+<span class="fc" id="L60">		int len = timeString.length();</span>
+<span class="fc" id="L61">		String hour = timeString;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">		if (hour.equals(&quot;12:00 am&quot;)) {</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">			dayVal = dayVal == 7? 1 : dayVal + 1;</span>
+<span class="fc" id="L64">			day = Integer.toString(dayVal);</span>
+<span class="fc" id="L65">			hour = &quot;00:00&quot;;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">		} else if (hour.charAt(len - 2) == 'a') {</span>
+<span class="fc" id="L67">			hour = timeString.substring(0, len - 3);</span>
+<span class="fc" id="L68">		} else {</span>
+<span class="fc" id="L69">			hour = converTo24h(hour);</span>
+		}
+		
+		// building the dateString in format &quot;MM/dd/yyyy HH:mm&quot;
+<span class="fc" id="L73">		StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L74">		sb.append(month);</span>
+<span class="fc" id="L75">		sb.append(&quot;/&quot;);</span>
+<span class="fc" id="L76">		sb.append(day);</span>
+<span class="fc" id="L77">		sb.append(&quot;/&quot;);</span>
+<span class="fc" id="L78">		sb.append(year);</span>
+<span class="fc" id="L79">		sb.append(' ');</span>
+<span class="fc" id="L80">		sb.append(hour);</span>
+<span class="fc" id="L81">		String dateString = sb.toString();</span>
+		
+		// use DateFormat to create Date objects
+<span class="fc" id="L84">		DateFormat df = new SimpleDateFormat(&quot;MM/dd/yyyy HH:mm&quot;);</span>
+		try {
+<span class="fc" id="L86">            Date d = df.parse(dateString);</span>
+<span class="fc" id="L87">            timeDate = d;</span>
+//          System.out.println(timeDate);
+<span class="pc" id="L89">        } catch (ParseException ex) {</span>
+<span class="nc" id="L90">            System.out.println(&quot;Exception &quot; + ex);</span>
+        }
+		
+<span class="fc" id="L93">		return timeDate;</span>
+	}
+	
+	/**
+	 * This method convert the format of pm time string i.e. &quot;4:00 pm&quot; into 24h time string i.e. &quot;16:00&quot;
+	 * @param hour
+	 * @return String
+	 */
+	private String converTo24h(String hour) {
+<span class="fc" id="L102">		String hour24 = &quot;&quot;;</span>
+<span class="fc" id="L103">		String[] h = hour.split(&quot;:&quot;);</span>
+<span class="fc" id="L104">		int hourInt = Integer.parseInt(h[0]);</span>
+<span class="fc" id="L105">		String hourPart = Integer.toString(hourInt + 12);</span>
+		
+<span class="fc" id="L107">		StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L108">		sb.append(hourPart);</span>
+<span class="fc" id="L109">		sb.append(&quot;:00&quot;);</span>
+		
+<span class="fc" id="L111">		hour24 = sb.toString();</span>
+<span class="fc" id="L112">		return hour24;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>ParserTest (Dec 17, 2016 10:23:24 PM)</div></body></html>

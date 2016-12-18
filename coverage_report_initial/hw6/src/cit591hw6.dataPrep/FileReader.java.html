@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>FileReader.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">FileReaderTest (1) (Dec 17, 2016 4:23:51 PM)</a> &gt; <a href="../../index.html" class="el_group">hw6</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">cit591hw6.dataPrep</a> &gt; <span class="el_source">FileReader.java</span></div><h1>FileReader.java</h1><pre class="source lang-java linenums">package cit591hw6.dataPrep;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * This class reads an html file as a single string, splits it by &quot;barItem&quot;, and stores the pieces in an ArrayList of String, bars.
+ * @author Han Zhu
+ *
+ */
+public class FileReader {
+	private String webpageString;
+//	read a webpage as a single string.
+	private ArrayList&lt;String&gt; lines;
+	private String fileName;
+	
+<span class="fc" id="L19">	public FileReader(String fileName) {</span>
+<span class="fc" id="L20">		webpageString = &quot;&quot;;</span>
+<span class="fc" id="L21">		lines = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L22">		this.fileName = fileName;</span>
+<span class="fc" id="L23">	}</span>
+	
+	/**
+	 * Read a file line by line, append each line to a StringBuilder.
+	 * @throws FileNotFoundException
+	 */
+	public void readFileWhole() throws FileNotFoundException {
+<span class="fc" id="L30">		File webpage = new File(fileName);</span>
+<span class="fc" id="L31">		Scanner in = new Scanner(webpage);</span>
+<span class="fc" id="L32">		StringBuilder sb = new StringBuilder();</span>
+		
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">		while (in.hasNextLine()) {</span>
+<span class="fc" id="L35">			String line = in.nextLine();</span>
+			
+<span class="fc bfc" id="L37" title="All 2 branches covered.">			if (line.trim().equals(&quot;&lt;br style=\&quot;clear:both;\&quot;/&gt;&quot;)) {</span>
+<span class="fc" id="L38">				break;</span>
+			}
+<span class="fc" id="L40">			sb.append(line.trim() + &quot; &quot;);</span>
+		}
+		
+<span class="fc" id="L43">		webpageString = sb.toString();</span>
+		
+<span class="fc" id="L45">		in.close();</span>
+<span class="fc" id="L46">	}</span>
+
+	/**
+	 * Read file line by line and store each line in an ArrayList.
+	 * @throws FileNotFoundException
+	 */
+	public void readFile() throws FileNotFoundException {
+<span class="fc" id="L53">		File inputFile = new File(fileName);</span>
+<span class="fc" id="L54">		Scanner in = new Scanner(inputFile);</span>
+		
+<span class="fc bfc" id="L56" title="All 2 branches covered.">		while (in.hasNextLine()) {</span>
+<span class="fc" id="L57">			String line = in.nextLine();</span>
+<span class="fc" id="L58">			lines.add(line);</span>
+		}
+<span class="fc" id="L60">		in.close();</span>
+<span class="fc" id="L61">	}</span>
+	
+	public String getFileName() {
+<span class="fc" id="L64">		return fileName;</span>
+	}
+
+	public String getWebpageString() {
+<span class="fc" id="L68">		return webpageString;</span>
+	}
+
+	public ArrayList&lt;String&gt; getLines() {
+<span class="fc" id="L72">		return lines;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>FileReaderTest (1) (Dec 17, 2016 4:23:51 PM)</div></body></html>
