@@ -19,7 +19,7 @@ public class Parser {
 		splitBars(webpage);
 		parseHTML(barHTMLItems);
 	}
-	
+
 	/**
 	 * Split the webpage by "barItem". Ignore the first piece.
 	 */
@@ -91,6 +91,10 @@ public class Parser {
 				happyHours.add(sb.toString());
 			}
 		}
+	}
+	
+	public ArrayList<String> getBarHTMLItems() {
+		return barHTMLItems;
 	}
 
 	public ArrayList<String> getHappyHours() {

@@ -67,7 +67,9 @@ public class Go extends Application implements MapComponentInitializedListener{
 	private ImageView imageView;
 	private String yelpRatingImgUrl;
 
-	
+	/**
+	 * Start to initialize the layout and the window
+	 */
 	@Override
 	public void start(Stage Stage) throws Exception {
 		
@@ -101,7 +103,7 @@ public class Go extends Application implements MapComponentInitializedListener{
 	}
 
 	/**
-	 * initialize the map
+	 * initialize the map, set map options, create map and set go button
 	 */
     public void mapInitialized() {
     	LatLong center = new LatLong(39.952903, -75.164106);
@@ -150,12 +152,12 @@ public class Go extends Application implements MapComponentInitializedListener{
 			}
         });
     }
+
     /**
      * This method runs search algorithm upon button press, initialize DataSender
-     * @param 
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
-    private void getSearchResult() throws FileNotFoundException {
+    public void getSearchResult() throws FileNotFoundException {
     	Calendar now = Calendar.getInstance();
     	
 //    	test alert box with no Happy Hour Found. Uncomment next line to test
@@ -168,6 +170,11 @@ public class Go extends Application implements MapComponentInitializedListener{
 //		System.out.println(searchResult.size());
     }
     
+    /**
+     * put marker for each bar after press the go button
+     * each marker has a info window display their name
+     * also display the message about that bar on side vbox
+     */
     private void putMarker() {
     	//Add all marker to the map
         for (int i = 0; i < ds.getAddrLat().size(); i++){
@@ -250,10 +257,14 @@ public class Go extends Application implements MapComponentInitializedListener{
 
 				infoWindowStore  = barInfoWindow;
 			});
-		
         }
 	}
     
+    /**
+     * create label of image for yelp
+     * @param imageView the view of image
+     * @return labeled image
+     */
     private Label createLabeledImage(ImageView imageView) {
         Label labeledImage = new Label();
         labeledImage.setGraphic(imageView);
@@ -265,7 +276,7 @@ public class Go extends Application implements MapComponentInitializedListener{
      * This method setup Alert box on the map
      * @param webView
      */
-    private void setupJSAlerts(WebView webView) {
+    public void setupJSAlerts(WebView webView) {
         webView.getEngine().setOnAlert( e -> {
             Stage popup = new Stage();
             popup.initOwner(stage);
