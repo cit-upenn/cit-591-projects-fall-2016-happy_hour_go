@@ -1,5 +1,6 @@
 package cit591hw6.mapMaker;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +43,15 @@ import cit591hw6.search.BarFinder;
 import cit591hw6.search.FileFetcher;
 import yelp.YelpAPI;
 import javafx.scene.control.Hyperlink;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+
+
 
 /**
  * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
@@ -66,6 +76,8 @@ public class Go extends Application implements MapComponentInitializedListener{
 	private Image image;
 	private ImageView imageView;
 	private String yelpRatingImgUrl;
+	
+	private Clip clip;
 
 	/**
 	 * Start to initialize the layout and the window
@@ -202,14 +214,16 @@ public class Go extends Application implements MapComponentInitializedListener{
 	        String endTime = ds.getEndTime().get(i);
 	        String description = ds.getDescription().get(i);
 
+			loadSoundFile();
+
+
 			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
-				
+				 
 				map.setCenter(markerCenter);
 				map.setZoom(15);
 
 				infoWindowStore.close();
 				barInfoWindow.open(map, marker);
-				
 				String result = YelpAPI.search1(name);
 //				System.out.println(barInfoWindow.getContent() +"-----------------");
 //				System.out.println(result);
@@ -251,7 +265,7 @@ public class Go extends Application implements MapComponentInitializedListener{
 				link.setWrapText(true);
 
 //				getHostServices().showDocument("http://www.google.com");
-	
+				playSound();
 				sidePane.getChildren().clear();
 				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, link);
 
@@ -293,6 +307,30 @@ public class Go extends Application implements MapComponentInitializedListener{
             popup.showAndWait();
         });
     }
+    
+    /**
+     * load sound file
+     */
+    public void loadSoundFile() {
+		try {
+			File sf = new File("beep.wav");
+			AudioInputStream ais = AudioSystem.getAudioInputStream(sf);
+			clip = (Clip) AudioSystem.getClip();
+			clip.open(ais);
+		} catch (Exception e) {
+		}
+	}
+
+    /**
+     * start to play sound
+     */
+	public void playSound() {
+		if (!clip.isRunning()) {
+			clip.setFramePosition(0);
+			clip.start();
+
+		}
+	}
 
 	public static void main(String[] args) {
 		launch(args);

@@ -12,7 +12,7 @@ public class AlertBoxTest {
 	@Test
 	public void test() {
 		AlertBox alertBox = new AlertBox();
-		alertBox.display(title, message);
+//		alertBox.display(title, message);
 	}
 }
 

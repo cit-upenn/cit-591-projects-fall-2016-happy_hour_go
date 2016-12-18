@@ -17,7 +17,5 @@ public class GoTest {
 		assertNotNull("Go should not be null", go);
 
 	}
-	
-
 
 }
