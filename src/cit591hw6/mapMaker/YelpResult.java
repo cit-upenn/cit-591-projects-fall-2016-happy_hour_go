@@ -40,6 +40,7 @@ public class YelpResult {
 		url= null;
 		display_phone= null;
 		display_address= null;
+		
 		parse(this.result);
 	}
 
@@ -47,8 +48,7 @@ public class YelpResult {
 	 * parse the result into formated information
 	 * @param result
 	 */
-	private void parse(String result) {
-		
+	private void parse(String result) {		
 
 		Matcher matcher = ratingPattern.matcher(result);
 		if (matcher.find()) {

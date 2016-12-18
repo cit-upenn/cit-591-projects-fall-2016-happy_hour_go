@@ -1,10 +1,17 @@
 import static org.junit.Assert.*;
 
+<<<<<<< HEAD
+import org.junit.Test;
+
+
+import mapMaker.YelpResult;
+=======
 import org.junit.Before;
 import org.junit.Test;
 
 
 import cit591hw6.mapMaker.YelpResult;
+>>>>>>> GUI
 import yelp.YelpAPI;
 
 public class YelpResultTest {
@@ -17,6 +24,7 @@ public class YelpResultTest {
 	private String url;
 	private String display_phone;
 	private String display_address;
+
 	
 	private String result;
 
@@ -52,8 +60,9 @@ public class YelpResultTest {
 		assertNotNull("url should not be null", url);
 		assertNotNull("display_address should not be null", display_address);
 		assertNotNull("display_phone should not be null", display_phone);
-
+		
 	}
+	
 	
 	public void testRating(){
 //		String result = YelpAPI.search1("Abe Fisher");
@@ -62,7 +71,8 @@ public class YelpResultTest {
 		rating = yelpResult.getRating();
 		assertEquals("rating should equals to 4.5", 4.5, rating);
 	}
-	
+
+		
 	public void testUrl(){
 //		String result = YelpAPI.search1("Abe Fisher");
 		YelpResult yelpResult = new YelpResult(result);
@@ -105,6 +115,7 @@ public class YelpResultTest {
 		
 		display_address = yelpResult.getRating();
 		assertEquals("display_address should equals to \"1623 Sansom St\", \"Rittenhouse Square\", \"Philadelphia, PA 19103\"", "\"1623 Sansom St\", \"Rittenhouse Square\", \"Philadelphia, PA 19103\"", display_address);
+
 	}
 	
 

@@ -1,1 +1,11 @@
-/cit591hw6/
+*.class
+/.gitignore
+/.project
+/.settings/
+/HappyHourGo.jar
+/User-manual.pdf
+/beep.wav
+/coverage_report_final/
+/coverage_report_initial/
+/data/
+/src-external/

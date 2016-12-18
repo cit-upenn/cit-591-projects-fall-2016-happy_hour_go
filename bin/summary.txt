@@ -1,0 +1,38 @@
+Summary: Happy Hour Go!
+
+Project on GitHub: https://github.com/cit-upenn/cit-591-projects-fall-2016-happy_hour_go
+
+Project Description: Happy Hour Go! application enables users to run an instantaneous search on local bars and restaurants that are currently on happy hour promotions.
+
+- Initial Setup - DataPrep
+  - The raw data is obtained from a website: http://philly.thedrinknation.com/. It provides bars with happy hour information and grouped them by weekdays from Monday to Sunday.
+  - We were able to download the HTML source code of the website of the 7 pages, and these 7 pages serve as the raw data of our project.
+  - The HTML source code of the pages are organized in a pattern that we were able to subtract key information out of them using RegEx and write into 7 clean and organized .csv data format.
+  - Gmaps Geocoding Services API is utilized to obtain latitude and longitude of business addresses, and later used to place markers onto the map
+
+- Search
+  - In this part, based on the current time of search request, the correct weekday file is pulled out.
+  - Bar objects are constructed and placed into data structure of all relevant Bars with happy hour information.
+  - Based on current time, a search is run and result stored.
+
+- GUI - mapMaker
+  - JavaFx is used in GUI development.
+  - We used an external package GMapsFx that enables us to integrate Google Map API within JavaFx.
+  - DataSender class is created to communicate search result from Search with the Geocoding services of GMapsFx to display search results on the map as individual markers.
+  - Business data is retrieved from both clean data and Yelp API
+  - Specific styling codes were incorporated into the display, including customized Google Map view, marker image, Yelp logo, etc.
+
+- Yelp API
+
+- JUnit Test
+  - JUnit test covered majority of the program, except for the JavaFx application which is not supposed to be tested using JUnit test.
+
+- Work Breakdown
+  - Han Zhu: data preparation and cleaning, Yelp API integration, GMaps Geocoding service integration, GUI styling and design
+  - He Gao: Data structure and search algorithm implementation, integration of search result with GMaps view display. GUI styling and design
+  - Jiahui Li: Merging GMaps external package with JavaFx application, implementation of GMaps and GUI, Yelp API results preparation
+
+- Credits
+  - All packages in this program starts with com.lyden.gmapsfx are created by @RobTerpilowski
+  - Code in the yelp package is the official Java library for Yelp API with slight modifications
+  - All other code are work by Han Zhu, He Gao, Jiahui Li
