@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Go.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ParserTest (Dec 17, 2016 10:23:24 PM)</a> &gt; <a href="../../index.html" class="el_group">hw6</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">cit591hw6.mapMaker</a> &gt; <span class="el_source">Go.java</span></div><h1>Go.java</h1><pre class="source lang-java linenums"><span class="nc" id="L1">package cit591hw6.mapMaker;</span>
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+//import javafx.scene.control.Button;
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.Animation;
+import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
+import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
+import com.lynden.gmapsfx.javascript.object.LatLong;
+import com.lynden.gmapsfx.javascript.object.MapOptions;
+import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
+import com.lynden.gmapsfx.javascript.object.Marker;
+import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import netscape.javascript.JSObject;
+import cit591hw6.search.Bar;
+import cit591hw6.search.BarData;
+import cit591hw6.search.BarFinder;
+import cit591hw6.search.FileFetcher;
+import yelp.YelpAPI;
+import javafx.scene.control.Hyperlink;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+
+
+
+/**
+ * This is the map tester, which will create the google map and display the bar's location and the information of happy hour
+ * @author Jiahui, He Gao, Han Zhu
+ *
+ */
+<span class="fc" id="L61">public class Go extends Application implements MapComponentInitializedListener{</span>
+
+	private GoogleMapView mapView;
+	private GoogleMap map;
+	
+	/* GUI components */
+	private Stage stage;
+	private Button goButton;
+	private VBox sidePane;
+	
+	private ArrayList&lt;Bar&gt; searchResult;
+	private ArrayList&lt;Marker&gt; markers;
+	private DataSender ds;	
+	private InfoWindow infoWindowStore;
+	
+	private Image image;
+	private ImageView imageView;
+	private String yelpRatingImgUrl;
+	
+	private Clip clip;
+
+	/**
+	 * Start to initialize the layout and the window
+	 */
+	@Override
+	public void start(Stage Stage) throws Exception {
+		
+		//this.stage = Stage;
+<span class="nc" id="L89">		mapView = new GoogleMapView();</span>
+<span class="nc" id="L90">		mapView.addMapInializedListener(this);</span>
+<span class="nc" id="L91">		goButton = new Button(&quot;Happy Hour Go!&quot;);</span>
+<span class="nc" id="L92">		goButton.setMaxSize(130, 130);</span>
+<span class="nc" id="L93">		goButton.setStyle(&quot;-fx-background-color: linear-gradient(#ffd65b, #e68400), linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22), linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%); -fx-text-fill: #654b00;&quot;);</span>
+		
+<span class="nc" id="L95">		sidePane = new VBox(10);</span>
+<span class="nc" id="L96">		sidePane.setPadding(new Insets(20, 20, 20, 20));</span>
+<span class="nc" id="L97">		sidePane.setPrefHeight(50);</span>
+<span class="nc" id="L98">		sidePane.setPrefWidth(400);</span>
+<span class="nc" id="L99">		sidePane.setAlignment(Pos.TOP_CENTER);</span>
+<span class="nc" id="L100">		sidePane.getChildren().add(goButton);</span>
+		
+<span class="nc" id="L102">		markers = new ArrayList&lt;Marker&gt;();</span>
+		
+		/* set overall layout */
+<span class="nc" id="L105">		BorderPane bp = new BorderPane();</span>
+<span class="nc" id="L106">		Scene scene = new Scene(bp);</span>
+<span class="nc" id="L107">		bp.setCenter(mapView);</span>
+<span class="nc" id="L108">		bp.setRight(sidePane);</span>
+
+<span class="nc" id="L110">		Stage.setWidth(1600);</span>
+<span class="nc" id="L111">		Stage.setHeight(900);</span>
+<span class="nc" id="L112">		Stage.setScene(scene);</span>
+<span class="nc" id="L113">		Stage.setTitle(&quot;Happy Hour Go!&quot;);</span>
+<span class="nc" id="L114">		Stage.show();</span>
+<span class="nc" id="L115">	}</span>
+
+	/**
+	 * initialize the map, set map options, create map and set go button
+	 */
+    public void mapInitialized() {
+<span class="nc" id="L121">    	LatLong center = new LatLong(39.952903, -75.164106);</span>
+
+<span class="nc" id="L123">    	MapOptions options = new MapOptions();</span>
+<span class="nc" id="L124">		options.center(center)</span>
+<span class="nc" id="L125">				.mapMaker(true)</span>
+<span class="nc" id="L126">				.mapType(MapTypeIdEnum.ROADMAP)</span>
+<span class="nc" id="L127">				.mapTypeControl(true)</span>
+<span class="nc" id="L128">				.overviewMapControl(false)</span>
+<span class="nc" id="L129">				.panControl(true)</span>
+<span class="nc" id="L130">				.rotateControl(false)</span>
+<span class="nc" id="L131">				.scaleControl(false)</span>
+<span class="nc" id="L132">				.streetViewControl(false)</span>
+<span class="nc" id="L133">				.zoom(12)</span>
+<span class="nc" id="L134">				.zoomControl(true)</span>
+<span class="nc" id="L135">				.styleString(&quot;[{'featureType':'landscape','stylers':[{'hue':'#FFBB00'},{'saturation':43.400000000000006},{'lightness':37.599999999999994},{'gamma':1}]},{'featureType':'road.highway','stylers':[{'hue':'#FFC200'},{'saturation':-61.8},{'lightness':45.599999999999994},{'gamma':1}]},{'featureType':'road.arterial','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':51.19999999999999},{'gamma':1}]},{'featureType':'road.local','stylers':[{'hue':'#FF0300'},{'saturation':-100},{'lightness':52},{'gamma':1}]},{'featureType':'water','stylers':[{'hue':'#0078FF'},{'saturation':-13.200000000000003},{'lightness':2.4000000000000057},{'gamma':1}]},{'featureType':'poi','stylers':[{'hue':'#00FF6A'},{'saturation':-1.0989010989011234},{'lightness':11.200000000000017},{'gamma':1}]}]&quot;);</span>
+				
+<span class="nc" id="L137">        map = mapView.createMap(options);</span>
+        
+<span class="nc" id="L139">        setupJSAlerts(mapView.getWebview());</span>
+        
+<span class="nc" id="L141">        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();</span>
+<span class="nc" id="L142">        String name = &quot;nothing&quot;;</span>
+<span class="nc" id="L143">        infoWindowOptions.content(name);</span>
+<span class="nc" id="L144">        infoWindowStore = new InfoWindow(infoWindowOptions);</span>
+        
+<span class="nc" id="L146">        goButton.setOnAction(new EventHandler&lt;ActionEvent&gt;() {</span>
+			@Override
+			public void handle(ActionEvent e) {
+
+				try {
+<span class="nc" id="L151">					getSearchResult();</span>
+<span class="nc" id="L152">				} catch (FileNotFoundException e1) {</span>
+<span class="nc" id="L153">					e1.printStackTrace();</span>
+				}
+<span class="nc" id="L155">				ds = new DataSender(searchResult);</span>
+				
+<span class="nc" id="L157">				System.out.println(&quot;Bars now on Happy Hour...&quot;);</span>
+				
+<span class="nc bnc" id="L159" title="All 4 branches missed.">				if(ds.getAddrLat() == null || ds.getAddrLat().size() == 0) {</span>
+<span class="nc" id="L160">					AlertBox.display(&quot;No Happy Hour Now!&quot;,&quot;Come back later.&quot;);</span>
+<span class="nc" id="L161">					return;</span>
+				}
+<span class="nc" id="L163">				putMarker();</span>
+<span class="nc" id="L164">			}</span>
+        });
+<span class="nc" id="L166">    }</span>
+
+    /**
+     * This method runs search algorithm upon button press, initialize DataSender
+     * @throws FileNotFoundException
+     */
+    public void getSearchResult() throws FileNotFoundException {
+<span class="fc" id="L173">    	Calendar now = Calendar.getInstance();</span>
+    	
+//    	test alert box with no Happy Hour Found. Uncomment next line to test
+//    	now.set(2016, 12, 6, 10, 0, 0);
+
+<span class="fc" id="L178">    	FileFetcher ff = new FileFetcher(now.get(Calendar.DAY_OF_WEEK));</span>
+<span class="fc" id="L179">		BarData bd = new BarData(ff);</span>
+<span class="fc" id="L180">		BarFinder bf = new BarFinder(now, bd);</span>
+<span class="fc" id="L181">		searchResult = bf.find();</span>
+//		System.out.println(searchResult.size());
+<span class="fc" id="L183">    }</span>
+    
+    /**
+     * put marker for each bar after press the go button
+     * each marker has a info window display their name
+     * also display the message about that bar on side vbox
+     */
+    private void putMarker() {
+    	//Add all marker to the map
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        for (int i = 0; i &lt; ds.getAddrLat().size(); i++){</span>
+<span class="nc" id="L193">	        MarkerOptions markerOptions = new MarkerOptions();</span>
+
+<span class="nc" id="L195">	        LatLong markerCenter = new  LatLong(ds.getAddrLat().get(i),ds.getAddrLon().get(i));</span>
+<span class="nc" id="L196">	        String name = ds.getName().get(i);</span>
+
+<span class="nc" id="L198">	        markerOptions.position(markerCenter)</span>
+<span class="nc" id="L199">	        			.icon(&quot;http://i.imgur.com/elPucS5.png&quot;)</span>
+<span class="nc" id="L200">	                    .title(name)</span>
+<span class="nc" id="L201">	                    .animation(Animation.BOUNCE)</span>
+<span class="nc" id="L202">	                    .visible(true);</span>
+<span class="nc" id="L203">	        Marker marker = new Marker(markerOptions);</span>
+
+<span class="nc" id="L205">	        markers.add(marker);</span>
+<span class="nc" id="L206">	        map.addMarker(marker);</span>
+
+	        //Add a Info to the map
+<span class="nc" id="L209">	        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();</span>
+<span class="nc" id="L210">	        infoWindowOptions.content(name);</span>
+<span class="nc" id="L211">	        InfoWindow barInfoWindow = new InfoWindow(infoWindowOptions);</span>
+	        
+<span class="nc" id="L213">	        String startTime = ds.getStartTime().get(i);</span>
+<span class="nc" id="L214">	        String endTime = ds.getEndTime().get(i);</span>
+<span class="nc" id="L215">	        String description = ds.getDescription().get(i);</span>
+
+<span class="nc" id="L217">			loadSoundFile();</span>
+
+
+<span class="nc" id="L220">			map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -&gt; {</span>
+				 
+<span class="nc" id="L222">				map.setCenter(markerCenter);</span>
+<span class="nc" id="L223">				map.setZoom(15);</span>
+
+<span class="nc" id="L225">				infoWindowStore.close();</span>
+<span class="nc" id="L226">				barInfoWindow.open(map, marker);</span>
+<span class="nc" id="L227">				String result = YelpAPI.search1(name);</span>
+//				System.out.println(barInfoWindow.getContent() +&quot;-----------------&quot;);
+//				System.out.println(result);
+<span class="nc" id="L230">				YelpResult yelpResult = new YelpResult(result);</span>
+				
+				
+<span class="nc" id="L233">				Label nameLabel = new Label(name);</span>
+<span class="nc" id="L234">				Label timeLabel = new Label(startTime + &quot; - &quot; + endTime);</span>
+<span class="nc" id="L235">				Label descLabel = new Label(description);</span>
+				
+				// yelp rating star image
+<span class="nc" id="L238">				yelpRatingImgUrl = yelpResult.getRating_img_url();</span>
+<span class="nc" id="L239">			    image = new Image(yelpRatingImgUrl, true);</span>
+<span class="nc" id="L240">			    imageView = new ImageView(image);</span>
+<span class="nc" id="L241">				Label labelImage = createLabeledImage(imageView);</span>
+
+			    // yelp logo image
+<span class="nc" id="L244">			    String yelpLogoImg = &quot;https://s3-media3.fl.yelpcdn.com/assets/srv0/www_pages/24e1fe240f00/assets/img/brand_guidelines/yelp_fullcolor_outline.png&quot;;</span>
+<span class="nc" id="L245">				Image logoImage = new Image(yelpLogoImg, true);</span>
+<span class="nc" id="L246">				ImageView imgView2 = new ImageView(logoImage);</span>
+<span class="nc" id="L247">				Label logoImageLbl = createLabeledImage(imgView2);</span>
+				
+<span class="nc" id="L249">				Label displayAddress = new Label(yelpResult.getDisplay_address());</span>
+<span class="nc" id="L250">				Label displayPhone = new Label(yelpResult.getDisplay_phone());</span>
+
+<span class="nc" id="L252">				descLabel.setWrapText(true);</span>
+<span class="nc" id="L253">				displayAddress.setWrapText(true);	</span>
+				
+
+<span class="nc" id="L256">				Hyperlink link = new Hyperlink(yelpResult.getUrl());</span>
+//
+<span class="nc" id="L258">				link.setOnAction(new EventHandler&lt;ActionEvent&gt;() {</span>
+	                @Override
+	                public void handle(ActionEvent t) {
+<span class="nc" id="L261">	                	getHostServices().showDocument(link.getText());</span>
+	                	
+<span class="nc" id="L263">	                }</span>
+	            });
+<span class="nc" id="L265">				link.setWrapText(true);</span>
+
+//				getHostServices().showDocument(&quot;http://www.google.com&quot;);
+<span class="nc" id="L268">				playSound();</span>
+<span class="nc" id="L269">				sidePane.getChildren().clear();</span>
+<span class="nc" id="L270">				sidePane.getChildren().addAll(nameLabel, timeLabel, descLabel,displayPhone, displayAddress, labelImage, logoImageLbl, link);</span>
+
+<span class="nc" id="L272">				infoWindowStore  = barInfoWindow;</span>
+<span class="nc" id="L273">			});</span>
+        }
+<span class="nc" id="L275">	}</span>
+    
+    /**
+     * create label of image for yelp
+     * @param imageView the view of image
+     * @return labeled image
+     */
+    private Label createLabeledImage(ImageView imageView) {
+<span class="nc" id="L283">        Label labeledImage = new Label();</span>
+<span class="nc" id="L284">        labeledImage.setGraphic(imageView);</span>
+<span class="nc" id="L285">        return labeledImage;</span>
+    }
+    
+    
+    /**
+     * This method setup Alert box on the map
+     * @param webView
+     */
+    public void setupJSAlerts(WebView webView) {
+<span class="nc" id="L294">        webView.getEngine().setOnAlert( e -&gt; {</span>
+<span class="nc" id="L295">            Stage popup = new Stage();</span>
+<span class="nc" id="L296">            popup.initOwner(stage);</span>
+<span class="nc" id="L297">            popup.initStyle(StageStyle.UTILITY);</span>
+<span class="nc" id="L298">            popup.initModality(Modality.WINDOW_MODAL);</span>
+
+<span class="nc" id="L300">            StackPane content = new StackPane();</span>
+<span class="nc" id="L301">            content.getChildren().setAll(</span>
+<span class="nc" id="L302">              new Label(e.getData())</span>
+            );
+<span class="nc" id="L304">            content.setPrefSize(200, 100);</span>
+
+<span class="nc" id="L306">            popup.setScene(new Scene(content));</span>
+<span class="nc" id="L307">            popup.showAndWait();</span>
+<span class="nc" id="L308">        });</span>
+<span class="nc" id="L309">    }</span>
+    
+    /**
+     * load sound file
+     */
+    public void loadSoundFile() {
+		try {
+<span class="nc" id="L316">			File sf = new File(&quot;beep.wav&quot;);</span>
+<span class="nc" id="L317">			AudioInputStream ais = AudioSystem.getAudioInputStream(sf);</span>
+<span class="nc" id="L318">			clip = (Clip) AudioSystem.getClip();</span>
+<span class="nc" id="L319">			clip.open(ais);</span>
+<span class="nc" id="L320">		} catch (Exception e) {</span>
+		}
+<span class="nc" id="L322">	}</span>
+
+    /**
+     * start to play sound
+     */
+	public void playSound() {
+<span class="nc bnc" id="L328" title="All 2 branches missed.">		if (!clip.isRunning()) {</span>
+<span class="nc" id="L329">			clip.setFramePosition(0);</span>
+<span class="nc" id="L330">			clip.start();</span>
+
+		}
+<span class="nc" id="L333">	}</span>
+
+	public static void main(String[] args) {
+<span class="nc" id="L336">		launch(args);</span>
+<span class="nc" id="L337">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>ParserTest (Dec 17, 2016 10:23:24 PM)</div></body></html>

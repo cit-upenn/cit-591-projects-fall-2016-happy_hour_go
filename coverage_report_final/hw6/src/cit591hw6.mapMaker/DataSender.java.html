@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>DataSender.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ParserTest (Dec 17, 2016 10:23:24 PM)</a> &gt; <a href="../../index.html" class="el_group">hw6</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">cit591hw6.mapMaker</a> &gt; <span class="el_source">DataSender.java</span></div><h1>DataSender.java</h1><pre class="source lang-java linenums">package cit591hw6.mapMaker;
+
+import java.util.ArrayList;
+
+import cit591hw6.search.Bar;
+
+/**
+ * get the data of bar's coordinate and happy hour information and send it to mapTester to display.
+ * @author Jiahui, JillGao
+ *
+ */
+public class DataSender {
+<span class="fc" id="L13">	private ArrayList&lt;Double&gt; addrLon = new ArrayList&lt;Double&gt;();</span>
+<span class="fc" id="L14">	private ArrayList&lt;Double&gt; addrLat = new ArrayList&lt;Double&gt;();</span>
+<span class="fc" id="L15">	private ArrayList&lt;String&gt; names = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L16">	private ArrayList&lt;String&gt; startTime = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L17">	private ArrayList&lt;String&gt; endTime = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">	private ArrayList&lt;String&gt; description = new ArrayList&lt;String&gt;();</span>
+	
+//	FileReader fr = new FileReader(&quot;./data/clean/monday.csv&quot;);
+		
+	/**
+	 * Constructor: iterates an arraylist of bars, get each bar's fields and store in instance variables.
+	 * @param hhResult the search result of current happy hours.
+	 */
+<span class="fc" id="L26">	public DataSender(ArrayList&lt;Bar&gt; hhResult){		</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">		for (Bar b : hhResult) {</span>
+<span class="fc" id="L28">			double lon = Double.parseDouble(b.getLon());</span>
+<span class="fc" id="L29">			double lat = Double.parseDouble(b.getLat());</span>
+<span class="fc" id="L30">			String name = b.getName();</span>
+
+<span class="fc" id="L32">			addrLon.add(lon);</span>
+<span class="fc" id="L33">			addrLat.add(lat);</span>
+<span class="fc" id="L34">			names.add(name);</span>
+			
+<span class="fc" id="L36">			String start = b.getStartTime();</span>
+<span class="fc" id="L37">			String end = b.getEndTime();</span>
+<span class="fc" id="L38">			startTime.add(start);</span>
+<span class="fc" id="L39">			endTime.add(end);</span>
+			
+<span class="fc" id="L41">			String desc = b.getDescription();</span>
+<span class="fc" id="L42">			description.add(desc);</span>
+			
+//			System.out.println(message);
+		}
+<span class="fc" id="L46">	}</span>
+
+	public ArrayList&lt;Double&gt; getAddrLon() {
+<span class="fc" id="L49">		return addrLon;</span>
+	}
+
+	public ArrayList&lt;Double&gt; getAddrLat() {
+<span class="fc" id="L53">		return addrLat;</span>
+	}
+
+	public ArrayList&lt;String&gt; getName() {
+<span class="fc" id="L57">		return names;</span>
+	}
+
+	public ArrayList&lt;String&gt; getStartTime() {
+<span class="fc" id="L61">		return startTime;</span>
+	}
+
+	public ArrayList&lt;String&gt; getEndTime() {
+<span class="fc" id="L65">		return endTime;</span>
+	}
+
+	public ArrayList&lt;String&gt; getDescription() {
+<span class="fc" id="L69">		return description;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>ParserTest (Dec 17, 2016 10:23:24 PM)</div></body></html>

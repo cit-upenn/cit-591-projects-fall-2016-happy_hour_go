@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>BarData.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">FileReaderTest (1) (Dec 17, 2016 4:23:51 PM)</a> &gt; <a href="../../index.html" class="el_group">hw6</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">cit591hw6.search</a> &gt; <span class="el_source">BarData.java</span></div><h1>BarData.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package cit591hw6.search;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import cit591hw6.dataPrep.FileReader;
+
+/**
+ * This class reads in clean .csv file while contains all bars with Happy Hour on a given weekday
+ * And build a data structure that contains all the bars
+ * @author JillGao
+ *
+ */
+public class BarData {
+	private ArrayList&lt;Bar&gt; bars;
+	private FileFetcher ff;
+	
+	/**
+	 * Constructor
+	 * @param fr
+	 * @throws FileNotFoundException 
+	 */
+<span class="fc" id="L26">	public BarData (FileFetcher ff) throws FileNotFoundException {</span>
+<span class="fc" id="L27">		this.ff = ff;</span>
+<span class="fc" id="L28">		bars = getBarData();</span>
+<span class="fc" id="L29">	}</span>
+	/**
+	 * This class builds BarData from FileReader reading clean .csv file
+	 * @param fr
+	 * @return
+	 * @throws FileNotFoundException 
+	 */
+	private ArrayList&lt;Bar&gt; getBarData() throws FileNotFoundException {
+<span class="fc" id="L37">		ArrayList&lt;Bar&gt; bars = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L38">		FileReader fr = ff.getFile();</span>
+<span class="fc" id="L39">		fr.readFile();</span>
+<span class="fc" id="L40">		ArrayList&lt;String&gt; stringBars = fr.getLines();</span>
+		
+<span class="fc bfc" id="L42" title="All 2 branches covered.">		for (String stringBar : stringBars) {</span>
+<span class="fc" id="L43">			String[] infoPieces = stringBar.split(&quot;\t&quot;);</span>
+//			System.out.println(infoPieces.length);
+<span class="fc" id="L45">			String name = infoPieces[0];</span>
+<span class="fc" id="L46">			String lat = infoPieces[1];</span>
+<span class="fc" id="L47">			String lon = infoPieces[2];</span>
+<span class="fc" id="L48">			String address = infoPieces[3];</span>
+//			String phone = infoPieces[4];
+<span class="fc" id="L50">			String startTime = infoPieces[4];</span>
+<span class="fc" id="L51">			String endTime = infoPieces[5];</span>
+<span class="fc" id="L52">			String description = infoPieces[6];</span>
+			
+<span class="fc" id="L54">			Bar bar = new Bar(name, lat, lon, address, startTime, endTime, description);</span>
+<span class="fc" id="L55">			bars.add(bar);</span>
+		}
+<span class="fc" id="L57">		return bars;</span>
+	}
+	/**
+	 * This method returns an ArrayList of bars construct from clean data
+	 * @return
+	 */
+	public ArrayList&lt;Bar&gt; getBars() {
+<span class="fc" id="L64">		return bars;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>FileReaderTest (1) (Dec 17, 2016 4:23:51 PM)</div></body></html>

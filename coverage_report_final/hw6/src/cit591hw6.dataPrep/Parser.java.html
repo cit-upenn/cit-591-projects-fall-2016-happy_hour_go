@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Parser.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ParserTest (Dec 17, 2016 10:23:24 PM)</a> &gt; <a href="../../index.html" class="el_group">hw6</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">cit591hw6.dataPrep</a> &gt; <span class="el_source">Parser.java</span></div><h1>Parser.java</h1><pre class="source lang-java linenums">package cit591hw6.dataPrep;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Take in an ArrayList of String after FileReader has read a file. Parse the input and store the output as an ArrayList of strings. 
+ * @author Han Zhu
+ *
+ */
+public class Parser {
+	private ArrayList&lt;String&gt; barHTMLItems;
+	private ArrayList&lt;String&gt; happyHours;
+	
+<span class="fc" id="L16">	public Parser(String webpage) {</span>
+<span class="fc" id="L17">		barHTMLItems = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">		happyHours = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L19">		splitBars(webpage);</span>
+<span class="fc" id="L20">		parseHTML(barHTMLItems);</span>
+<span class="fc" id="L21">	}</span>
+
+	/**
+	 * Split the webpage by &quot;barItem&quot;. Ignore the first piece.
+	 */
+	public void splitBars(String webpage) {
+<span class="fc" id="L27">		String[] splitted = webpage.split(&quot;barItem&quot;);</span>
+		
+<span class="fc bfc" id="L29" title="All 2 branches covered.">		for (int i = 1; i &lt; splitted.length; i++) {</span>
+<span class="fc" id="L30">			barHTMLItems.add(splitted[i]);</span>
+		}
+<span class="fc" id="L32">	}</span>
+	
+	/**
+	 * Iterate through the input ArrayList&lt;String&gt;, match 4 patterns with the string, and store the matches in a string delimited by tab.
+	 * @param barsHTML the original html file splitted by &quot;barItem&quot;.
+	 */
+	private void parseHTML(ArrayList&lt;String&gt; barsHTML) {
+<span class="fc" id="L39">		Pattern name = Pattern.compile(&quot;&lt;h2&gt;.*?&gt; ([&amp;\\w '-\\.]+).*&lt;/h2&gt;&quot;);</span>
+<span class="fc" id="L40">		Pattern address = Pattern.compile(&quot;&lt;/h2&gt;(.*?)  .*&lt;br /&quot;);</span>
+<span class="fc" id="L41">		Pattern time = Pattern.compile(&quot;(\\d+:\\d+ [ap]m)&quot;);</span>
+<span class="fc" id="L42">		Pattern desc = Pattern.compile(&quot;&lt;/span&gt;:(.*?)&lt;/div&gt;&quot;);</span>
+		
+<span class="fc bfc" id="L44" title="All 2 branches covered.">		for (String item : barsHTML) {</span>
+<span class="fc" id="L45">			Matcher m = name.matcher(item);</span>
+<span class="fc" id="L46">			String barName = &quot;&quot;;</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">			if (m.find()) {</span>
+<span class="fc" id="L48">				barName = m.group(1).trim();</span>
+			}
+
+<span class="fc" id="L51">			m = address.matcher(item);</span>
+<span class="fc" id="L52">			String barAddr = &quot;&quot;;</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">			if (m.find()) {</span>
+<span class="fc" id="L54">				barAddr = m.group(1).trim();</span>
+			}
+			
+<span class="fc" id="L57">			m = time.matcher(item);</span>
+<span class="fc" id="L58">			int number = 0;</span>
+<span class="fc" id="L59">			ArrayList&lt;String&gt; startTime = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L60">			ArrayList&lt;String&gt; endTime = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">			while (m.find()) {</span>
+//				the 1st, 3rd, 5th... time is always startTime. the 2nd, 4th, 6th... time is always endTime.
+<span class="fc bfc" id="L63" title="All 2 branches covered.">				if (number % 2 == 0) {</span>
+<span class="fc" id="L64">					String hhStart = m.group(1).trim();</span>
+<span class="fc" id="L65">					startTime.add(hhStart);</span>
+<span class="fc" id="L66">				} else {</span>
+<span class="fc" id="L67">					String hhEnd = m.group(1).trim();</span>
+<span class="fc" id="L68">					endTime.add(hhEnd);</span>
+				}
+<span class="fc" id="L70">				number++;</span>
+			}
+			
+<span class="fc" id="L73">			m = desc.matcher(item);</span>
+<span class="fc" id="L74">			ArrayList&lt;String&gt; descriptions = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">			while (m.find()) {</span>
+<span class="fc" id="L76">				String hhDesc = m.group(1).trim();</span>
+<span class="fc" id="L77">				descriptions.add(hhDesc);</span>
+			}
+			
+<span class="fc bfc" id="L80" title="All 2 branches covered.">			for (int i = 0; i &lt; startTime.size(); i++) {</span>
+<span class="fc" id="L81">				StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L82">				sb.append(barName + '\t' + barAddr + '\t' + startTime.get(i) + '\t' + endTime.get(i));</span>
+				
+<span class="fc bfc" id="L84" title="All 2 branches covered.">				if (descriptions.get(i).length() == 0) {</span>
+<span class="fc" id="L85">					sb.append(&quot;\tno description&quot;);</span>
+//					System.out.println(sb);
+<span class="fc" id="L87">				} else {</span>
+<span class="fc" id="L88">					sb.append('\t' + descriptions.get(i));</span>
+				}
+
+<span class="fc" id="L91">				happyHours.add(sb.toString());</span>
+			}
+		}
+<span class="fc" id="L94">	}</span>
+	
+	public ArrayList&lt;String&gt; getBarHTMLItems() {
+<span class="fc" id="L97">		return barHTMLItems;</span>
+	}
+
+	public ArrayList&lt;String&gt; getHappyHours() {
+<span class="fc" id="L101">		return happyHours;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>ParserTest (Dec 17, 2016 10:23:24 PM)</div></body></html>
