@@ -70,7 +70,7 @@ public class Go extends Application implements MapComponentInitializedListener{
 	
 	private ArrayList<Bar> searchResult;
 	private ArrayList<Marker> markers;
-	private DataSender ds;	
+	private DataSender ds;
 	private InfoWindow infoWindowStore;
 	
 	private Image image;
